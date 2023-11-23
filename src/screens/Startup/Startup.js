@@ -14,7 +14,7 @@ const Startup = ({ navigation }) => {
     await setDefaultTheme({ theme: 'default', darkMode: null });
     navigation.reset({
       index: 0,
-      routes: [{ name: 'Main' }],
+      routes: [{ name: 'StartScreen' }],
     });
   };
   useEffect(() => {
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
+    backgroundColor: 'white',
   },
 });
 export default Startup;
