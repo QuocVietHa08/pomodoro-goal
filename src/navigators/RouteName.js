@@ -3,4 +3,5 @@ export default {
   Home: 'Home',
   StartUp: 'StartUp',
   SignIn: 'SignIn',
+  Login: 'Login',
 };
