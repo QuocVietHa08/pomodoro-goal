@@ -5,6 +5,7 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import { store, persistor } from './store';
 import ApplicationNavigator from './navigators/Application';
 import './translations';
+import ApplicationStack from './navigators/ApplicationStack';
 const App = () => (
   <Provider store={store}>
     {/**
@@ -15,7 +16,8 @@ const App = () => (
      * @see https://github.com/rt2zz/redux-persist/blob/master/docs/PersistGate.md
      */}
     <PersistGate loading={null} persistor={persistor}>
-      <ApplicationNavigator />
+      {/* <ApplicationNavigator /> */}
+      <ApplicationStack />
     </PersistGate>
   </Provider>
 );

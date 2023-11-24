@@ -34,10 +34,10 @@ const renderSlide = slides => {
       <FastImage
         source={Icon}
         resizeMode="contain"
-        style={{ height: '40%', width: 300 }}
+        style={{ height: '30%', width: 200 }}
       />
       <TextView
-        fontSize={AppTheme.fontSize.s34}
+        fontSize={AppTheme.fontSize.s32}
         style={{ fontWeight: 600, textAlign: 'center', maxWidth: '80%' }}
       >
         {slides?.title}
@@ -46,7 +46,13 @@ const renderSlide = slides => {
   );
 };
 
-const StartScreen = () => {
+const StartScreen = ({ navigation }) => {
+  const handleMoveToLoginIn = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
+  };
   return (
     <View style={styles.container}>
       <Swiper
@@ -64,6 +70,7 @@ const StartScreen = () => {
       <View style={styles.footer}>
         <Button
           style={styles.buttonNext}
+          onPress={handleMoveToLoginIn}
           text="Next"
           textStyle={styles.buttonTextStyle}
         />
@@ -87,6 +94,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 10,
+    marginBottom: 30,
   },
   slide: {
     flex: 1,
