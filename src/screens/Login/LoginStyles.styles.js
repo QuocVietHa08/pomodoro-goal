@@ -13,7 +13,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     position: 'relative',
-    backgroundColor: AppTheme.colors.primary_10,
+    backgroundColor: AppTheme.colors.white,
   },
   containerScrollView: {
     width: '90%',
@@ -83,5 +83,11 @@ export default StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  loginInput: {
+    marginBottom: 20,
+    // backgroundColor: AppTheme.colors.neutral_10,
+    borderRadius: 10,
   },
 });
