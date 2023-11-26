@@ -3,17 +3,30 @@ import { AppTheme, Dimens, scaleSize } from '../../utils/appConstant';
 const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
+  headerWrapper: {
+    position: 'absolute',
+    top: 0,
+  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
+    position: 'relative',
     backgroundColor: AppTheme.colors.primary_10,
+  },
+  containerScrollView: {
+    width: '90%',
+    height: '100%',
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   textHeader: {
     fontSize: AppTheme.fontSize.s40,
     fontWeight: 700,
-    color: AppTheme.colors.neutral_100,
-    marginBottom: 50,
+    color: AppTheme.colors.black,
+    marginBottom: 100,
   },
   loginSocial: {
     display: 'flex',
@@ -28,8 +41,47 @@ export default StyleSheet.create({
     borderRadius: 10,
     marginBottom: 15,
   },
-  divider: {
-    marginTop: 30,
-    backgroundColor: 'red',
+  dividerLine: {
+    backgroundColor: AppTheme.colors.neutral_20,
+    height: 1,
+    flex: 1,
+  },
+  buttonTextStyle: {
+    color: 'white',
+  },
+  buttonNext: {
+    marginTop: 50,
+    width: '100%',
+    height: 50,
+    backgroundColor: '#ff585d',
+    borderRadius: 50,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  bottomText: {
+    position: 'absolute',
+    bottom: 0,
+    color: AppTheme.colors.neutral_40,
+  },
+  signInText: {
+    color: '#ff585d',
+    fontWeight: 700,
+  },
+
+  // login with pass
+  textHeaderPass: {
+    fontSize: AppTheme.fontSize.s40,
+    fontWeight: 700,
+    color: AppTheme.colors.black,
+    marginBottom: 50,
+  },
+  keywordScrollView: {
+    width,
+    backgroundColor: 'transparent',
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

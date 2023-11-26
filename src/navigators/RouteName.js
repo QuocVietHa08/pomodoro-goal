@@ -4,4 +4,5 @@ export default {
   StartUp: 'StartUp',
   SignIn: 'SignIn',
   Login: 'Login',
+  LoginWithPass: 'LoginWithPass',
 };
