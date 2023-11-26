@@ -7,11 +7,24 @@ import { ScrollView } from 'react-native-gesture-handler';
 import IconFacebook from '../../assets/icons/login/ic_facebook.svg';
 import IconGoogle from '../../assets/icons/login/ic_google.svg';
 import IconApple from '../../assets/icons/login/ic_apple.svg';
+import Button from '../../components/Button';
+import { navigate } from '../../navigators/NavigationServices';
+import RouteName from '../../navigators/RouteName';
+import HeaderWrap from '../../components/HeaderWrap';
 
 const Login = () => {
+  const handleRedirectToSignInScreen = () => {
+    console.log('redirect to sign in screen');
+  };
+
+  const handleRedirectSignInWithPass = () => {
+    navigate(RouteName.LoginWithPass);
+  };
+
   return (
-    <SafeAreaView edges={['right']} style={styles.container}>
-      <ScrollView contentContainerStyle={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.containerScrollView}>
+        <HeaderWrap isBackMode containerStyle={styles.headerWrapper} />
         <TextView style={styles.textHeader}>Let's you in</TextView>
 
         <View style={styles.loginSocial}>
@@ -29,10 +42,33 @@ const Login = () => {
           <TextView>Continue with Apple</TextView>
         </View>
 
-        {/* <View style={styles.divider}>
-          <TextView>or</TextView>
-        </View> */}
-      </ScrollView>
+        <View
+          style={{ flexDirection: 'row', alignItems: 'center', marginTop: 30 }}
+        >
+          <View style={styles.dividerLine} />
+          <View>
+            <TextView style={{ width: 50, textAlign: 'center' }}>Or</TextView>
+          </View>
+          <View style={styles.dividerLine} />
+        </View>
+
+        <Button
+          onPress={handleRedirectSignInWithPass}
+          style={styles.buttonNext}
+          textStyle={styles.buttonTextStyle}
+          text="Sign in with password"
+        />
+        <TextView style={styles.bottomText}>
+          Don't have an account?
+          <TextView
+            onPress={handleRedirectToSignInScreen}
+            style={styles.signInText}
+          >
+            {' '}
+            Sign up
+          </TextView>
+        </TextView>
+      </View>
     </SafeAreaView>
   );
 };

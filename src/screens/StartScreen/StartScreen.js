@@ -8,6 +8,8 @@ import IconStart3 from '../../assets/images/StartScreen/success.png';
 import { AppTheme } from '../../utils/appConstant';
 import Swiper from 'react-native-swiper';
 import FastImage from 'react-native-fast-image';
+import { navigate } from '../../navigators/NavigationServices';
+import RouteName from '../../navigators/RouteName';
 
 const slides = [
   {
@@ -46,12 +48,9 @@ const renderSlide = slides => {
   );
 };
 
-const StartScreen = ({ navigation }) => {
+const StartScreen = () => {
   const handleMoveToLoginIn = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Login' }],
-    });
+    navigate(RouteName.Login);
   };
   return (
     <View style={styles.container}>
