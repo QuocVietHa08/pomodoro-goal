@@ -36,7 +36,7 @@ const renderSlide = slides => {
       <FastImage
         source={Icon}
         resizeMode="contain"
-        style={{ height: '30%', width: 200 }}
+        style={{ height: '40%', width: 300 }}
       />
       <TextView
         fontSize={AppTheme.fontSize.s32}

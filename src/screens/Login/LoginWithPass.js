@@ -13,11 +13,18 @@ import IconEmail from 'src/assets/images/login/ic_email.png';
 import IconPass from 'src/assets/images/login/ic_password.png';
 import IconEyeShow from 'src/assets/images/login/ic_eye_show.png';
 import IconEyeHide from 'src/assets/images/login/ic_eye_hide.png';
+import CheckBox from 'src/components/CheckBox';
+import Button from '../../components/Button';
+import { AppTheme } from 'src/utils/appConstant';
+import IconFacebook from '../../assets/icons/login/ic_facebook.svg';
+import IconGoogle from '../../assets/icons/login/ic_google.svg';
+import IconApple from '../../assets/icons/login/ic_apple.svg';
+import TouchableDebounce from 'src/components/TouchableDebounce';
 
 const LoginWithPass = () => {
   const [showPass, setShowPass] = useState(false);
   const handleRedirectToSignInScreen = () => {
-    console.log('redirect to sign in screen');
+    navigate(RouteName.Login);
   };
 
   const handleRedirectSignInWithPass = () => {
@@ -26,6 +33,10 @@ const LoginWithPass = () => {
 
   const handleShowPassword = () => {
     setShowPass(prev => !prev);
+  };
+
+  const handleSignUpBySocial = type => {
+    console.log('type:', type);
   };
 
   return (
@@ -58,6 +69,75 @@ const LoginWithPass = () => {
             containerStyle={styles.loginInput}
             onRightIconPressIn={handleShowPassword}
           />
+          <View style={styles.rememberCheckboxWrapper}>
+            <CheckBox
+              title="Remember me"
+              checkBoxStyle={{ borderColor: 'red', borderRadius: 5 }}
+            />
+          </View>
+          <Button
+            onPress={handleRedirectSignInWithPass}
+            style={[styles.buttonNext, { marginTop: 10 }]}
+            textStyle={styles.buttonTextStyle}
+            text="Sign up"
+          />
+
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: 30,
+            }}
+          >
+            <View style={styles.dividerLine} />
+            <View>
+              <TextView
+                style={{
+                  width: 130,
+                  textAlign: 'center',
+                  color: AppTheme.colors.neutral_40,
+                }}
+              >
+                or continue with{' '}
+              </TextView>
+            </View>
+            <View style={styles.dividerLine} />
+          </View>
+
+          <View style={styles.signUnBySocialWrapper}>
+            <TouchableDebounce
+              style={styles.signUpBySocialItem}
+              onPress={() => handleSignUpBySocial('facebook')}
+            >
+              <IconFacebook width={30} height={30} />
+            </TouchableDebounce>
+
+            <TouchableDebounce
+              style={styles.signUpBySocialItem}
+              onPress={() => handleSignUpBySocial('google')}
+            >
+              <IconGoogle width={30} height={30} />
+            </TouchableDebounce>
+
+            <TouchableDebounce
+              style={styles.signUpBySocialItem}
+              onPress={() => handleSignUpBySocial('apple')}
+            >
+              <IconApple width={30} height={30} />
+            </TouchableDebounce>
+          </View>
+
+          <TextView
+            style={[styles.bottomText, { width: '100%', textAlign: 'center' }]}
+          >
+            Already have an account?{' '}
+            <TextView
+              onPress={handleRedirectToSignInScreen}
+              style={styles.signInText}
+            >
+              Sign in
+            </TextView>
+          </TextView>
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>
