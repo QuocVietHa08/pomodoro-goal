@@ -90,4 +90,28 @@ export default StyleSheet.create({
     // backgroundColor: AppTheme.colors.neutral_10,
     borderRadius: 10,
   },
+
+  rememberCheckboxWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 10,
+  },
+
+  signUnBySocialWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'center',
+    gap: 20,
+    marginTop: 20,
+  },
+  signUpBySocialItem: {
+    borderColor: AppTheme.colors.neutral_30,
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
 });

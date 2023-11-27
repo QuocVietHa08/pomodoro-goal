@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableDebounce } from './TouchableDebounce';
 import { AppTheme } from '../utils/appConstant';
 
-const IconComponent = ({
+const Icon = ({
   width,
   height,
   color = AppTheme.colors.black, // update 'fill' field in svg file to 'currentColor' to get effect
@@ -42,4 +42,4 @@ const IconComponent = ({
     </TouchableDebounce>
   );
 };
-export default IconComponent;
+export default Icon;
