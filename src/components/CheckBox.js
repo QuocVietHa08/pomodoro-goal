@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
   forwardRef,
   memo,
@@ -24,6 +23,7 @@ const CheckBox = (
     onChangeDependencies = [],
     textStyle,
     checkBoxStyle,
+    isCheckedStyle,
   },
   _ref,
 ) => {
@@ -58,7 +58,7 @@ const CheckBox = (
       <View
         style={[
           styles.viewCheckSquare,
-          isChecked && styles.vSelected,
+          isChecked && [styles.vSelected, isCheckedStyle],
           checkBoxStyle,
         ]}
       >

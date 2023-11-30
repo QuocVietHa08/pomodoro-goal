@@ -3,6 +3,7 @@ export default {
   Home: 'Home',
   StartUp: 'StartUp',
   SignIn: 'SignIn',
+  SignUp: 'SignUp',
   Login: 'Login',
   LoginWithPass: 'LoginWithPass',
 };

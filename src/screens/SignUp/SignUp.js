@@ -2,7 +2,7 @@ import React, { memo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import TextView from '../../components/TextView';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import styles from './LoginStyles.styles';
+import styles from './SignUp.styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { navigate } from '../../navigators/NavigationServices';
 import RouteName from '../../navigators/RouteName';
@@ -20,8 +20,32 @@ import IconFacebook from '../../assets/icons/login/ic_facebook.svg';
 import IconGoogle from '../../assets/icons/login/ic_google.svg';
 import IconApple from '../../assets/icons/login/ic_apple.svg';
 import TouchableDebounce from 'src/components/TouchableDebounce';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
-const LoginWithPass = () => {
+const validateSchema = yup.object().shape({
+  email: yup.string().email().required('Email is required'),
+  password: yup.string().required('Password is required'),
+});
+
+const SignUp = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+    setValue,
+    watch,
+  } = useForm({
+    defaultValues: {
+      emai: '',
+      password: '',
+      remember: false,
+    },
+    resolver: yupResolver(validateSchema),
+  });
+  const rememberField = watch('remember');
   const [showPass, setShowPass] = useState(false);
   const handleRedirectToSignInScreen = () => {
     navigate(RouteName.Login);
@@ -38,8 +62,10 @@ const LoginWithPass = () => {
   const handleSignUpBySocial = type => {
     console.log('type:', type);
   };
-  const handleRedirectToForgotPass = () => {
-    console.log('redirect to forgot mass');
+
+  const handleCreateAccount = () => {
+    const values = getValues();
+    console.log('value --->', values);
   };
 
   return (
@@ -56,43 +82,49 @@ const LoginWithPass = () => {
           style={[styles.containerScrollView, { alignItems: 'flex-start' }]}
         >
           <HeaderWrap isBackMode containerStyle={styles.headerWrapper} />
-          <TextView style={styles.textHeaderPass}>
-            Login to your Account
-          </TextView>
+          <TextView style={styles.textHeaderPass}>Create your Account</TextView>
 
           <CustomeTextInput
             leftIco={IconEmail}
             defaultValue=""
             placeholder="Email"
+            fieldName={'email'}
+            control={control}
+            errorMessage={errors?.email?.message}
             containerStyle={styles.loginInput}
           />
           <CustomeTextInput
             leftIco={IconPass}
+            secureTextEntry={!showPass}
             rightIco={showPass ? IconEyeShow : IconEyeHide}
             defaultValue=""
             placeholder="Password"
+            control={control}
+            fieldName={'password'}
+            errorMessage={errors?.password?.message}
             containerStyle={styles.loginInput}
             onRightIconPressIn={handleShowPassword}
           />
           <View style={styles.rememberCheckboxWrapper}>
             <CheckBox
               title="Remember me"
-              checkBoxStyle={{ borderColor: 'red', borderRadius: 5 }}
+              defaultValue={rememberField}
+              onChange={value => setValue('remember', value)}
+              checkBoxStyle={{
+                borderColor: 'red',
+                borderRadius: 5,
+              }}
+              isCheckedStyle={{
+                backgroundColor: 'red',
+              }}
             />
           </View>
           <Button
-            onPress={handleRedirectSignInWithPass}
+            onPress={handleSubmit(handleCreateAccount)}
             style={[styles.buttonNext, { marginTop: 10 }]}
             textStyle={styles.buttonTextStyle}
             text="Sign up"
           />
-
-          <TextView
-            onPress={handleRedirectToForgotPass}
-            style={styles.forgotPassTextStyle}
-          >
-            Forgot the password?.
-          </TextView>
 
           <View
             style={{
@@ -156,4 +188,4 @@ const LoginWithPass = () => {
   );
 };
 
-export default memo(LoginWithPass);
+export default memo(SignUp);

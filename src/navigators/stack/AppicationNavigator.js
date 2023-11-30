@@ -4,7 +4,13 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import RouteName from '../RouteName';
-import { Startup, StartScreen, Login, LoginWithPass } from '../../screens';
+import {
+  Startup,
+  StartScreen,
+  Login,
+  LoginWithPass,
+  SignUp,
+} from '../../screens';
 import { Platform } from 'react-native';
 
 const screenOptions = {
@@ -34,6 +40,11 @@ const ApplicationNavigator = props => {
         name={RouteName.LoginWithPass}
         options={screenOptions}
         component={LoginWithPass}
+      />
+      <Stack.Screen
+        name={RouteName.SignUp}
+        options={screenOptions}
+        component={SignUp}
       />
     </>
   );

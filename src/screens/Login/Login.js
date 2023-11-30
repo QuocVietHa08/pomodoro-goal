@@ -11,14 +11,15 @@ import Button from '../../components/Button';
 import { navigate } from '../../navigators/NavigationServices';
 import RouteName from '../../navigators/RouteName';
 import HeaderWrap from '../../components/HeaderWrap';
+import TouchableDebounce from 'src/components/TouchableDebounce';
 
 const Login = () => {
-  const handleRedirectToSignInScreen = () => {
-    console.log('redirect to sign in screen');
-  };
-
   const handleRedirectSignInWithPass = () => {
     navigate(RouteName.LoginWithPass);
+  };
+
+  const handleRedirectSignUp = () => {
+    navigate(RouteName.SignUp);
   };
 
   return (
@@ -60,13 +61,9 @@ const Login = () => {
         />
         <TextView style={styles.bottomText}>
           Don't have an account?
-          <TextView
-            onPress={handleRedirectToSignInScreen}
-            style={styles.signInText}
-          >
-            {' '}
-            Sign up
-          </TextView>
+          <TouchableDebounce onPress={handleRedirectSignUp}>
+            <TextView style={styles.signInText}> Sign up</TextView>
+          </TouchableDebounce>
         </TextView>
       </View>
     </SafeAreaView>

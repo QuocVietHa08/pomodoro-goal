@@ -114,10 +114,4 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
-  forgotPassTextStyle: {
-    marginTop: 20,
-    color: AppTheme.colors.error_40,
-    width: '100%',
-    textAlign: 'center',
-  },
 });
