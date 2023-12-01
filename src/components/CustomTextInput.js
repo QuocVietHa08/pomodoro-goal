@@ -6,7 +6,7 @@ import { AppFont, AppTheme, hitSlop, scaleSize } from '../utils/appConstant';
 import { usePrevious } from '../utils/hookApi';
 import TextInput from './TextInput';
 import TextView from './TextView';
-import Icon from './Icon';
+import Icon from './IconComponent';
 import FastImage from 'react-native-fast-image';
 import TouchableDebounce from './TouchableDebounce';
 

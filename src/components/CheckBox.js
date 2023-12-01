@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Icon from './Icon';
+import Icon from './IconComponent';
 import { AppFont, AppTheme } from 'src/utils/appConstant';
 import TouchableDebounce from './TouchableDebounce';
 import TextView from './TextView';
