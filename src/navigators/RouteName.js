@@ -6,4 +6,5 @@ export default {
   SignUp: 'SignUp',
   Login: 'Login',
   LoginWithPass: 'LoginWithPass',
+  FillProfile: 'FillProfile',
 };

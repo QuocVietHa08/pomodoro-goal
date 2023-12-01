@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { Profiler, memo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import TextView from '../../components/TextView';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -12,6 +12,7 @@ import { navigate } from '../../navigators/NavigationServices';
 import RouteName from '../../navigators/RouteName';
 import HeaderWrap from '../../components/HeaderWrap';
 import TouchableDebounce from 'src/components/TouchableDebounce';
+import ProfileAvatar from '../FillProfile/ProfileAvatar';
 
 const Login = () => {
   const handleRedirectSignInWithPass = () => {

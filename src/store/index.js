@@ -52,6 +52,7 @@ const store = configureStore({
     }
     return middlewares;
   },
+  devTools: __DEV__,
 });
 const persistor = persistStore(store);
 setupListeners(store.dispatch);

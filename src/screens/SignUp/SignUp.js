@@ -66,6 +66,7 @@ const SignUp = () => {
   const handleCreateAccount = () => {
     const values = getValues();
     console.log('value --->', values);
+    navigate(RouteName.FillProfile);
   };
 
   return (
