@@ -11,6 +11,7 @@ import {
   LoginWithPass,
   SignUp,
   FillProfile,
+  Home,
 } from '../../screens';
 import { Platform } from 'react-native';
 
@@ -28,7 +29,7 @@ const ApplicationNavigator = props => {
   return (
     <>
       <Stack.Screen
-        name={RouteName.Home}
+        name={RouteName.StartScreen}
         options={screenOptions}
         component={StartScreen}
       />
@@ -51,6 +52,11 @@ const ApplicationNavigator = props => {
         name={RouteName.FillProfile}
         options={screenOptions}
         component={FillProfile}
+      />
+      <Stack.Screen
+        name={RouteName.Home}
+        options={screenOptions}
+        component={Home}
       />
     </>
   );

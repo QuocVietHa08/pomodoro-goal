@@ -6,6 +6,10 @@ import ProfileAvatar from './ProfileAvatar';
 import ProfileForm from './ProfileForm';
 
 const FillProfile = () => {
+  const handleEditAvatar = () => {
+    console.log('hello');
+  };
+
   return (
     <View style={styles.container}>
       <TextView style={styles.titleHeader}>Fill you profile</TextView>
@@ -13,7 +17,7 @@ const FillProfile = () => {
         Don't worry, you can always change it later, or {'\n'} you can skip it
         for now
       </TextView>
-      <ProfileAvatar />
+      <ProfileAvatar onEditAvatar={handleEditAvatar} />
       <ProfileForm />
     </View>
   );

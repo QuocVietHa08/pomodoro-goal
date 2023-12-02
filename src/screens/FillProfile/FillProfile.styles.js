@@ -7,7 +7,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     textAlign: 'center',
-    paddingTop: 80,
+    paddingTop: 60,
     paddingHorizontal: 20,
     backgroundColor: AppTheme.colors.white,
   },
