@@ -7,4 +7,5 @@ export default {
   Login: 'Login',
   LoginWithPass: 'LoginWithPass',
   FillProfile: 'FillProfile',
+  ForgotPass: 'ForgotPass',
 };

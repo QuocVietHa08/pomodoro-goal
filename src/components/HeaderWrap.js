@@ -18,15 +18,18 @@ const HeaderWrap = ({
   onBackPress,
   badge = 0,
 }) => {
-  const handleRenderBackMode = useCallback(title => {
+  const handleRenderBackMode = useCallback(() => {
     return (
-      <TouchableDebounce onPress={() => goBack()}>
+      <TouchableDebounce
+        style={styles.backButtonStyle}
+        onPress={() => goBack()}
+      >
         <FastImage
           source={IconBack}
           resizeMode="contain"
           style={{ height: 20, width: 20 }}
         />
-        <TextView>{titleBack}</TextView>
+        <TextView style={styles.backButtonText}>{titleBack}</TextView>
       </TouchableDebounce>
     );
   }, []);
@@ -84,5 +87,15 @@ const styles = StyleSheet.create({
     height: AppTheme.basicHeaderHeight,
     flexDirection: 'row',
     paddingRight: AppTheme.normalPadding,
+  },
+  backButtonStyle: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  backButtonText: {
+    fontWeight: 700,
+    fontSize: AppTheme.fontSize.s16,
   },
 });
