@@ -12,8 +12,6 @@ import { navigate } from '../../navigators/NavigationServices';
 import RouteName from '../../navigators/RouteName';
 import HeaderWrap from '../../components/HeaderWrap';
 import TouchableDebounce from 'src/components/TouchableDebounce';
-import ProfileAvatar from '../FillProfile/ProfileAvatar';
-
 const Login = () => {
   const handleRedirectSignInWithPass = () => {
     navigate(RouteName.LoginWithPass);

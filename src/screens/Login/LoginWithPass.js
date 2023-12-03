@@ -20,15 +20,41 @@ import IconFacebook from '../../assets/icons/login/ic_facebook.svg';
 import IconGoogle from '../../assets/icons/login/ic_google.svg';
 import IconApple from '../../assets/icons/login/ic_apple.svg';
 import TouchableDebounce from 'src/components/TouchableDebounce';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const validateSchema = yup.object().shape({
+  email: yup.string().email().required('Email is required'),
+  password: yup.string().required('Password is required'),
+  remember: yup.boolean(),
+});
 
 const LoginWithPass = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+    setValue,
+    watch,
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+      remember: false,
+    },
+    resolver: yupResolver(validateSchema),
+  });
+
+  const rememberField = watch('remember');
   const [showPass, setShowPass] = useState(false);
   const handleRedirectToSignInScreen = () => {
-    navigate(RouteName.Login);
+    navigate(RouteName.SignUp);
   };
 
-  const handleRedirectSignInWithPass = () => {
-    navigate(RouteName.LoginWithPass);
+  const handleSignIn = () => {
+    const value = getValues();
   };
 
   const handleShowPassword = () => {
@@ -39,7 +65,7 @@ const LoginWithPass = () => {
     console.log('type:', type);
   };
   const handleRedirectToForgotPass = () => {
-    console.log('redirect to forgot mass');
+    navigate(RouteName.ForgotPass);
   };
 
   return (
@@ -64,24 +90,33 @@ const LoginWithPass = () => {
             leftIco={IconEmail}
             defaultValue=""
             placeholder="Email"
+            control={control}
+            fieldName={'email'}
+            errorMessage={errors?.email?.message}
             containerStyle={styles.loginInput}
           />
           <CustomeTextInput
             leftIco={IconPass}
             rightIco={showPass ? IconEyeShow : IconEyeHide}
             defaultValue=""
+            secureTextEntry={!showPass}
             placeholder="Password"
+            fieldName={'password'}
+            control={control}
+            errorMessage={errors?.password?.message}
             containerStyle={styles.loginInput}
             onRightIconPressIn={handleShowPassword}
           />
           <View style={styles.rememberCheckboxWrapper}>
             <CheckBox
               title="Remember me"
+              defaultValue={rememberField}
+              onChange={value => setValue('remember', value)}
               checkBoxStyle={{ borderColor: 'red', borderRadius: 5 }}
             />
           </View>
           <Button
-            onPress={handleRedirectSignInWithPass}
+            onPress={handleSubmit(handleSignIn)}
             style={[styles.buttonNext, { marginTop: 10 }]}
             textStyle={styles.buttonTextStyle}
             text="Sign up"
