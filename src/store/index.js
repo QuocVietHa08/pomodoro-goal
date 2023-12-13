@@ -1,5 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
+import createSagaMiddleware from 'redux-saga';
+
 import {
   persistReducer,
   persistStore,
@@ -10,14 +12,18 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import { createLogger } from 'redux-logger';
 import { MMKV } from 'react-native-mmkv';
-import { api } from '../services/api';
-import theme from './theme';
-const reducers = combineReducers({
-  theme,
-  [api.reducerPath]: api.reducer,
-});
+import rootReducer from './rootReducer';
+import { api } from 'src/services/api';
+
 const storage = new MMKV();
+const sagaMiddleware = createSagaMiddleware();
+const middleware = [sagaMiddleware];
+const logger = createLogger();
+if (__DEV__) {
+  middleware.push(logger);
+}
 export const reduxStorage = {
   setItem: (key, value) => {
     storage.set(key, value);
@@ -32,12 +38,16 @@ export const reduxStorage = {
     return Promise.resolve();
   },
 };
+
 const persistConfig = {
   key: 'root',
   storage: reduxStorage,
   whitelist: ['theme', 'auth'],
 };
-const persistedReducer = persistReducer(persistConfig, reducers);
+//
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware => {
@@ -45,11 +55,11 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(api.middleware);
-    if (__DEV__ && !process.env.JEST_WORKER_ID) {
-      const createDebugger = require('redux-flipper').default;
-      middlewares.push(createDebugger());
-    }
+    }).concat(middleware);
+    // if (__DEV__ && !process.env.JEST_WORKER_ID) {
+    //   const createDebugger = require('redux-flipper').default;
+    //   middlewares.push(createDebugger());
+    // }
     return middlewares;
   },
   devTools: __DEV__,

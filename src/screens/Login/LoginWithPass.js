@@ -55,6 +55,7 @@ const LoginWithPass = () => {
 
   const handleSignIn = () => {
     const value = getValues();
+    console.log('value ---->', value);
   };
 
   const handleShowPassword = () => {
