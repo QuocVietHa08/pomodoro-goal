@@ -10,7 +10,11 @@ import IconBack from '../assets/images/login/ic_back.png';
 import TouchableDebounce from './TouchableDebounce';
 
 const HeaderWrap = ({
-  rightIcons = [],
+  rightIcons = '',
+  rightIconStyle,
+  rightTitle = '',
+  leftIcon = '',
+  leftIconStyle,
   containerStyle,
   isBackMode = false,
   titleBack,
@@ -38,8 +42,26 @@ const HeaderWrap = ({
       {isBackMode ? (
         handleRenderBackMode(titleBack)
       ) : (
-        <View>
-          <TextView>hello</TextView>
+        <View style={styles.headerWrapper}>
+          <View style={styles.rightComponentWrapper}>
+            {rightIcons && (
+              <FastImage
+                source={rightIcons}
+                resizeMode="contain"
+                style={[{ height: 50, width: 50 }, rightIconStyle]}
+              />
+            )}
+            <TextView style={styles.rightTitleStyle}>{rightTitle}</TextView>
+          </View>
+          <View style={styles.rightComponentWrapper}>
+            {leftIcon && (
+              <FastImage
+                source={leftIcon}
+                resizeMode="contain"
+                style={[{ height: 30, width: 30 }, leftIconStyle]}
+              />
+            )}
+          </View>
         </View>
       )}
     </View>
@@ -49,44 +71,17 @@ const HeaderWrap = ({
 export default HeaderWrap;
 
 const styles = StyleSheet.create({
-  viewBadge: {
-    right: 10,
-    top: -2,
-    width: 13,
-    height: 13,
-    borderRadius: 13 / 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    backgroundColor: 'red',
-    padding: 2,
-  },
-  txtBadge: { fontSize: 8, color: AppTheme.colors.white },
-  vIcon: { flexDirection: 'row', alignItems: 'center' },
-  txtBack: {
-    marginLeft: 8,
-    color: AppTheme.colors.primary,
-    fontWeight: '500',
-    fontSize: AppTheme.fontSize.s12,
-  },
-  title: {
+  headerWrapper: {
+    display: 'flex',
     flexDirection: 'row',
-    marginTop: 10,
-    alignSelf: 'flex-start',
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-  },
-  icon: {
-    alignContent: 'center',
-    alignSelf: 'center',
-    marginTop: 10,
-    marginStart: 25,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flex: 1,
   },
   containerStyle: {
     width: '100%',
     height: AppTheme.basicHeaderHeight,
     flexDirection: 'row',
-    paddingRight: AppTheme.normalPadding,
   },
   backButtonStyle: {
     display: 'flex',
@@ -97,5 +92,15 @@ const styles = StyleSheet.create({
   backButtonText: {
     fontWeight: 700,
     fontSize: AppTheme.fontSize.s16,
+  },
+  rightComponentWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  rightTitleStyle: {
+    fontSize: AppTheme.fontSize.s20,
+    fontWeight: 700,
   },
 });
