@@ -7,3 +7,4 @@ export { default as SignUp } from './SignUp/SignUp';
 export { default as FillProfile } from './FillProfile/FillProfile';
 export { default as ForgotPass } from './ForgotPass/ForgotPass';
 export { default as Home } from './Home/Home';
+export { default as Task } from './Task/Task';

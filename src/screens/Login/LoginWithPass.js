@@ -23,6 +23,8 @@ import TouchableDebounce from 'src/components/TouchableDebounce';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useSelector, useDispatch } from 'react-redux';
+import { setAccessToken } from 'src/store/auth/authReducer';
 
 const validateSchema = yup.object().shape({
   email: yup.string().email().required('Email is required'),
@@ -31,6 +33,7 @@ const validateSchema = yup.object().shape({
 });
 
 const LoginWithPass = () => {
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -52,10 +55,16 @@ const LoginWithPass = () => {
   const handleRedirectToSignInScreen = () => {
     navigate(RouteName.SignUp);
   };
+  const { email } = useSelector(state => ({
+    ...state.authReducer,
+  }));
 
   const handleSignIn = () => {
     const value = getValues();
+    const token = `${value?.email}_${value?.password}`;
     console.log('value ---->', value);
+    dispatch(setAccessToken(token));
+    navigate(RouteName.Home);
   };
 
   const handleShowPassword = () => {
@@ -89,7 +98,7 @@ const LoginWithPass = () => {
 
           <CustomeTextInput
             leftIco={IconEmail}
-            defaultValue=""
+            defaultValue="abc@gmail.com"
             placeholder="Email"
             control={control}
             fieldName={'email'}
@@ -99,7 +108,7 @@ const LoginWithPass = () => {
           <CustomeTextInput
             leftIco={IconPass}
             rightIco={showPass ? IconEyeShow : IconEyeHide}
-            defaultValue=""
+            defaultValue="password"
             secureTextEntry={!showPass}
             placeholder="Password"
             fieldName={'password'}

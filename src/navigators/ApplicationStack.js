@@ -9,14 +9,25 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import ApplicationNavigator from './stack/AppicationNavigator';
+import { useSelector } from 'react-redux';
+import AuthNavigator from './stack/AuthNavigator';
 
 const Stack = createStackNavigator();
 
 function ApplicationStack() {
-  const { NavigationTheme } = useTheme();
+  // const { NavigationTheme } = useTheme();
+  const { accessToken } = useSelector(state => ({
+    ...state.authReducer,
+  }));
+
+  console.log('acsess token:', accessToken);
 
   const StackScreen = useMemo(() => {
-    return ApplicationNavigator();
+    if (!accessToken) {
+      return AuthNavigator();
+    }
+
+    // return ApplicationNavigator();
   }, []);
 
   const onNavigationStateChange = useCallback(async () => {}, []);
@@ -28,7 +39,7 @@ function ApplicationStack() {
         backgroundColor="transparent"
       />
       <NavigationContainer
-        theme={NavigationTheme}
+        // theme={NavigationTheme}
         ref={navigationRef}
         onStateChange={onNavigationStateChange}
       >

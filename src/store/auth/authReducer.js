@@ -32,6 +32,13 @@ const authSlice = createSlice({
         loginStatus: RequestStatus.Failure,
       };
     },
+    setAccessToken: (state, action) => {
+      console.log('actioon, ', action);
+      return {
+        ...state,
+        accessToken: action.payload,
+      };
+    },
   },
 });
 
@@ -39,6 +46,7 @@ export const {
   loginRequestAction,
   loginRequestSuccessAction,
   loginRequestFailAction,
+  setAccessToken,
 } = authSlice.actions;
 
 const authReducer = authSlice.reducer;

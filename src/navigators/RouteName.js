@@ -1,6 +1,7 @@
 export default {
   StartScreen: 'StartScreen',
   Home: 'Home',
+  Task: 'Task',
   StartUp: 'StartUp',
   SignIn: 'SignIn',
   SignUp: 'SignUp',
