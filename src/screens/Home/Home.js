@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, FlatList } from 'react-native';
 import TextView from 'src/components/TextView';
 import styles from './Home.styles';
 import HeaderWrap from 'src/components/HeaderWrap';
@@ -8,6 +8,9 @@ import BellImage from 'src/assets/images/bell.png';
 import HandIcon from 'src/assets/images/hand.png';
 import FastImage from 'react-native-fast-image';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { AppTheme } from 'src/utils/appConstant';
+import { tasks } from './mockData';
+import Task from 'src/components/Task';
 
 const Home = () => {
   return (
@@ -48,6 +51,28 @@ const Home = () => {
           <TextView style={styles.processText}>12 of 16 completed!</TextView>
         </View>
       </View>
+
+      <View style={styles.taskTextWrapper}>
+        <TextView
+          style={{
+            fontWeight: 600,
+            fontSize: AppTheme.fontSize.s16,
+          }}
+        >
+          Today Task (16)
+        </TextView>
+        <TextView
+          style={{
+            color: '#ff6569',
+            fontWeight: 700,
+          }}
+        >
+          See All
+        </TextView>
+      </View>
+      <ScrollView>
+        <FlatList data={tasks} renderItem={({ item }) => <Task {...item} />} />
+      </ScrollView>
     </View>
   );
 };
