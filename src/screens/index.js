@@ -8,3 +8,5 @@ export { default as FillProfile } from './FillProfile/FillProfile';
 export { default as ForgotPass } from './ForgotPass/ForgotPass';
 export { default as Home } from './Home/Home';
 export { default as Task } from './Task/Task';
+export { default as TodayTask } from './TodayTask/TodayTask';
+export { default as Notification } from './Notification/Notification';

@@ -15,20 +15,19 @@ import AuthNavigator from './stack/AuthNavigator';
 const Stack = createStackNavigator();
 
 function ApplicationStack() {
-  // const { NavigationTheme } = useTheme();
   const { accessToken } = useSelector(state => ({
     ...state.authReducer,
   }));
-
-  console.log('acsess token:', accessToken);
 
   const StackScreen = useMemo(() => {
     if (!accessToken) {
       return AuthNavigator();
     }
 
-    // return ApplicationNavigator();
+    return ApplicationNavigator();
   }, []);
+
+  console.log('hello:', accessToken);
 
   const onNavigationStateChange = useCallback(async () => {}, []);
   return (
@@ -39,7 +38,6 @@ function ApplicationStack() {
         backgroundColor="transparent"
       />
       <NavigationContainer
-        // theme={NavigationTheme}
         ref={navigationRef}
         onStateChange={onNavigationStateChange}
       >

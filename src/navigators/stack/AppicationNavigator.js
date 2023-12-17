@@ -4,7 +4,7 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import RouteName from '../RouteName';
-import { Task, Home } from '../../screens';
+import { Task, Home, TodayTask, Notification } from '../../screens';
 import { Platform } from 'react-native';
 
 const screenOptions = {
@@ -26,9 +26,19 @@ const ApplicationNavigator = props => {
         component={Home}
       />
       <Stack.Screen
+        name={RouteName.TodayTask}
+        options={screenOptions}
+        component={TodayTask}
+      />
+      <Stack.Screen
         name={RouteName.Task}
         options={screenOptions}
         component={Home}
+      />
+      <Stack.Screen
+        name={RouteName.Notification}
+        options={screenOptions}
+        component={Notification}
       />
     </>
   );

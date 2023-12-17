@@ -8,16 +8,30 @@ import Laptop from 'src/assets/images/task/laptop.png';
 import LearningCode from 'src/assets/images/task/learning-code.png';
 import Meditation from 'src/assets/images/task/meditation.png';
 import Music from 'src/assets/images/task/music.png';
+import Dumbbell from 'src/assets/images/task/dumbbel.png';
+import Running from 'src/assets/images/task/running.png';
+import Working from 'src/assets/images/task/working.png';
+import Writing from 'src/assets/images/task/writing.png';
+
 import { AppTheme } from 'src/utils/appConstant';
 
 const TaskComponent = ({ title, type, workingSession, category }) => {
   const duration = workingSession * 25;
-  const handleStartTimer = () => {};
+  const handleStartTimer = () => {
+    console.log('start task');
+  };
 
   const handleRenderImage = cate => {
     const CATEGORIES = {
-      read: ReadImg,
-      listen: Music,
+      reading: ReadImg,
+      listening: Music,
+      learning: LearningCode,
+      exercice: Dumbbell,
+      tech: Laptop,
+      meditation: Meditation,
+      running: Running,
+      working: Working,
+      writing: Writing,
     };
 
     return CATEGORIES[cate];
@@ -27,7 +41,7 @@ const TaskComponent = ({ title, type, workingSession, category }) => {
     <View style={styles.taskContainer}>
       <View style={styles.taskContainWrapper}>
         <FastImage
-          source={() => handleRenderImage(category)}
+          source={handleRenderImage(category)}
           style={{
             width: 50,
             height: 50,
@@ -38,8 +52,8 @@ const TaskComponent = ({ title, type, workingSession, category }) => {
           <TextView>{duration} minutes</TextView>
         </View>
       </View>
-      <TouchableDebounce onPress={handleStartTimer}>
-        <TextView>Press</TextView>
+      <TouchableDebounce onPress={handleStartTimer} style={styles.playButton}>
+        <View style={styles.playIcon} />
       </TouchableDebounce>
     </View>
   );
@@ -69,5 +83,36 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 600,
     fontSize: AppTheme.fontSize.s14,
+  },
+  playButton: {
+    backgroundColor: '#23c268',
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  playIcon: {
+    width: 0,
+    height: 0,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderTopWidth: 0,
+    borderRightWidth: 10,
+    borderBottomWidth: 15,
+    borderLeftWidth: 10,
+    borderTopColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: 'white',
+    borderLeftColor: 'transparent',
+    transform: [
+      {
+        translateX: 3,
+      },
+      {
+        rotate: '90deg',
+      },
+    ],
   },
 });
