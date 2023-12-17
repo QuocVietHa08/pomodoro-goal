@@ -15,12 +15,11 @@ const HeaderWrap = ({
   rightTitle = '',
   leftIcon = '',
   leftIconStyle,
+  leftTitle = '',
   containerStyle,
   isBackMode = false,
   titleBack,
-  title,
-  onBackPress,
-  badge = 0,
+  onRightPress = () => {},
 }) => {
   const handleRenderBackMode = useCallback(() => {
     return (
@@ -44,22 +43,24 @@ const HeaderWrap = ({
       ) : (
         <View style={styles.headerWrapper}>
           <View style={styles.rightComponentWrapper}>
-            {rightIcons && (
-              <FastImage
-                source={rightIcons}
-                resizeMode="contain"
-                style={[{ height: 50, width: 50 }, rightIconStyle]}
-              />
-            )}
-            <TextView style={styles.rightTitleStyle}>{rightTitle}</TextView>
-          </View>
-          <View style={styles.rightComponentWrapper}>
             {leftIcon && (
               <FastImage
                 source={leftIcon}
                 resizeMode="contain"
-                style={[{ height: 30, width: 30 }, leftIconStyle]}
+                style={[{ height: 50, width: 50 }, leftIconStyle]}
               />
+            )}
+            <TextView style={styles.rightTitleStyle}>{leftTitle}</TextView>
+          </View>
+          <View style={styles.rightComponentWrapper}>
+            {rightIcons && (
+              <TouchableDebounce onPress={onRightPress}>
+                <FastImage
+                  source={rightIcons}
+                  resizeMode="contain"
+                  style={[{ height: 30, width: 30 }, rightIconStyle]}
+                />
+              </TouchableDebounce>
             )}
           </View>
         </View>

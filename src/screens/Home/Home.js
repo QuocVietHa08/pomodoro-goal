@@ -11,16 +11,28 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { AppTheme } from 'src/utils/appConstant';
 import { tasks } from './mockData';
 import Task from 'src/components/Task';
+import { navigate } from 'src/navigators/NavigationServices';
+import RouteName from 'src/navigators/RouteName';
+import TouchableDebounce from 'src/components/TouchableDebounce';
 
 const Home = () => {
+  const handleNavigateTodayTask = () => {
+    navigate(RouteName.TodayTask);
+  };
+
+  const handleHeaderRightPress = () => {
+    navigate(RouteName.Notification);
+  };
+
   return (
     <View style={styles.container}>
       <HeaderWrap
-        rightIcons={LogoImage}
-        rightIconStyle={styles.headerIconLeft}
-        rightTitle="Goal"
-        leftIcon={BellImage}
-        leftIconStyle={styles.headerIconRight}
+        rightIcons={BellImage}
+        rightIconStyle={styles.headerIconRight}
+        leftTitle="Goal"
+        leftIcon={LogoImage}
+        leftIconStyle={styles.headerIconLeft}
+        onRightPress={handleHeaderRightPress}
       />
       <View style={styles.titleWrapper}>
         <TextView style={styles.homeTitle}>Moring, Edward Ha</TextView>
@@ -61,14 +73,16 @@ const Home = () => {
         >
           Today Task (16)
         </TextView>
-        <TextView
-          style={{
-            color: '#ff6569',
-            fontWeight: 700,
-          }}
-        >
-          See All
-        </TextView>
+        <TouchableDebounce onPress={handleNavigateTodayTask}>
+          <TextView
+            style={{
+              color: '#ff6569',
+              fontWeight: 700,
+            }}
+          >
+            See All
+          </TextView>
+        </TouchableDebounce>
       </View>
       <ScrollView>
         <FlatList data={tasks} renderItem={({ item }) => <Task {...item} />} />
