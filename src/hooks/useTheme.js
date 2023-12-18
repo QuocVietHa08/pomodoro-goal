@@ -12,30 +12,30 @@ import {
 } from '../theme';
 export default function () {
   // Get the scheme device
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
   // Get current theme from the store
-  const currentTheme = useSelector(state => state.theme.theme);
-  const isDark = useSelector(state => state.theme.darkMode);
-  const darkMode = isDark === null ? colorScheme === 'dark' : isDark;
+  // const currentTheme = useSelector(state => state.theme.theme);
+  // const isDark = useSelector(state => state.theme.darkMode);
+  // const darkMode = isDark === null ? colorScheme === 'dark' : isDark;
   let variables = {};
   let partialTheme = {};
   let darkVariables = {};
   let partialDarkTheme = {};
-  if (currentTheme !== 'default') {
-    const {
-      Variables,
-      // @ts-ignore to prevent multiple themes handling
-      ...themeConfig
-    } = themes[currentTheme] || {};
-    variables = Variables;
-    partialTheme = themeConfig || {};
-  }
-  if (darkMode) {
-    const { Variables, ...darkThemeConfig } =
-      themes[`${currentTheme}_dark`] || {};
-    darkVariables = Variables;
-    partialDarkTheme = darkThemeConfig;
-  }
+  // if (currentTheme !== 'default') {
+  //   const {
+  //     Variables,
+  //     // @ts-ignore to prevent multiple themes handling
+  //     ...themeConfig
+  //   } = themes[currentTheme] || {};
+  //   variables = Variables;
+  //   partialTheme = themeConfig || {};
+  // }
+  // if (darkMode) {
+  //   const { Variables, ...darkThemeConfig } =
+  //     themes[`${currentTheme}_dark`] || {};
+  //   darkVariables = Variables;
+  //   partialDarkTheme = darkThemeConfig;
+  // }
   const themeVariables = mergeVariables(variables, darkVariables);
   const fonts = Fonts(themeVariables);
   const gutters = Gutters(themeVariables);
@@ -59,7 +59,7 @@ export default function () {
   };
   // Merge and return the current Theme
   return buildTheme(
-    darkMode,
+    // darkMode
     baseTheme,
     formatTheme(themeVariables, partialTheme || {}),
     formatTheme(themeVariables, partialDarkTheme || {}),

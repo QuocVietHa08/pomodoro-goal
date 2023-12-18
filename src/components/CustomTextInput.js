@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { forwardRef, useEffect } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
@@ -88,7 +87,7 @@ const TextInputWithTitle = (
             onChangeText={onChangeText}
             inputMode={inputMode}
             value={field.value}
-            defaultValue
+            defaultValue={defaultValue}
           />
         </View>
         {/* <Icon

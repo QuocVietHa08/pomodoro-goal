@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import { View, Text, ScrollView, FlatList } from 'react-native';
 import TextView from 'src/components/TextView';
 import styles from './Home.styles';
@@ -16,12 +16,25 @@ import RouteName from 'src/navigators/RouteName';
 import TouchableDebounce from 'src/components/TouchableDebounce';
 
 const Home = () => {
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    if (refreshing) {
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 500);
+    }
+  }, [refreshing]);
   const handleNavigateTodayTask = () => {
     navigate(RouteName.TodayTask);
   };
 
   const handleHeaderRightPress = () => {
     navigate(RouteName.Notification);
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
   };
 
   return (
@@ -85,7 +98,12 @@ const Home = () => {
         </TouchableDebounce>
       </View>
       <ScrollView>
-        <FlatList data={tasks} renderItem={({ item }) => <Task {...item} />} />
+        <FlatList
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          data={tasks}
+          renderItem={({ item }) => <Task {...item} />}
+        />
       </ScrollView>
     </View>
   );

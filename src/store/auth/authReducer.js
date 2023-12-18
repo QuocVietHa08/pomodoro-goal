@@ -50,7 +50,6 @@ export const {
 } = authSlice.actions;
 
 const authReducer = authSlice.reducer;
-
 export default persistReducer(
   persistConfig({
     key: 'authReducer',

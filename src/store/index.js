@@ -11,42 +11,54 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
+  createMigrate,
 } from 'redux-persist';
 import { createLogger } from 'redux-logger';
 import { MMKV } from 'react-native-mmkv';
 import rootReducer from './rootReducer';
 import { api } from 'src/services/api';
+import persistConfig from './persistConfig';
 
-const storage = new MMKV();
+// const storage = new MMKV();
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [sagaMiddleware];
 const logger = createLogger();
 if (__DEV__) {
   middleware.push(logger);
 }
-export const reduxStorage = {
-  setItem: (key, value) => {
-    storage.set(key, value);
-    return Promise.resolve(true);
-  },
-  getItem: key => {
-    const value = storage.getString(key);
-    return Promise.resolve(value);
-  },
-  removeItem: key => {
-    storage.delete(key);
-    return Promise.resolve();
-  },
-};
+// export const reduxStorage = {
+//   setItem: (key, value) => {
+//     storage.set(key, value);
+//     return Promise.resolve(true);
+//   },
+//   getItem: key => {
+//     const value = storage.getString(key);
+//     return Promise.resolve(value);
+//   },
+//   removeItem: key => {
+//     storage.delete(key);
+//     return Promise.resolve();
+//   },
+// };
 
-const persistConfig = {
-  key: 'root',
-  storage: reduxStorage,
-  whitelist: ['theme', 'auth'],
-};
+// const persistConfig = {
+//   key: 'root',
+//   storage: reduxStorage,
+//   whitelist: ['theme', 'auth'],
+// };
 //
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const storePersistConfig = persistConfig({
+  key: 'root',
+  migrate: createMigrate(
+    {
+      0: state => ({ ...state }),
+    },
+    { debug: false },
+  ),
+});
+
+const persistedReducer = persistReducer(storePersistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
