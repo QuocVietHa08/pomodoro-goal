@@ -18,14 +18,16 @@ function ApplicationStack() {
   const { accessToken } = useSelector(state => ({
     ...state.authReducer,
   }));
+  // const accessToken = 'hello';
 
   const StackScreen = useMemo(() => {
     if (!accessToken) {
       return AuthNavigator();
     }
 
+    console.log('reder application:', ApplicationNavigator);
     return ApplicationNavigator();
-  }, []);
+  }, [accessToken]);
 
   console.log('hello:', accessToken);
 
