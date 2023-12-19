@@ -31,6 +31,7 @@
     "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "^2.12.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-linear-gradient": "^2.8.3",
     "react-native-mmkv": "^2.10.0",
     "react-native-phone-number-input": "^2.1.0",
     "react-native-reanimated": "^3.6.1",

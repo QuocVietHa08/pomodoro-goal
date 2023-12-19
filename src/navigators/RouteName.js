@@ -1,6 +1,9 @@
 export default {
   StartScreen: 'StartScreen',
+  AppBottomTab: 'AppBottomTab',
+  Statistics: 'Statistics',
   Home: 'Home',
+  Profile: 'Profile',
   TodayTask: 'TodayTask',
   Task: 'Task',
   StartUp: 'StartUp',
@@ -11,4 +14,5 @@ export default {
   FillProfile: 'FillProfile',
   ForgotPass: 'ForgotPass',
   Notification: 'Notification',
+  NewScope: 'NewScope',
 };

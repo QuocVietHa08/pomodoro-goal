@@ -6,6 +6,7 @@ import {
 import RouteName from '../RouteName';
 import { Task, Home, TodayTask, Notification } from '../../screens';
 import { Platform } from 'react-native';
+import AppBottomTab from './AppBottomTab';
 
 const screenOptions = {
   headerShow: false,
@@ -20,11 +21,14 @@ const Stack = createStackNavigator();
 const ApplicationNavigator = props => {
   return (
     <>
-      <Stack.Screen
+      <Stack.Screen name={RouteName.AppBottomTab} options={screenOptions}>
+        {props => <AppBottomTab {...props} />}
+      </Stack.Screen>
+      {/* <Stack.Screen
         name={RouteName.Home}
         options={screenOptions}
         component={Home}
-      />
+      /> */}
       <Stack.Screen
         name={RouteName.TodayTask}
         options={screenOptions}
