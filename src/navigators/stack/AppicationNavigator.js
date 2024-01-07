@@ -4,7 +4,7 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import RouteName from '../RouteName';
-import { Task, Home, TodayTask, Notification } from '../../screens';
+import { Task, Home, TodayTask, Notification, Timer } from '../../screens';
 import { Platform } from 'react-native';
 import AppBottomTab from './AppBottomTab';
 
@@ -43,6 +43,11 @@ const ApplicationNavigator = props => {
         name={RouteName.Notification}
         options={screenOptions}
         component={Notification}
+      />
+      <Stack.Screen
+        name={RouteName.Timer}
+        options={screenOptions}
+        component={Timer}
       />
     </>
   );

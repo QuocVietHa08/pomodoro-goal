@@ -14,11 +14,13 @@ import Working from 'src/assets/images/task/working.png';
 import Writing from 'src/assets/images/task/writing.png';
 
 import { AppTheme } from 'src/utils/appConstant';
+import { navigate } from 'src/navigators/NavigationServices';
+import RouteName from 'src/navigators/RouteName';
 
 const TaskComponent = ({ title, type, workingSession, category }) => {
   const duration = workingSession * 25;
   const handleStartTimer = () => {
-    console.log('start task');
+    navigate(RouteName.Timer, { title, type, workingSession, category });
   };
 
   const handleRenderImage = cate => {
