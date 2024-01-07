@@ -22,6 +22,11 @@ const AppBottomTab = () => {
       title: 'Task',
     },
     {
+      name: RouteName.NewScope,
+      component: Task,
+      title: 'Task',
+    },
+    {
       name: RouteName.Statistics,
       component: Statistics,
       title: 'Statistics',
@@ -58,7 +63,7 @@ const AppBottomTab = () => {
           overflow: 'visible',
         },
       }}
-      // tabBar={() => <CustomAppTabBar />}
+      tabBar={props => <CustomAppTabBar {...props} />}
     >
       {tabBottomRoutes.map(item => renderTab(item))}
     </Tab.Navigator>
