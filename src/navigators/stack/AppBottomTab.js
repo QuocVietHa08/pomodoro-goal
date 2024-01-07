@@ -3,6 +3,8 @@ import React from 'react';
 import RouteName from '../RouteName';
 import { Home, Statistics, Task, Profile } from 'src/screens';
 import { screenOptions } from '../constants';
+import { View } from 'react-native';
+import TextView from 'src/components/TextView';
 import CustomAppTabBar from './CustomAppTabBar';
 
 const Tab = createBottomTabNavigator();
@@ -29,11 +31,6 @@ const AppBottomTab = () => {
       component: Profile,
       title: 'Profile',
     },
-    // {
-    //   name: RouteName.NewScope,
-    //   component: Profile,
-    //   title: 'd',
-    // },
   ];
 
   const renderTab = item => {
@@ -61,12 +58,8 @@ const AppBottomTab = () => {
           overflow: 'visible',
         },
       }}
-      // tabBar={props => <CustomAppTabBar {.w..props} />}
+      // tabBar={() => <CustomAppTabBar />}
     >
-      {/* <Tab.Screen name={RouteName.Home} component={Home} />
-      <Tab.Screen name={RouteName.Task} component={Task} />
-      <Tab.Screen name={RouteName.Statistics} component={Statistics} />
-      <Tab.Screen name={RouteName.Profile} component={Profile} /> */}
       {tabBottomRoutes.map(item => renderTab(item))}
     </Tab.Navigator>
   );

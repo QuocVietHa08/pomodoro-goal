@@ -15,4 +15,5 @@ export default {
   ForgotPass: 'ForgotPass',
   Notification: 'Notification',
   NewScope: 'NewScope',
+  Timer: 'Timer',
 };

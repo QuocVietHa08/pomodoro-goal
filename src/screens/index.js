@@ -12,3 +12,4 @@ export { default as TodayTask } from './TodayTask/TodayTask';
 export { default as Notification } from './Notification/Notification';
 export { default as Statistics } from './Statistics/Statistics';
 export { default as Profile } from './Profile/Profile';
+export { default as Timer } from './Timer/Timer';
