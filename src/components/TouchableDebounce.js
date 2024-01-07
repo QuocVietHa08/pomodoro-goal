@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import { ActivityIndicator, TouchableOpacity } from 'react-native';
 import { AppTheme } from '../utils/appConstant';
-// import { delay } from 'src/utils/func';
+import { delay } from '../utils/fun';
 
 const TouchableDebounce = (
   props = {
@@ -47,7 +47,7 @@ const TouchableDebounce = (
           return;
         }
         onPress();
-        // debounceRef.current = delay;
+        debounceRef.current = delay;
         await debounceRef.current(timeout);
         debounceRef.current = null;
       }
