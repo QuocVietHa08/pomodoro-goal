@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import RouteName from '../RouteName';
-import { Home, Statistics, Task, Profile } from 'src/screens';
+import { Home, Statistics, Task, Profile, NewTask } from 'src/screens';
 import { screenOptions } from '../constants';
 import { View } from 'react-native';
 import TextView from 'src/components/TextView';
@@ -22,9 +22,9 @@ const AppBottomTab = () => {
       title: 'Task',
     },
     {
-      name: RouteName.NewScope,
-      component: Task,
-      title: 'Task',
+      name: RouteName.NewTask,
+      component: NewTask,
+      title: '',
     },
     {
       name: RouteName.Statistics,
