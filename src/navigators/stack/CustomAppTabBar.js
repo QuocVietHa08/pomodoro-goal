@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { LayoutAnimation, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppTheme, Dimens } from 'src/utils/appConstant';
 import RouteName from '../RouteName';
@@ -20,8 +20,7 @@ import FastImage from 'react-native-fast-image';
 const ADD_ICON_SIZE = Dimens.width / 5.5;
 const CustomAppTabBar = ({ state, descriptors, navigation }) => {
   const insets = useSafeAreaInsets();
-  console.log('state ------>', state);
-  console.log('description----->:', descriptors);
+
   return (
     <View
       style={[
@@ -49,17 +48,42 @@ const CustomAppTabBar = ({ state, descriptors, navigation }) => {
             break;
         }
 
-        if (route.name === RouteName.NewScope) {
+        const onPress = () => {
+          LayoutAnimation.configureNext({
+            ...LayoutAnimation.Presets.easeInEaseOut,
+            duration: 250,
+          });
+
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+          });
+
+          if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate({ name: route.name, merge: true });
+          }
+        };
+
+        if (route.name === RouteName.NewTask) {
           return (
-            <TouchableDebounce style={styles.vCenter}>
+            <TouchableDebounce
+              onPress={onPress}
+              activeOpacity={0.9}
+              key={index}
+              style={styles.vCenter}
+            >
+              {/* <LinearGradient
+                colors={[
+                  AppTheme.colors.gradientTop,
+                  AppTheme.colors.gradientBottom,
+                ]}
+              > */}
               <FastImage source={newScope} style={{ height: 50, width: 50 }} />
+              {/* </LinearGradient> */}
             </TouchableDebounce>
           );
         }
-
-        const onPress = () => {
-          console.log('hello onpresss');
-        };
 
         return (
           <TouchableDebounce

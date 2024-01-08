@@ -14,6 +14,6 @@ export default {
   FillProfile: 'FillProfile',
   ForgotPass: 'ForgotPass',
   Notification: 'Notification',
-  NewScope: 'NewScope',
+  NewTask: 'NewTask',
   Timer: 'Timer',
 };
