@@ -7,6 +7,8 @@ import TextInput from './TextInput';
 import TextView from './TextView';
 // import Icon from './Icon';
 import { noop } from 'lodash';
+import FastImage from 'react-native-fast-image';
+import TouchableDebounce from './TouchableDebounce';
 
 const TextInputWithTitleBasic = (
   {
@@ -92,6 +94,14 @@ const TextInputWithTitleBasic = (
             blurOnSubmit={true}
           />
         </View>
+        {rightIco && (
+          <TouchableDebounce
+            onPressIn={onRightIconPressIn}
+            onPressOut={onRightIconPressOut}
+          >
+            <FastImage source={rightIco} style={{ width: 30, height: 30 }} />
+          </TouchableDebounce>
+        )}
         {/* <Icon
           hitSlop={hitSlop}
           onPressIn={onRightIconPressIn}
