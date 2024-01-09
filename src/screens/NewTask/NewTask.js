@@ -1,14 +1,48 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { View } from 'react-native';
 import TextView from 'src/components/TextView';
 import styles from './NewTask.styles';
 import HeaderWrap from 'src/components/HeaderWrap';
 import { useForm } from 'react-hook-form';
 import TextInputWithTitleBasic from 'src/components/TextInputWithTitleBasic';
+import DatePickerModal from 'src/components/DatePickerModal';
+import moment from 'moment';
+import { DATE_FORMAT } from 'src/utils/appConstant';
+import CalendarImage from 'src/assets/images/calendar.png';
+import ClockImage from 'src/assets/images/clock.png';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import DropdownComp from 'src/components/DropdownComp';
+import SliderComp from 'src/components/SliderComp';
+
+const validateSchema = yup.object().shape({
+  title: yup.string().required('Title is required'),
+  date: yup.string().required('Date is required'),
+  time: yup.string().required('Time is required'),
+  category: yup.string().required('Category is required'),
+  sessions: yup.number().required('Sessions is required'),
+  longBreak: yup.number().required('Long Break is required'),
+  shortBreak: yup.number().required('Short Break is required'),
+});
 
 const NewTask = () => {
-  const { control, handleSubmit, getValues } = useForm({
-    mode: 'all',
+  const [trigger, setTrigger] = useState(0);
+  const datePickerRef = useRef();
+  const timePickerRef = useRef();
+  const [categories, setCategories] = useState([
+    { label: 'Work', value: 'work' },
+    { label: 'Study', value: 'study' },
+    { label: 'Sport', value: 'sport' },
+    { label: 'Relax', value: 'relax' },
+  ]);
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    setValue,
+    formState: { errors },
+    watch,
+  } = useForm({
     defaultValues: {
       title: '',
       date: '',
@@ -18,7 +52,27 @@ const NewTask = () => {
       longBreak: 0,
       shortBreak: 0,
     },
+    resolver: yupResolver(validateSchema),
   });
+
+  const onDateSelected = date => {
+    setValue('date', moment(date).format(DATE_FORMAT.YYYYmmdd));
+    setTrigger(prev => prev + 1);
+  };
+
+  const onTimeSelected = date => {
+    console.log('time value ----->', date);
+    setValue('time', moment(date).format(DATE_FORMAT.HHMM));
+    setTrigger(prev => prev + 1);
+  };
+
+  const showDatePicker = () => {
+    datePickerRef.current?.show(onDateSelected);
+  };
+
+  const showTimePicker = () => {
+    timePickerRef.current?.show(onTimeSelected);
+  };
   return (
     <View style={styles.container}>
       <HeaderWrap isBackMode titleBack="Create New Task" />
@@ -27,6 +81,10 @@ const NewTask = () => {
           title="Title"
           placeholder="Enter title"
           titleStyle={styles.titleTextInput}
+          control={control}
+          defaultValue={getValues('title')}
+          fieldName="title"
+          errorMessage={errors?.title?.message}
         />
         <View
           style={{
@@ -39,16 +97,51 @@ const NewTask = () => {
           <TextInputWithTitleBasic
             title="Date"
             containerStyle={{ width: '47%' }}
-            placeholder="Enter title"
+            onRightIconPressIn={showDatePicker}
+            placeholder="Enter Date"
+            rightIco={CalendarImage}
             titleStyle={styles.titleTextInput}
+            control={control}
+            fieldName="date"
+            defaultValue={getValues('date')}
+            errorMessage={errors?.date?.message}
           />
+
           <TextInputWithTitleBasic
             title="Time"
             containerStyle={{ width: '47%' }}
-            placeholder="Enter title"
+            rightIco={ClockImage}
+            onRightIconPressIn={showTimePicker}
+            control={control}
+            defaultValue={getValues('time')}
+            fieldName="time"
+            placeholder="Enter Time"
             titleStyle={styles.titleTextInput}
+            errorMessage={errors?.time?.message}
           />
         </View>
+        <View style={[styles.formCreateNewTask, { marginTop: 20 }]}>
+          <TextView style={styles.titleTextInput}>Category</TextView>
+          <DropdownComp
+            data={categories}
+            control={control}
+            fieldName="category"
+            errorMessage={errors?.category?.message}
+          />
+        </View>
+        <View>
+          <SliderComp />
+        </View>
+        <DatePickerModal
+          defaultDate={moment(new Date(), DATE_FORMAT.YYYYmmdd).toDate()}
+          ref={datePickerRef}
+        />
+
+        <DatePickerModal
+          defaultDate={moment(new Date(), DATE_FORMAT.HHMM).toDate()}
+          mode="time"
+          ref={timePickerRef}
+        />
       </View>
     </View>
   );

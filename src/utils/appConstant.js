@@ -210,7 +210,7 @@ const AppTheme = {
     neutral_80: '#717171',
     neutral_90: '#5F5F5F',
     neutral_100: '#4D4D4D',
-    primary_1: '#6EB3C9',
+    primary_1: '#ff585d',
     primary_2: '#7DBBCE',
     primary_3: '#8BC2D4',
     primary_4: '#8BC2D4',

@@ -14,8 +14,9 @@ const styles = StyleSheet.create({
   },
   titleTextInput: {
     fontSize: AppTheme.fontSize.s14,
-    fontWeight: 700,
+    fontWeight: 600,
     marginBottom: 5,
+    color: AppTheme.colors.neutral_80,
   },
 });
 export default styles;
