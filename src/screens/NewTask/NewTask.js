@@ -14,6 +14,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import DropdownComp from 'src/components/DropdownComp';
 import SliderComp from 'src/components/SliderComp';
+import Button from '../../components/Button';
 
 const validateSchema = yup.object().shape({
   title: yup.string().required('Title is required'),
@@ -121,7 +122,7 @@ const NewTask = () => {
           />
         </View>
         <View style={[styles.formCreateNewTask, { marginTop: 20 }]}>
-          <TextView style={styles.titleTextInput}>Category</TextView>
+          <TextView style={styles.titleTextInput}>Select Category</TextView>
           <DropdownComp
             data={categories}
             control={control}
@@ -129,9 +130,76 @@ const NewTask = () => {
             errorMessage={errors?.category?.message}
           />
         </View>
-        <View>
-          <SliderComp />
+        <View
+          style={{
+            marginTop: 20,
+            height: 40,
+          }}
+        >
+          <SliderComp
+            title="Working Sessions"
+            minimumValue={0}
+            maximumValue={8}
+            fieldName="sessions"
+            value={getValues('sessions')}
+            control={control}
+            onChange={value => {
+              setValue('sessions', value);
+              setTrigger(prev => prev + 1);
+            }}
+            errorMessage={errors?.sessions?.message}
+          />
         </View>
+        <View
+          style={{
+            marginTop: 40,
+            height: 40,
+          }}
+        >
+          <SliderComp
+            title="Long Break"
+            minimumValue={10}
+            maximumValue={30}
+            step={5}
+            fieldName="longBreak"
+            value={getValues('longBreak')}
+            control={control}
+            onChange={value => {
+              setValue('longBreak', value);
+              setTrigger(prev => prev + 1);
+            }}
+            errorMessage={errors?.sessions?.message}
+          />
+        </View>
+        <View
+          style={{
+            marginTop: 40,
+            height: 40,
+          }}
+        >
+          <SliderComp
+            title="Short Break"
+            minimumValue={1}
+            maximumValue={10}
+            step={1}
+            fieldName="shortBreak"
+            value={getValues('shortBreak')}
+            control={control}
+            onChange={value => {
+              setValue('shortBreak', value);
+              setTrigger(prev => prev + 1);
+            }}
+            errorMessage={errors?.sessions?.message}
+          />
+        </View>
+        <View style={{ marginTop: 40 }}>
+          <Button
+            style={[styles.buttonNext, { marginTop: 10 }]}
+            textStyle={styles.buttonTextStyle}
+            text="Create New Task"
+          />
+        </View>
+
         <DatePickerModal
           defaultDate={moment(new Date(), DATE_FORMAT.YYYYmmdd).toDate()}
           ref={datePickerRef}

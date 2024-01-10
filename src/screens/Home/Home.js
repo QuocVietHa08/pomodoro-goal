@@ -14,6 +14,7 @@ import Task from 'src/components/Task';
 import { navigate } from 'src/navigators/NavigationServices';
 import RouteName from 'src/navigators/RouteName';
 import TouchableDebounce from 'src/components/TouchableDebounce';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -97,14 +98,14 @@ const Home = () => {
           </TextView>
         </TouchableDebounce>
       </View>
-      <ScrollView>
+      <SafeAreaView>
         <FlatList
           refreshing={refreshing}
           onRefresh={onRefresh}
           data={tasks}
           renderItem={({ item }) => <Task {...item} />}
         />
-      </ScrollView>
+      </SafeAreaView>
     </View>
   );
 };
