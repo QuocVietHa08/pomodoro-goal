@@ -16,4 +16,5 @@ export default {
   Notification: 'Notification',
   NewTask: 'NewTask',
   Timer: 'Timer',
+  CreateNewTask: 'CreateNewTask',
 };

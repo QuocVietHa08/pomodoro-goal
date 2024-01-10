@@ -5,7 +5,7 @@ import { AppTheme, Dimens } from 'src/utils/appConstant';
 import RouteName from '../RouteName';
 import TouchableDebounce from 'src/components/TouchableDebounce';
 import TextView from 'src/components/TextView';
-import { BOTTOM_TAB_TITLE } from '../constants';
+import { BOTTOM_TAB_TITLE, routesBottomBar } from '../constants';
 import HomeImage from 'src/assets/images/bottomTab/home.png';
 import HomeActiveImage from 'src/assets/images/bottomTab/home_active.png';
 import TaskImage from 'src/assets/images/bottomTab/task.png';
@@ -16,107 +16,123 @@ import ProfileImage from 'src/assets/images/bottomTab/profile.png';
 import ProfileActiveImage from 'src/assets/images/bottomTab/profile_active.png';
 import newScope from 'src/assets/images/bottomTab/newScope.png';
 import FastImage from 'react-native-fast-image';
+import { useSelector } from 'react-redux';
+import { includes } from 'lodash';
 
 const ADD_ICON_SIZE = Dimens.width / 5.5;
 const CustomAppTabBar = ({ state, descriptors, navigation }) => {
   const insets = useSafeAreaInsets();
+  const { showBottomTabStatus } = useSelector(state => ({
+    ...state.appReducer,
+  }));
 
   return (
-    <View
-      style={[
-        styles.container,
-        { height: AppTheme.bottomTabHeight + insets.bottom / 1.5 },
-      ]}
-    >
-      {state?.routes?.map((route, index) => {
-        const isFocused = state.index === index;
-        const { options } = descriptors[route.key];
-        const { title, tabBarAccessibilityLabel, tabBarTestID } = options;
-        let image;
-        switch (title) {
-          case BOTTOM_TAB_TITLE.Home:
-            image = isFocused ? HomeActiveImage : HomeImage;
-            break;
-          case BOTTOM_TAB_TITLE.Task:
-            image = isFocused ? TaskActiveImage : TaskImage;
-            break;
-          case BOTTOM_TAB_TITLE.Statistics:
-            image = isFocused ? StatisticsActiveImage : StatisticsImage;
-            break;
-          case BOTTOM_TAB_TITLE.Profile:
-            image = isFocused ? ProfileActiveImage : ProfileImage;
-            break;
-        }
+    <>
+      {showBottomTabStatus && (
+        <View
+          style={[
+            styles.container,
+            { height: AppTheme.bottomTabHeight + insets.bottom / 1.5 },
+          ]}
+        >
+          {state?.routes?.map((route, index) => {
+            const isFocused = state.index === index;
+            const { options } = descriptors[route.key];
+            const { title, tabBarAccessibilityLabel, tabBarTestID } = options;
+            let image;
+            switch (title) {
+              case BOTTOM_TAB_TITLE.Home:
+                image = isFocused ? HomeActiveImage : HomeImage;
+                break;
+              case BOTTOM_TAB_TITLE.Task:
+                image = isFocused ? TaskActiveImage : TaskImage;
+                break;
+              case BOTTOM_TAB_TITLE.Statistics:
+                image = isFocused ? StatisticsActiveImage : StatisticsImage;
+                break;
+              case BOTTOM_TAB_TITLE.Profile:
+                image = isFocused ? ProfileActiveImage : ProfileImage;
+                break;
+            }
 
-        const onPress = () => {
-          LayoutAnimation.configureNext({
-            ...LayoutAnimation.Presets.easeInEaseOut,
-            duration: 250,
-          });
+            const onPress = () => {
+              LayoutAnimation.configureNext({
+                ...LayoutAnimation.Presets.easeInEaseOut,
+                duration: 250,
+              });
 
-          const event = navigation.emit({
-            type: 'tabPress',
-            target: route.key,
-            canPreventDefault: true,
-          });
+              const event = navigation.emit({
+                type: 'tabPress',
+                target: route.key,
+                canPreventDefault: true,
+              });
 
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate({ name: route.name, merge: true });
-          }
-        };
+              if (!isFocused && !event.defaultPrevented) {
+                navigation.navigate({ name: route.name, merge: true });
+              }
+            };
 
-        if (route.name === RouteName.NewTask) {
-          return (
-            <TouchableDebounce
-              onPress={onPress}
-              activeOpacity={0.9}
-              key={index}
-              style={styles.vCenter}
-            >
-              {/* <LinearGradient
+            if (route.name === RouteName.NewTask) {
+              return (
+                <TouchableDebounce
+                  onPress={onPress}
+                  activeOpacity={0.9}
+                  key={index}
+                  style={styles.vCenter}
+                >
+                  {/* <LinearGradient
                 colors={[
                   AppTheme.colors.gradientTop,
                   AppTheme.colors.gradientBottom,
                 ]}
               > */}
-              <FastImage source={newScope} style={{ height: 50, width: 50 }} />
-              {/* </LinearGradient> */}
-            </TouchableDebounce>
-          );
-        }
+                  <FastImage
+                    source={newScope}
+                    style={{ height: 50, width: 50 }}
+                  />
+                  {/* </LinearGradient> */}
+                </TouchableDebounce>
+              );
+            }
 
-        return (
-          <TouchableDebounce
-            key={index}
-            accessibilityRole="button"
-            accessibilityState={isFocused ? { selected: true } : {}}
-            accessibilityLabel={tabBarAccessibilityLabel}
-            testID={tabBarTestID}
-            onPress={onPress}
-            style={[styles.tabStyle]}
-          >
-            <View>
-              <FastImage
-                source={image}
-                resizeMode="contain"
-                style={{ height: 35, width: 35 }}
-              />
-            </View>
-            <TextView
-              fontSize={AppTheme.fontSize.s10}
-              style={{
-                marginTop: 6,
-                lineHeight: 1.5 * AppTheme.fontSize.s11,
-                color: isFocused ? '#ff575d' : AppTheme.colors.neutral_30,
-                fontWeight: isFocused ? 'bold' : 'normal',
-              }}
-            >
-              {title}
-            </TextView>
-          </TouchableDebounce>
-        );
-      })}
-    </View>
+            if (!includes(routesBottomBar, route.name)) {
+              return <></>;
+            }
+
+            return (
+              <TouchableDebounce
+                key={index}
+                accessibilityRole="button"
+                accessibilityState={isFocused ? { selected: true } : {}}
+                accessibilityLabel={tabBarAccessibilityLabel}
+                testID={tabBarTestID}
+                onPress={onPress}
+                style={[styles.tabStyle]}
+              >
+                <View>
+                  <FastImage
+                    source={image}
+                    resizeMode="contain"
+                    style={{ height: 35, width: 35 }}
+                  />
+                </View>
+                <TextView
+                  fontSize={AppTheme.fontSize.s10}
+                  style={{
+                    marginTop: 6,
+                    lineHeight: 1.5 * AppTheme.fontSize.s11,
+                    color: isFocused ? '#ff575d' : AppTheme.colors.neutral_30,
+                    fontWeight: isFocused ? 'bold' : 'normal',
+                  }}
+                >
+                  {title}
+                </TextView>
+              </TouchableDebounce>
+            );
+          })}
+        </View>
+      )}
+    </>
   );
 };
 

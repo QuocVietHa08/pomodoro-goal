@@ -1,5 +1,6 @@
 import { CardStyleInterpolators } from '@react-navigation/stack';
 import { Platform } from 'react-native';
+import RouteName from './RouteName';
 
 const screenOptions = {
   headerShown: false,
@@ -19,4 +20,11 @@ const BOTTOM_TAB_TITLE = {
   Profile: 'Profile',
 };
 
-export { screenOptions, BOTTOM_TAB_TITLE };
+const routesBottomBar = [
+  RouteName.Home,
+  RouteName.Task,
+  RouteName.Statistics,
+  RouteName.Profile,
+];
+
+export { screenOptions, BOTTOM_TAB_TITLE, routesBottomBar };
