@@ -16,6 +16,8 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { useController, useForm } from 'react-hook-form';
 import { usePrevious } from 'src/utils/hookApi';
 import { isEqual } from 'lodash';
+import DropDownImage from 'src/assets/images/dropdown.png';
+import FastImage from 'react-native-fast-image';
 // import FastImage from 'react-native-fast-image';
 
 const DropdownComp = (
@@ -57,13 +59,15 @@ const DropdownComp = (
 
   const renderRightIcon = useCallback(
     () => (
-      <TextView>hello</TextView>
-      // <Icon
-      //   color={open ? 'white' : AppTheme.colors.textBlack}
-      //   source={open ? IconsSVG.ic_dropdown_white : IconsSVG.ic_chevron_down}
-      //   size={12}
-      //   style={open}
-      // />
+      <TextView>
+        <FastImage
+          source={DropDownImage}
+          style={{
+            width: scaleSize(10),
+            height: scaleSize(10),
+          }}
+        />
+      </TextView>
     ),
     [open],
   );

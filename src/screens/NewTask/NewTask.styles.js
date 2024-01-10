@@ -18,5 +18,18 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: AppTheme.colors.neutral_80,
   },
+  buttonNext: {
+    marginTop: 50,
+    width: '100%',
+    height: 50,
+    backgroundColor: '#ff585d',
+    borderRadius: 50,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonTextStyle: {
+    color: 'white',
+  },
 });
 export default styles;
