@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     width: '100%',
-    height: 'auto',
+    height: 50,
   },
   title: {
     display: 'flex',

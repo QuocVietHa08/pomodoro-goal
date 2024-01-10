@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 import TextView from 'src/components/TextView';
 import styles from './NewTask.styles';
@@ -15,18 +15,21 @@ import * as yup from 'yup';
 import DropdownComp from 'src/components/DropdownComp';
 import SliderComp from 'src/components/SliderComp';
 import Button from '../../components/Button';
+import { setStatusBottomTab } from 'src/store/app/appReducer';
+import { useDispatch } from 'react-redux';
 
 const validateSchema = yup.object().shape({
   title: yup.string().required('Title is required'),
   date: yup.string().required('Date is required'),
   time: yup.string().required('Time is required'),
   category: yup.string().required('Category is required'),
-  sessions: yup.number().required('Sessions is required'),
-  longBreak: yup.number().required('Long Break is required'),
-  shortBreak: yup.number().required('Short Break is required'),
+  sessions: yup.number().required('Sessions is required').min(1),
+  longBreak: yup.number().required('Long Break is required').min(0),
+  shortBreak: yup.number().required('Short Break is required').min(0),
 });
 
 const NewTask = () => {
+  const dispatch = useDispatch();
   const [trigger, setTrigger] = useState(0);
   const datePickerRef = useRef();
   const timePickerRef = useRef();
@@ -62,7 +65,6 @@ const NewTask = () => {
   };
 
   const onTimeSelected = date => {
-    console.log('time value ----->', date);
     setValue('time', moment(date).format(DATE_FORMAT.HHMM));
     setTrigger(prev => prev + 1);
   };
@@ -74,6 +76,12 @@ const NewTask = () => {
   const showTimePicker = () => {
     timePickerRef.current?.show(onTimeSelected);
   };
+
+  const handleCreateNewTask = () => {
+    const values = getValues();
+    console.log('value ---->', values);
+  };
+
   return (
     <View style={styles.container}>
       <HeaderWrap isBackMode titleBack="Create New Task" />
@@ -133,6 +141,7 @@ const NewTask = () => {
         <View
           style={{
             marginTop: 20,
+            marginBottom: 20,
             height: 40,
           }}
         >
@@ -153,6 +162,7 @@ const NewTask = () => {
         <View
           style={{
             marginTop: 40,
+            marginBottom: 20,
             height: 40,
           }}
         >
@@ -168,12 +178,13 @@ const NewTask = () => {
               setValue('longBreak', value);
               setTrigger(prev => prev + 1);
             }}
-            errorMessage={errors?.sessions?.message}
+            errorMessage={errors?.longBreak?.message}
           />
         </View>
         <View
           style={{
             marginTop: 40,
+            marginBottom: 20,
             height: 40,
           }}
         >
@@ -189,13 +200,14 @@ const NewTask = () => {
               setValue('shortBreak', value);
               setTrigger(prev => prev + 1);
             }}
-            errorMessage={errors?.sessions?.message}
+            errorMessage={errors?.shortBreak?.message}
           />
         </View>
         <View style={{ marginTop: 40 }}>
           <Button
             style={[styles.buttonNext, { marginTop: 10 }]}
             textStyle={styles.buttonTextStyle}
+            onPress={handleSubmit(handleCreateNewTask)}
             text="Create New Task"
           />
         </View>

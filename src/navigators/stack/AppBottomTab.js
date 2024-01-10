@@ -36,6 +36,14 @@ const AppBottomTab = () => {
       component: Profile,
       title: 'Profile',
     },
+    // {
+    //   name: RouteName.CreateNewTask,
+    //   component: NewTask,
+    //   title: '',
+    //   options: {
+    //     unmountOnBlur: true,
+    //   },
+    // },
   ];
 
   const renderTab = item => {
@@ -49,7 +57,13 @@ const AppBottomTab = () => {
         key={item.name}
         name={item.name}
         component={item.component}
-        options={Object.assign(option, item?.option ? { ...item?.option } : {})}
+        options={Object.assign(
+          option,
+          item?.options ? { ...item?.options } : {},
+        )}
+        listeners={({ navigation }) => ({
+          blur: () => {},
+        })}
       />
     );
   };

@@ -55,14 +55,10 @@ const LoginWithPass = () => {
   const handleRedirectToSignInScreen = () => {
     navigate(RouteName.SignUp);
   };
-  const { email } = useSelector(state => ({
-    ...state.authReducer,
-  }));
 
   const handleSignIn = () => {
     const value = getValues();
     const token = `${value?.email}_${value?.password}`;
-    console.log('value ---->', value);
     dispatch(setAccessToken(token));
     navigate(RouteName.Home);
   };
