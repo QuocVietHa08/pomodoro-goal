@@ -25,11 +25,8 @@ function ApplicationStack() {
       return AuthNavigator();
     }
 
-    console.log('reder application:', ApplicationNavigator);
     return ApplicationNavigator();
   }, [accessToken]);
-
-  console.log('hello:', accessToken);
 
   const onNavigationStateChange = useCallback(async () => {}, []);
   return (

@@ -30,6 +30,11 @@ const AuthNavigator = props => {
   return (
     <>
       <Stack.Screen
+        name={RouteName.StartUp}
+        options={screenOptions}
+        component={Startup}
+      />
+      <Stack.Screen
         name={RouteName.StartScreen}
         options={screenOptions}
         component={StartScreen}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import TextView from 'src/components/TextView';
 import styles from './Task.styles';
@@ -10,44 +10,43 @@ import PreviousImage from 'src/assets/images/task/previous.png';
 import NextImage from 'src/assets/images/task/next.png';
 import TouchableDebounce from 'src/components/TouchableDebounce';
 import moment from 'moment';
-import { date } from 'yup';
 import { AppTheme } from 'src/utils/appConstant';
 import { ScrollView } from 'react-native-gesture-handler';
 import EmptyTaskImage from 'src/assets/images/task/emptyTask.png';
 
 const DAY_IN_WEEK = [
   {
-    day: 'M',
+    title: 'M',
     value: '10',
     active: true,
   },
   {
-    day: 'T',
+    title: 'T',
     value: '11',
     active: false,
   },
   {
-    day: 'W',
+    title: 'W',
     value: '12',
     active: false,
   },
   {
-    day: 'T',
+    title: 'T',
     value: '13',
     active: false,
   },
   {
-    day: 'F',
+    title: 'F',
     value: '14',
     active: false,
   },
   {
-    day: 'S',
+    title: 'S',
     value: '15',
     active: false,
   },
   {
-    day: 'S',
+    title: 'S',
     value: '16',
     active: false,
   },
@@ -57,16 +56,85 @@ const mockData = [];
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
+  const [dayInWeeks, setDayInWeeks] = useState(DAY_IN_WEEK);
+  const [day, setDay] = useState(moment(new Date()).format('DD/MM/YYYY'));
+
   const handleSearchTask = () => {
     console.log('handle search task');
   };
 
+  const handleSwitchDay = day => {
+    switch (day) {
+      case 'Monday':
+        return 'M';
+      case 'Tuesday':
+        return 'T';
+      case 'Wednesday':
+        return 'W';
+      case 'Thursday':
+        return 'T';
+      case 'Friday':
+        return 'F';
+      case 'Saturday':
+        return 'S';
+      case 'Sunday':
+        return 'S';
+      default:
+        return '';
+    }
+  };
+  const getWeekDays = date => {
+    const startOfWeek = moment(date, 'DD/MM/YYYY')
+      .startOf('week')
+      .add(1, 'day');
+    const endOfWeek = moment(date, 'DD/MM/YYYY').endOf('week');
+
+    let days = [];
+    let dayStartOfWeek = startOfWeek;
+
+    while (dayStartOfWeek <= endOfWeek) {
+      const addDay = {
+        title: handleSwitchDay(
+          moment(dayStartOfWeek, 'DD/MM/YYYY').format('dddd'),
+        ),
+        value: moment(dayStartOfWeek, 'DD/MM/YYYY').format('DD'),
+        active: moment(dayStartOfWeek).format('DD/MM/YYYY') === day,
+        day: moment(dayStartOfWeek, 'DD/MM/YYYY').format('DD/MM/YYYY'),
+      };
+
+      days.push(addDay);
+      dayStartOfWeek = moment(dayStartOfWeek, 'DD/MM/YYYY').add(1, 'd');
+    }
+
+    return days;
+  };
+
+  useEffect(() => {
+    const weekDays = getWeekDays(day);
+    setDayInWeeks(weekDays);
+  }, [day]);
+
   const handlePrevious = () => {
-    console.log('handle previous');
+    const minusDay = moment(day, 'DD/MM/YYYY')
+      .subtract(1, 'days')
+      .format('DD/MM/YYYY');
+    setDay(minusDay);
   };
 
   const handleNext = () => {
-    console.log('handle Next');
+    const addDay = moment(day, 'DD/MM/YYYY')
+      .add(1, 'days')
+      .format('DD/MM/YYYY');
+    setDay(addDay);
+  };
+
+  const handlePressDay = item => {
+    setDay(item.day);
+  };
+
+  const handleGetWeekBaseOnDay = () => {
+    // const weekDays = getWeekDays(day);
+    // console.log('w')
   };
 
   return (
@@ -82,9 +150,7 @@ const Home = () => {
         <TouchableDebounce onPress={handlePrevious}>
           <FastImage source={PreviousImage} style={styles.iconCalendar} />
         </TouchableDebounce>
-        <TextView style={{ fontWeight: 600, fontSize: 20 }}>
-          {moment(new Date()).format('DD/MM/YYYY')}
-        </TextView>
+        <TextView style={{ fontWeight: 600, fontSize: 20 }}>{day}</TextView>
         <TouchableDebounce onPress={handleNext}>
           <FastImage source={NextImage} style={styles.iconCalendar} />
         </TouchableDebounce>
@@ -93,8 +159,14 @@ const Home = () => {
       <View>
         <FlatList
           horizontal
-          data={DAY_IN_WEEK}
-          renderItem={({ item }) => <ItemDay item={item} />}
+          data={dayInWeeks}
+          renderItem={({ item }) => (
+            <ItemDay
+              key={item.day}
+              onPressDay={() => handlePressDay(item)}
+              item={item}
+            />
+          )}
           style={{
             marginTop: 25,
           }}
@@ -141,26 +213,30 @@ const Home = () => {
 
 export default Home;
 
-const ItemDay = ({ item }) => {
+const ItemDay = ({ item, onPressDay }) => {
   return (
-    <View
-      style={[
-        styles.itemDayStyle,
-        {
-          backgroundColor: item.active ? AppTheme.colors.primary_1 : '#f5f5f5',
-        },
-      ]}
-    >
-      <TextView
-        style={{ color: item.active ? 'white' : '#616161', fontWeight: 700 }}
+    <TouchableDebounce onPress={onPressDay}>
+      <View
+        style={[
+          styles.itemDayStyle,
+          {
+            backgroundColor: item.active
+              ? AppTheme.colors.primary_1
+              : '#f5f5f5',
+          },
+        ]}
       >
-        {item.day}
-      </TextView>
-      <TextView
-        style={{ color: item.active ? 'white' : '#616161', fontWeight: 700 }}
-      >
-        {item.value}
-      </TextView>
-    </View>
+        <TextView
+          style={{ color: item.active ? 'white' : '#616161', fontWeight: 700 }}
+        >
+          {item.title}
+        </TextView>
+        <TextView
+          style={{ color: item.active ? 'white' : '#616161', fontWeight: 700 }}
+        >
+          {item.value}
+        </TextView>
+      </View>
+    </TouchableDebounce>
   );
 };
