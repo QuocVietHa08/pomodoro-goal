@@ -1,5 +1,5 @@
-<div align="center">
-    <img src="./banner.png" alt="Logo" width="100%">
+<div align="center" border>
+    <img src="./banner.png" alt="Logo" width="95%">
 </div>
 
 # The Promodoro Goal Source Code
