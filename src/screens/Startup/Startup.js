@@ -20,10 +20,11 @@ const Startup = ({ navigation }) => {
   useEffect(() => {
     init();
   }, []);
+
   return (
-    <View style={[styles.startupWrapper, Layout.fill, Layout.colCenter]}>
-      <Brand />
-      <ActivityIndicator size={'large'} style={[Gutters.largeVMargin]} />
+    <View style={[styles.startupWrapper]}>
+      <Brand height={300} width={300} />
+      <ActivityIndicator size={'large'} />
     </View>
   );
 };
@@ -34,6 +35,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 100,
   },
 });
 export default Startup;

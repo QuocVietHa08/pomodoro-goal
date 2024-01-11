@@ -3,19 +3,15 @@ import { View, Image } from 'react-native';
 import { useTheme } from '../../hooks';
 import logo from '../../assets/images/logo.png';
 import { StyleSheet } from 'react-native';
+import FastImage from 'react-native-fast-image';
 const Brand = ({ height, width, mode }) => {
-  const { Layout, Images } = useTheme();
   return (
     <View
       testID={'brand-img-wrapper'}
       style={[styles.brandWrapper, { height, width }]}
     >
-      <Image
-        testID={'brand-img'}
-        style={Layout.fullSize}
-        source={logo}
-        resizeMode={mode}
-      />
+      <FastImage source={logo} style={{ height, width }} />
+      {/* <Image testID={'brand-img'} source={logo} resizeMode={mode} /> */}
     </View>
   );
 };
@@ -28,8 +24,8 @@ Brand.defaultProps = {
 const styles = StyleSheet.create({
   brandWrapper: {
     backgroundColor: 'white',
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 300,
     borderRadius: 50,
   },
 });
