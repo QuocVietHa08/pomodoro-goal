@@ -43,4 +43,33 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  customeCalendarWrapper: {
+    width: '100%',
+  },
+  itemEventWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    marginBottom: 10,
+    paddingHorizontal: 20,
+  },
+  itemCalendarStyle: {
+    backgroundColor: AppTheme.colors.primary_1,
+    width: '70%',
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    borderRadius: 20,
+  },
+  itemCalendarTitle: {
+    color: AppTheme.colors.white,
+    fontSize: AppTheme.fontSize.s16,
+    fontWeight: '600',
+    marginBottom: 10,
+  },
+  itemCalendarTimeTextStyle: {
+    color: AppTheme.colors.white,
+    fontSize: AppTheme.fontSize.s14,
+    marginLeft: 0,
+  },
 });

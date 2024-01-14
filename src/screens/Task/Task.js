@@ -13,49 +13,50 @@ import moment from 'moment';
 import { AppTheme } from 'src/utils/appConstant';
 import { ScrollView } from 'react-native-gesture-handler';
 import EmptyTaskImage from 'src/assets/images/task/emptyTask.png';
+import CustomCalendar from './CustomCalendar';
 
 const DAY_IN_WEEK = [
   {
     title: 'M',
     value: '10',
-    active: true,
   },
   {
     title: 'T',
     value: '11',
-    active: false,
   },
   {
     title: 'W',
     value: '12',
-    active: false,
   },
   {
     title: 'T',
     value: '13',
-    active: false,
   },
   {
     title: 'F',
     value: '14',
-    active: false,
   },
   {
     title: 'S',
     value: '15',
-    active: false,
   },
   {
     title: 'S',
     value: '16',
-    active: false,
   },
 ];
 
 const mockData = [];
 
 const Home = () => {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([
+    {
+      time: '07:00 AM',
+      event: 'Learn UI Design',
+      category: 'study',
+      duration: 1,
+    },
+  ]);
   const [dayInWeeks, setDayInWeeks] = useState(DAY_IN_WEEK);
   const [day, setDay] = useState(moment(new Date()).format('DD/MM/YYYY'));
 
@@ -84,13 +85,17 @@ const Home = () => {
     }
   };
   const getWeekDays = date => {
-    const startOfWeek = moment(date, 'DD/MM/YYYY')
-      .startOf('week')
-      .add(1, 'day');
-    const endOfWeek = moment(date, 'DD/MM/YYYY').endOf('week');
-
+    let startOfWeek = moment(date, 'DD/MM/YYYY').startOf('week').add(1, 'day');
+    let endOfWeek = moment(date, 'DD/MM/YYYY').endOf('week').add(1, 'day');
     let days = [];
     let dayStartOfWeek = startOfWeek;
+
+    console.log('start of week:', startOfWeek);
+    console.log(
+      'start fo week fix:',
+      moment(date, 'DD/MM/YYYY').startOf('week'),
+    );
+    console.log('end or week:', endOfWeek);
 
     while (dayStartOfWeek <= endOfWeek) {
       const addDay = {
@@ -98,7 +103,6 @@ const Home = () => {
           moment(dayStartOfWeek, 'DD/MM/YYYY').format('dddd'),
         ),
         value: moment(dayStartOfWeek, 'DD/MM/YYYY').format('DD'),
-        active: moment(dayStartOfWeek).format('DD/MM/YYYY') === day,
         day: moment(dayStartOfWeek, 'DD/MM/YYYY').format('DD/MM/YYYY'),
       };
 
@@ -112,20 +116,24 @@ const Home = () => {
   useEffect(() => {
     const weekDays = getWeekDays(day);
     setDayInWeeks(weekDays);
-  }, [day]);
+  }, []);
 
   const handlePrevious = () => {
     const minusDay = moment(day, 'DD/MM/YYYY')
-      .subtract(1, 'days')
+      .subtract(7, 'days')
       .format('DD/MM/YYYY');
     setDay(minusDay);
+    const weekDays = getWeekDays(minusDay, 'previous');
+    setDayInWeeks(weekDays);
   };
 
   const handleNext = () => {
     const addDay = moment(day, 'DD/MM/YYYY')
-      .add(1, 'days')
+      .add(7, 'days')
       .format('DD/MM/YYYY');
     setDay(addDay);
+    const weekDays = getWeekDays(addDay);
+    setDayInWeeks(weekDays);
   };
 
   const handlePressDay = item => {
@@ -163,6 +171,7 @@ const Home = () => {
           renderItem={({ item }) => (
             <ItemDay
               key={item.day}
+              choosingDay={day}
               onPressDay={() => handlePressDay(item)}
               item={item}
             />
@@ -186,7 +195,7 @@ const Home = () => {
           alignItems: 'center',
         }}
       >
-        {tasks?.length === 0 && (
+        {tasks?.length === 0 ? (
           <View style={styles.emptyTask}>
             <FastImage
               source={EmptyTaskImage}
@@ -205,6 +214,8 @@ const Home = () => {
             </TextView>
             <TextView>Click the (+) icon to add a new task</TextView>
           </View>
+        ) : (
+          <CustomCalendar events={tasks} />
         )}
       </ScrollView>
     </View>
@@ -213,26 +224,31 @@ const Home = () => {
 
 export default Home;
 
-const ItemDay = ({ item, onPressDay }) => {
+const ItemDay = ({ item, onPressDay, choosingDay }) => {
   return (
     <TouchableDebounce onPress={onPressDay}>
       <View
         style={[
           styles.itemDayStyle,
           {
-            backgroundColor: item.active
-              ? AppTheme.colors.primary_1
-              : '#f5f5f5',
+            backgroundColor:
+              item.day === choosingDay ? AppTheme.colors.primary_1 : '#f5f5f5',
           },
         ]}
       >
         <TextView
-          style={{ color: item.active ? 'white' : '#616161', fontWeight: 700 }}
+          style={{
+            color: item.day === choosingDay ? 'white' : '#616161',
+            fontWeight: 700,
+          }}
         >
           {item.title}
         </TextView>
         <TextView
-          style={{ color: item.active ? 'white' : '#616161', fontWeight: 700 }}
+          style={{
+            color: item.day === choosingDay ? 'white' : '#616161',
+            fontWeight: 700,
+          }}
         >
           {item.value}
         </TextView>
