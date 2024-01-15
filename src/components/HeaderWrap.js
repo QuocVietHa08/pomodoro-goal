@@ -23,19 +23,33 @@ const HeaderWrap = ({
 }) => {
   const handleRenderBackMode = useCallback(() => {
     return (
-      <TouchableDebounce
-        style={styles.backButtonStyle}
-        onPress={() => goBack()}
-      >
-        <FastImage
-          source={IconBack}
-          resizeMode="contain"
-          style={{ height: 20, width: 20 }}
-        />
-        <TextView style={styles.backButtonText}>{titleBack}</TextView>
-      </TouchableDebounce>
+      <View style={styles.headerWrapper}>
+        <TouchableDebounce
+          style={styles.backButtonStyle}
+          onPress={() => goBack()}
+        >
+          <FastImage
+            source={IconBack}
+            resizeMode="contain"
+            style={{ height: 20, width: 20 }}
+          />
+          <TextView style={styles.backButtonText}>{titleBack}</TextView>
+        </TouchableDebounce>
+        <View style={styles.rightComponentWrapper}>
+          {rightIcons && (
+            <TouchableDebounce onPress={onRightPress}>
+              <FastImage
+                source={rightIcons}
+                resizeMode="contain"
+                style={[{ height: 30, width: 30 }, rightIconStyle]}
+              />
+            </TouchableDebounce>
+          )}
+        </View>
+      </View>
     );
   }, []);
+
   return (
     <View style={[styles.containerStyle, containerStyle]}>
       {isBackMode ? (

@@ -11,6 +11,7 @@ import {
   Notification,
   Timer,
   NewTask,
+  Category,
 } from '../../screens';
 import { Platform } from 'react-native';
 import AppBottomTab from './AppBottomTab';
@@ -55,6 +56,11 @@ const ApplicationNavigator = props => {
         name={RouteName.Timer}
         options={screenOptions}
         component={Timer}
+      />
+      <Stack.Screen
+        name={RouteName.Category}
+        options={screenOptions}
+        component={Category}
       />
     </>
   );

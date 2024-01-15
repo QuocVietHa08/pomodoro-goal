@@ -5,6 +5,7 @@ import styles from './Task.styles';
 import HeaderWrap from 'src/components/HeaderWrap';
 import LogoImage from 'src/assets/images/logo.png';
 import SearchImage from 'src/assets/images/search.png';
+import CategoryImage from 'src/assets/images/task/category.png';
 import FastImage from 'react-native-fast-image';
 import PreviousImage from 'src/assets/images/task/previous.png';
 import NextImage from 'src/assets/images/task/next.png';
@@ -14,6 +15,9 @@ import { AppTheme } from 'src/utils/appConstant';
 import { ScrollView } from 'react-native-gesture-handler';
 import EmptyTaskImage from 'src/assets/images/task/emptyTask.png';
 import CustomCalendar from './CustomCalendar';
+import { mockCalendarData } from './constant';
+import { navigate } from 'src/navigators/NavigationServices';
+import RouteName from 'src/navigators/RouteName';
 
 const DAY_IN_WEEK = [
   {
@@ -46,22 +50,19 @@ const DAY_IN_WEEK = [
   },
 ];
 
-const mockData = [];
-
 const Home = () => {
-  const [tasks, setTasks] = useState([
-    {
-      time: '07:00 AM',
-      event: 'Learn UI Design',
-      category: 'study',
-      duration: 1,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
   const [dayInWeeks, setDayInWeeks] = useState(DAY_IN_WEEK);
   const [day, setDay] = useState(moment(new Date()).format('DD/MM/YYYY'));
 
-  const handleSearchTask = () => {
-    console.log('handle search task');
+  useEffect(() => {
+    if (mockCalendarData?.length > 0) {
+      setTasks(mockCalendarData);
+    }
+  }, [mockCalendarData]);
+
+  const handleRedirectToCategoryPage = () => {
+    navigate(RouteName.Category);
   };
 
   const handleSwitchDay = day => {
@@ -89,14 +90,6 @@ const Home = () => {
     let endOfWeek = moment(date, 'DD/MM/YYYY').endOf('week').add(1, 'day');
     let days = [];
     let dayStartOfWeek = startOfWeek;
-
-    console.log('start of week:', startOfWeek);
-    console.log(
-      'start fo week fix:',
-      moment(date, 'DD/MM/YYYY').startOf('week'),
-    );
-    console.log('end or week:', endOfWeek);
-
     while (dayStartOfWeek <= endOfWeek) {
       const addDay = {
         title: handleSwitchDay(
@@ -150,9 +143,9 @@ const Home = () => {
       <HeaderWrap
         leftTitle="Promodoro Task"
         leftIcon={LogoImage}
-        rightIcons={SearchImage}
+        rightIcons={CategoryImage}
         leftIconStyle={styles.headerIconLeft}
-        onRightPress={handleSearchTask}
+        onRightPress={handleRedirectToCategoryPage}
       />
       <View style={styles.calendarStyle}>
         <TouchableDebounce onPress={handlePrevious}>
@@ -179,12 +172,7 @@ const Home = () => {
           style={{
             marginTop: 25,
           }}
-          contentContainerStyle={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '100%',
-          }}
+          contentContainerStyle={styles.dayPickStyle}
         />
       </View>
 

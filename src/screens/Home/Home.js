@@ -5,6 +5,7 @@ import styles from './Home.styles';
 import HeaderWrap from 'src/components/HeaderWrap';
 import LogoImage from 'src/assets/images/logo.png';
 import BellImage from 'src/assets/images/bell.png';
+import newScope from 'src/assets/images/bottomTab/newScope.png';
 import HandIcon from 'src/assets/images/hand.png';
 import FastImage from 'react-native-fast-image';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
