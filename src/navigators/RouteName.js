@@ -17,4 +17,5 @@ export default {
   NewTask: 'NewTask',
   Timer: 'Timer',
   CreateNewTask: 'CreateNewTask',
+  Category: 'Category',
 };

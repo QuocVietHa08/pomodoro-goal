@@ -16,6 +16,12 @@ export default StyleSheet.create({
     width: 20,
     height: 20,
   },
+  dayPickStyle: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
   calendarStyle: {
     marginTop: 20,
     display: 'flex',
@@ -55,7 +61,6 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
   },
   itemCalendarStyle: {
-    backgroundColor: AppTheme.colors.primary_1,
     width: '70%',
     paddingHorizontal: 20,
     paddingVertical: 20,

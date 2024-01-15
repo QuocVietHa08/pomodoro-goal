@@ -14,3 +14,4 @@ export { default as Statistics } from './Statistics/Statistics';
 export { default as Profile } from './Profile/Profile';
 export { default as Timer } from './Timer/Timer';
 export { default as NewTask } from './NewTask/NewTask';
+export { default as Category } from './Category/Category';
