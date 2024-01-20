@@ -95,6 +95,11 @@ const styles = StyleSheet.create({
     width: '50%',
     height: '50%',
   },
+  modalCategoryTitle: {
+    display: 'flex',
+    justifyContent: 'center',
+    position: 'relative',
+  },
 });
 
 export default styles;

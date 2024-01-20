@@ -3,18 +3,21 @@ export const categories = [
     id: 1,
     label: 'Study',
     value: 'study',
+    name: 'Study',
     color: '#ff555d',
   },
   {
     id: 2,
     label: 'Work',
     value: 'work',
+    name: 'Work',
     color: '#22c065',
   },
   {
     id: 3,
     label: 'Workout',
     value: 'workout',
+    name: 'Workout',
     color: '#714dff',
   },
 ];
