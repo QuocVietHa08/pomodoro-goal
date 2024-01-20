@@ -3,8 +3,6 @@ import React from 'react';
 import RouteName from '../RouteName';
 import { Home, Statistics, Task, Profile, NewTask } from 'src/screens';
 import { screenOptions } from '../constants';
-import { View } from 'react-native';
-import TextView from 'src/components/TextView';
 import CustomAppTabBar from './CustomAppTabBar';
 
 const Tab = createBottomTabNavigator();
@@ -36,14 +34,6 @@ const AppBottomTab = () => {
       component: Profile,
       title: 'Profile',
     },
-    // {
-    //   name: RouteName.CreateNewTask,
-    //   component: NewTask,
-    //   title: '',
-    //   options: {
-    //     unmountOnBlur: true,
-    //   },
-    // },
   ];
 
   const renderTab = item => {
