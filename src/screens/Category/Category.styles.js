@@ -1,3 +1,4 @@
+import { includes } from 'lodash';
 import { StyleSheet } from 'react-native';
 import { AppTheme } from 'src/utils/appConstant';
 
@@ -32,16 +33,67 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   modalAddCategory: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#fff',
     borderRadius: 5,
     padding: 15,
   },
+  modalInputWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  inputStyle: {
+    width: '100%',
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginVertical: 20,
+  },
+  modalColorPickWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  colorPickerItem: {
+    width: 27,
+    height: 27,
+  },
+  modalButtonWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   buttonSave: {
+    width: '45%',
     backgroundColor: AppTheme.colors.primary_1,
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
     marginTop: 10,
+  },
+  buttonCancel: {
+    width: '45%',
+    backgroundColor: AppTheme.colors.neutral_50,
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  modalCategoryStyle: {
+    width: '50%',
+    height: '50%',
   },
 });
 
