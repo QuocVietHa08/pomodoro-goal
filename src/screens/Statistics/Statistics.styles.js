@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet } from 'react-native';
 import { AppTheme } from 'src/utils/appConstant';
 
@@ -30,21 +29,43 @@ const styles = StyleSheet.create({
     minHeight: 40,
     borderRadius: 8,
     paddingHorizontal: 12,
-    borderWidth: 1,
+    borderWidth: 2,
+    borderColor: AppTheme.colors.primary_1,
   },
   dropDownContainerStyle: {
     width: '100%',
     maxHeight: 200,
     borderWidth: 1,
-    borderColor: AppTheme.colors.neutral_60,
+    borderColor: AppTheme.colors.primary_1,
     marginTop: 6,
     borderRadius: 8,
     zIndex: 9999,
-    top: 0, //to fix gap between label box and container
+    top: 0,
     paddingLeft: AppTheme.gapSize.s10,
+    color: AppTheme.colors.primary_1,
   },
   dropContainerStyle: {
-    width: '30%',
+    width: '35%',
+    color: AppTheme.colors.primary_1,
+    borderColor: AppTheme.colors.primary_1,
+  },
+  lineGraphWrap: {
+    width: '100%',
+    height: 220,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 25,
+  },
+  lineGraphStyle: {
+    width: '100%',
+    height: '100%',
+  },
+  taskTextWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
   },
 });
 
