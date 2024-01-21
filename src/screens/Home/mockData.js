@@ -7,6 +7,7 @@ export const tasks = [
     workingSession: 2,
     longBreak: 15,
     shortBreak: 5,
+    status: 'new',
   },
   {
     title: 'Editing Audio',
@@ -16,6 +17,7 @@ export const tasks = [
     workingSession: 3,
     longBreak: 15,
     shortBreak: 5,
+    status: 'new',
   },
   {
     title: 'Learning Programming',
@@ -25,6 +27,7 @@ export const tasks = [
     workingSession: 2,
     longBreak: 15,
     shortBreak: 5,
+    status: 'new',
   },
   {
     title: 'Dumbbell Exercise',
@@ -34,6 +37,7 @@ export const tasks = [
     workingSession: 2,
     longBreak: 15,
     shortBreak: 5,
+    status: 'new',
   },
   {
     title: 'Tech Exploration',
@@ -43,6 +47,7 @@ export const tasks = [
     workingSession: 2,
     longBreak: 15,
     shortBreak: 5,
+    status: 'new',
   },
   {
     title: 'Meditation',
@@ -52,6 +57,7 @@ export const tasks = [
     workingSession: 2,
     longBreak: 15,
     shortBreak: 5,
+    status: 'new',
   },
   {
     title: 'Running',
@@ -61,6 +67,7 @@ export const tasks = [
     workingSession: 2,
     longBreak: 15,
     shortBreak: 5,
+    status: 'new',
   },
   {
     title: 'Work',
@@ -70,6 +77,7 @@ export const tasks = [
     workingSession: 2,
     longBreak: 15,
     shortBreak: 5,
+    status: 'new',
   },
   {
     title: 'Write blog',
@@ -79,5 +87,6 @@ export const tasks = [
     workingSession: 2,
     longBreak: 15,
     shortBreak: 5,
+    status: 'new',
   },
 ];

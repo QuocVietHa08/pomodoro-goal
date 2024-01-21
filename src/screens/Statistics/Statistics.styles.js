@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     width: '35%',
     color: AppTheme.colors.primary_1,
     borderColor: AppTheme.colors.primary_1,
+    zIndex: 9999,
   },
   lineGraphWrap: {
     width: '100%',
@@ -56,6 +57,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 25,
+    position: 'relative',
+    zIndex: -1,
   },
   lineGraphStyle: {
     width: '100%',

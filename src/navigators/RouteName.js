@@ -18,4 +18,5 @@ export default {
   Timer: 'Timer',
   CreateNewTask: 'CreateNewTask',
   Category: 'Category',
+  AllCompletedTask: 'AllCompletedTask',
 };
