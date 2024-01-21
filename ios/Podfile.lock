@@ -382,6 +382,11 @@ PODS:
     - React-Core
   - react-native-safe-area-context (4.7.4):
     - React-Core
+  - react-native-skia (0.1.234):
+    - RCT-Folly (= 2021.07.22.00)
+    - React
+    - React-callinvoker
+    - React-Core
   - react-native-slider (4.5.0):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
@@ -573,6 +578,7 @@ DEPENDENCIES:
   - react-native-flipper (from `../node_modules/react-native-flipper`)
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - "react-native-skia (from `../node_modules/@shopify/react-native-skia`)"
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -678,6 +684,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-mmkv"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-skia:
+    :path: "../node_modules/@shopify/react-native-skia"
   react-native-slider:
     :path: "../node_modules/@react-native-community/slider"
   React-NativeModulesApple:
@@ -778,6 +786,7 @@ SPEC CHECKSUMS:
   react-native-flipper: 54df9001d6236e4048d941043b41a9ef47f85981
   react-native-mmkv: e97c0c79403fb94577e5d902ab1ebd42b0715b43
   react-native-safe-area-context: 2cd91d532de12acdb0a9cbc8d43ac72a8e4c897c
+  react-native-skia: 60202ab85d2ea2f90f9e3d70f4dcb00fd589e72e
   react-native-slider: cc89964e1432fa31aa9db7a0fa9b21e26b5d5152
   React-NativeModulesApple: a95134487a26bbfd83326f8d7af335739cb17421
   React-perflogger: 3d501f34c8d4b10cb75f348e43591765788525ad
