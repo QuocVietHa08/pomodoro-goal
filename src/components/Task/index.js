@@ -16,12 +16,27 @@ import Writing from 'src/assets/images/task/writing.png';
 import { AppTheme } from 'src/utils/appConstant';
 import { navigate } from 'src/navigators/NavigationServices';
 import RouteName from 'src/navigators/RouteName';
+import moment from 'moment';
 
-const TaskComponent = ({ title, type, workingSession, category }) => {
+const TaskComponent = ({
+  title,
+  type,
+  workingSession,
+  category,
+  status,
+  startTime,
+  longBreak,
+  shortBreak,
+}) => {
   const duration = workingSession * 25;
   const handleStartTimer = () => {
     navigate(RouteName.Timer, { title, type, workingSession, category });
   };
+  const totalMinute =
+    workingSession * 25 + longBreak + shortBreak * (workingSession - 1);
+  const endTime = moment(startTime, 'HH:mm:ss')
+    .add(totalMinute, 'minutes')
+    .format('HH:mm');
 
   const handleRenderImage = cate => {
     const CATEGORIES = {
@@ -51,12 +66,23 @@ const TaskComponent = ({ title, type, workingSession, category }) => {
         />
         <View>
           <TextView style={styles.taskTitle}>{title}</TextView>
-          <TextView>{duration} minutes</TextView>
+          {status === 'new' && <TextView>{duration} minutes</TextView>}
+          {status === 'completed' && <TextView>{category}</TextView>}
         </View>
       </View>
-      <TouchableDebounce onPress={handleStartTimer} style={styles.playButton}>
-        <View style={styles.playIcon} />
-      </TouchableDebounce>
+      {status === 'new' && (
+        <TouchableDebounce onPress={handleStartTimer} style={styles.playButton}>
+          <View style={styles.playIcon} />
+        </TouchableDebounce>
+      )}
+      {status === 'completed' && (
+        <View style={styles.taskCompletedText}>
+          <TextView style={styles.totalTimeText}>{totalMinute} mins</TextView>
+          <TextView>
+            {moment(startTime, 'HH:mm:ss').format('HH:mm')} - {endTime}
+          </TextView>
+        </View>
+      )}
     </View>
   );
 };
@@ -116,5 +142,13 @@ const styles = StyleSheet.create({
         rotate: '90deg',
       },
     ],
+  },
+  taskCompletedText: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  totalTimeText: {
+    fontWeight: 600,
+    fontSize: AppTheme.fontSize.s14,
   },
 });

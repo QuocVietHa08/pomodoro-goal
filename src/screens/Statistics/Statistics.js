@@ -9,12 +9,17 @@ import RouteName from 'src/navigators/RouteName';
 import TextView from 'src/components/TextView';
 import { AppTheme } from 'src/utils/appConstant';
 import DropDownPicker from 'react-native-dropdown-picker';
-import moment from 'moment';
 import { LineChart } from 'react-native-chart-kit';
 import TouchableDebounce from 'src/components/TouchableDebounce';
-import { tasks } from '../Home/mockData';
+import { tasks } from './mockData';
 import Task from 'src/components/Task';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  CURRENT_DAY_DATA,
+  THIS_WEEK_DATA,
+  THIS_MONTH_DATA,
+  THIS_YEAR_DATA,
+} from './mockData';
 
 const data = [
   {
@@ -23,32 +28,39 @@ const data = [
   },
   {
     label: 'This Week',
-    value: 'thisWeek',
+    value: 'week',
   },
   {
     label: 'This Month',
-    value: 'thisMonth',
+    value: 'month',
   },
   {
     label: 'This Year',
-    value: 'thisYear',
-  },
-  {
-    label: 'All Time',
-    value: 'allTime',
+    value: 'year',
   },
 ];
 
-const GRAPH_POINTS = [
-  { value: 1, date: new Date('2024-01-21') },
-  { value: 2, date: new Date('2024-01-20') },
-  { value: 3, date: new Date('2024-01-19') },
-];
+const DEFAUTL_STATISTICS_DATA = {
+  labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+  datasets: [
+    {
+      data: [
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+      ],
+    },
+  ],
+};
 const Statistics = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState(data);
+  const [statisticsData, setStatisticsData] = useState(DEFAUTL_STATISTICS_DATA);
 
   useEffect(() => {
     if (refreshing) {
@@ -58,6 +70,32 @@ const Statistics = () => {
     }
   }, [refreshing]);
 
+  const handleSetStatisticData = valueDropdown => {
+    console.log('value drop down:', valueDropdown);
+    switch (valueDropdown) {
+      case 'today':
+        setStatisticsData(CURRENT_DAY_DATA);
+        break;
+      case 'week':
+        setStatisticsData(THIS_WEEK_DATA);
+        break;
+      case 'month':
+        setStatisticsData(THIS_MONTH_DATA);
+        break;
+      case 'year':
+        setStatisticsData(THIS_YEAR_DATA);
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (value) {
+      handleSetStatisticData(value);
+    }
+  }, [value]);
+
   const onRefresh = () => {
     setRefreshing(true);
   };
@@ -66,8 +104,8 @@ const Statistics = () => {
     navigate(RouteName.Notification);
   };
 
-  const handleNavigateTodayTask = () => {
-    navigate(RouteName.TodayTask);
+  const handleNavigateAllCompletedTask = () => {
+    navigate(RouteName.AllCompletedTask);
   };
 
   return (
@@ -113,21 +151,7 @@ const Statistics = () => {
       </View>
       <View style={styles.lineGraphWrap}>
         <LineChart
-          data={{
-            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-            datasets: [
-              {
-                data: [
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                ],
-              },
-            ],
-          }}
+          data={statisticsData}
           width={Dimensions.get('window').width}
           height={220}
           chartConfig={{
@@ -158,9 +182,9 @@ const Statistics = () => {
               fontSize: AppTheme.fontSize.s16,
             }}
           >
-            Today Task (16)
+            Today, January 21
           </TextView>
-          <TouchableDebounce onPress={handleNavigateTodayTask}>
+          <TouchableDebounce onPress={handleNavigateAllCompletedTask}>
             <TextView
               style={{
                 color: '#ff6569',

@@ -12,6 +12,7 @@ import {
   Timer,
   NewTask,
   Category,
+  AllCompletedTask,
 } from '../../screens';
 import { Platform } from 'react-native';
 import AppBottomTab from './AppBottomTab';
@@ -61,6 +62,11 @@ const ApplicationNavigator = props => {
         name={RouteName.Category}
         options={screenOptions}
         component={Category}
+      />
+      <Stack.Screen
+        name={RouteName.AllCompletedTask}
+        options={screenOptions}
+        component={AllCompletedTask}
       />
     </>
   );
