@@ -5,22 +5,21 @@ import TextView from 'src/components/TextView';
 import Button from 'src/components/Button';
 import { View } from 'react-native-reanimated/mock';
 import { AppTheme } from 'src/utils/appConstant';
+import TaskComp from 'src/components/Task';
 
-const ModalDeleteTask = ({ open, setOpen, onDelete, item }) => {
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+const ModalDeleteTask = ({ open, handleClose, onDelete, item }) => {
   return (
     <Modal
       isVisible={open}
       style={styles.view}
-      onSwipeComplete={() => setOpen(false)}
       swipeDirection={['up', 'left', 'right', 'down']}
     >
       <View style={styles.modalContentWrap}>
         <View style={styles.modalContent}>
-          <TextView>hellos</TextView>
+          <TextView style={styles.modalTitle}>Delete Task</TextView>
+          <View style={styles.taskInfoWrap}>
+            <TaskComp {...item} />
+          </View>
         </View>
         <View style={styles.buttonWrap}>
           <Button
@@ -49,14 +48,22 @@ const styles = StyleSheet.create({
   },
   modalContentWrap: {
     width: '100%',
-    height: '40%',
-    backgroundColor: 'white',
+    height: '30%',
+    backgroundColor: '#fefefe',
+    // backgroundColor: '#ccc',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
   },
   modalContent: {
-    height: '70%',
-    // backgroundColor: 'red',
+    height: '65%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  modalTitle: {
+    color: AppTheme.colors.primary_1,
+    fontWeight: 700,
+    fontSize: AppTheme.fontSize.s20,
+    marginTop: 30,
   },
   buttonWrap: {
     display: 'flex',
@@ -83,5 +90,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
+  },
+  taskInfoWrap: {
+    width: '90%',
   },
 });

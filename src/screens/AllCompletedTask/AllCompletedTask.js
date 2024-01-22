@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import { View } from 'react-native';
 import styles from './AllCompletedTask.styles';
 import HeaderWrap from 'src/components/HeaderWrap';
@@ -14,8 +14,10 @@ import ModalDeleteTask from './ModalDeleteTask';
 const TodayTask = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
+  const [itemChooese, setItemChoose] = useState(null);
+  const [prevOpenedRow, setPrevOpenedRow] = useState(null);
+
   let row = [];
-  let prevOpenedRow;
 
   useEffect(() => {
     if (refreshing) {
@@ -29,23 +31,30 @@ const TodayTask = () => {
     setRefreshing(true);
   };
 
-  const handleOpenModalDelete = id => {
-    console.log('item', id);
+  const handleOpenModalDelete = item => {
     setOpenModalDelete(true);
+    setItemChoose(item);
+  };
+
+  const handleCloseModalDeleteItem = () => {
+    prevOpenedRow.close();
+    setTimeout(() => {
+      setOpenModalDelete(false);
+    }, 100);
   };
 
   const handleDeteleItem = () => {
     setOpenModalDelete(false);
   };
 
-  const renderItem = ({ item, index }, onClick) => {
-    const closeRow = index => {
-      if (prevOpenedRow && prevOpenedRow !== row[index]) {
-        prevOpenedRow.close();
-      }
-      prevOpenedRow = row[index];
-    };
+  const closeRow = index => {
+    if (prevOpenedRow && prevOpenedRow !== row[index]) {
+      prevOpenedRow.close();
+    }
+    setPrevOpenedRow(row[index]);
+  };
 
+  const renderItem = ({ item, index }, onClick) => {
     const renderRightActions = (progress, dragX, onClick) => {
       return (
         <TouchableDebounce onPress={onClick}>
@@ -85,7 +94,7 @@ const TodayTask = () => {
         data={tasks}
         renderItem={({ item, index }) =>
           renderItem({ item, index }, () => {
-            handleOpenModalDelete(item.title);
+            handleOpenModalDelete(item);
           })
         }
         keyExtractor={item => item.title}
@@ -93,7 +102,8 @@ const TodayTask = () => {
       <ModalDeleteTask
         onDelete={handleDeteleItem}
         open={openModalDelete}
-        setOpen={setOpenModalDelete}
+        handleClose={handleCloseModalDeleteItem}
+        item={itemChooese}
       />
     </View>
   );
