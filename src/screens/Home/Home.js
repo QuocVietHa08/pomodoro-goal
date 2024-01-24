@@ -49,64 +49,61 @@ const Home = () => {
         leftIconStyle={styles.headerIconLeft}
         onRightPress={handleHeaderRightPress}
       />
-      <View style={styles.titleWrapper}>
-        <TextView style={styles.homeTitle}>Moring, Edward Ha</TextView>
-        <FastImage
-          source={HandIcon}
-          style={{
-            width: 30,
-            height: 30,
-          }}
-        />
-      </View>
-
-      <View style={styles.progressWrapper}>
-        <AnimatedCircularProgress
-          size={80}
-          width={10}
-          fill={75}
-          tintColor="#ff6569"
-          onAnimationComplete={() => console.log('onAnimationComplete')}
-          backgroundColor="#eee"
-        >
-          {fill => <Text style={{ fontWeight: 600 }}>75%</Text>}
-        </AnimatedCircularProgress>
-        <View>
-          <TextView style={styles.processTitle}>
-            Wow! Your daily {'\n'} goals is almost done
-          </TextView>
-          <TextView style={styles.processText}>12 of 16 completed!</TextView>
+      <ScrollView>
+        <View style={styles.titleWrapper}>
+          <TextView style={styles.homeTitle}>Moring, Edward Ha</TextView>
+          <FastImage
+            source={HandIcon}
+            style={{
+              width: 30,
+              height: 30,
+            }}
+          />
         </View>
-      </View>
 
-      <View style={styles.taskTextWrapper}>
-        <TextView
-          style={{
-            fontWeight: 600,
-            fontSize: AppTheme.fontSize.s16,
-          }}
-        >
-          Today Task (16)
-        </TextView>
-        <TouchableDebounce onPress={handleNavigateTodayTask}>
+        <View style={styles.progressWrapper}>
+          <AnimatedCircularProgress
+            size={80}
+            width={10}
+            fill={75}
+            tintColor="#ff6569"
+            onAnimationComplete={() => console.log('onAnimationComplete')}
+            backgroundColor="#eee"
+          >
+            {fill => <Text style={{ fontWeight: 600 }}>75%</Text>}
+          </AnimatedCircularProgress>
+          <View>
+            <TextView style={styles.processTitle}>
+              Wow! Your daily {'\n'} goals is almost done
+            </TextView>
+            <TextView style={styles.processText}>12 of 16 completed!</TextView>
+          </View>
+        </View>
+
+        <View style={styles.taskTextWrapper}>
           <TextView
             style={{
-              color: '#ff6569',
-              fontWeight: 700,
+              fontWeight: 600,
+              fontSize: AppTheme.fontSize.s16,
             }}
           >
-            See All
+            Today Task (16)
           </TextView>
-        </TouchableDebounce>
-      </View>
-      <SafeAreaView edges={['left', 'right']}>
-        <FlatList
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-          data={tasks}
-          renderItem={({ item }) => <Task {...item} />}
-        />
-      </SafeAreaView>
+          <TouchableDebounce onPress={handleNavigateTodayTask}>
+            <TextView
+              style={{
+                color: '#ff6569',
+                fontWeight: 700,
+              }}
+            >
+              See All
+            </TextView>
+          </TouchableDebounce>
+        </View>
+        {tasks.map((item, index) => (
+          <Task key={index} {...item} />
+        ))}
+      </ScrollView>
     </View>
   );
 };

@@ -23,30 +23,37 @@ const PROFILE_CONFIG_SCREE_LIST = [
   {
     label: 'Edit Profile',
     icon: ProfileImage,
+    screen: RouteName.EditProfile,
   },
   {
     label: 'App Settings',
     icon: StarImage,
+    screen: RouteName.EditProfile,
   },
   {
     label: 'Notifications',
     icon: BellImage,
+    screen: RouteName.EditProfile,
   },
   {
     label: 'Security',
     icon: ProtectImage,
+    screen: RouteName.EditProfile,
   },
   {
     label: 'Help',
     icon: HelpImage,
+    screen: RouteName.EditProfile,
   },
   {
     label: 'Dark Theme',
     icon: SunImage,
+    screen: RouteName.EditProfile,
   },
   {
     label: 'Logout',
     icon: LogOutImage,
+    screen: RouteName.EditProfile,
   },
 ];
 const Profile = () => {
@@ -73,6 +80,8 @@ const Profile = () => {
         onRightPress={handleHeaderRightPress}
       />
       <View style={styles.contentWrap}>
+        <ScrollView style={{ width: '100%', paddingBottoms: 70}} contentContainerStyle={styles.contentWrap}>
+
         <ProfileAvatar onEditAvatar={handleEditAvatar} info={info} />
         <View style={styles.upgradeToPremiumWrap}>
           <View style={styles.premiumFirstLine}>
@@ -94,12 +103,12 @@ const Profile = () => {
             Enjoy full access app without ads and restrictions
           </TextView>
         </View>
-        <View style={styles.screenWrap}>
-          <FlatList
-            data={PROFILE_CONFIG_SCREE_LIST}
-            renderItem={({ item, index }) => <ScreenItem item={item} />}
-          ></FlatList>
-        </View>
+          <View style={styles.screenWrap}>
+            {PROFILE_CONFIG_SCREE_LIST.map((item, index) => {
+              return <ScreenItem item={item} key={index} />;
+            })}
+          </View>
+          </ScrollView>
       </View>
     </View>
   );

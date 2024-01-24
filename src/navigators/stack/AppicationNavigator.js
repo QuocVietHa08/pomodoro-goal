@@ -13,6 +13,7 @@ import {
   NewTask,
   Category,
   AllCompletedTask,
+  EditProfile,
 } from '../../screens';
 import { Platform } from 'react-native';
 import AppBottomTab from './AppBottomTab';
@@ -67,6 +68,11 @@ const ApplicationNavigator = props => {
         name={RouteName.AllCompletedTask}
         options={screenOptions}
         component={AllCompletedTask}
+      />
+      <Stack.Screen
+        name={RouteName.EditProfile}
+        options={screenOptions}
+        component={EditProfile}
       />
     </>
   );

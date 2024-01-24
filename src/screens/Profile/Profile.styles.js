@@ -9,9 +9,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fcfcfc',
   },
   contentWrap: {
-    height: '100%',
     display: 'flex',
     alignItems: 'center',
+    paddingBottom: 30
   },
   upgradeToPremiumWrap: {
     marginTop: 20 ,
