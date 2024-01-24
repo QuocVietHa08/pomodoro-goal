@@ -99,7 +99,7 @@ const Home = () => {
           </TextView>
         </TouchableDebounce>
       </View>
-      <SafeAreaView>
+      <SafeAreaView edges={['left', 'right']}>
         <FlatList
           refreshing={refreshing}
           onRefresh={onRefresh}

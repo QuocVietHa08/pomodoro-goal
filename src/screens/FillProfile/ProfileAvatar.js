@@ -7,7 +7,7 @@ import FastImage from 'react-native-fast-image';
 import IconEdit from 'src/assets/images/login/ic_edit.png';
 import TouchableDebounce from 'src/components/TouchableDebounce';
 
-const ProfileAvatar = ({ onShowImage, uri, onEditAvatar }) => {
+const ProfileAvatar = ({ onShowImage, uri, onEditAvatar, info }) => {
   return (
     <View style={styles.container}>
       {!uri && (
@@ -22,6 +22,16 @@ const ProfileAvatar = ({ onShowImage, uri, onEditAvatar }) => {
       <TouchableDebounce onPress={onEditAvatar}>
         <FastImage source={IconEdit} style={styles.iconEdit} />
       </TouchableDebounce>
+      {info && (
+        <View style={styles.infoWrap}>
+          <TextView style={{ fontSize: 20, fontWeight: 'bold' }}>
+            {info.name}
+          </TextView>
+          <TextView style={{ fontSize: 14, color: '#999' }}>
+            {info.email}
+          </TextView>
+        </View>
+      )}
     </View>
   );
 };
@@ -42,4 +52,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: 'red',
   },
+  infoWrap: {
+    marginTop: 10,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
