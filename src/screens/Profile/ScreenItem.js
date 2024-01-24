@@ -1,0 +1,45 @@
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import TextView from 'src/components/TextView';
+import TouchableDebounce from 'src/components/TouchableDebounce';
+import { navigate } from 'src/navigators/NavigationServices';
+import { AppTheme } from 'src/utils/appConstant';
+
+
+const ScreenItem = ({item}) => {
+  const onPress = () => {
+    console.log('cehcking---.');
+  }
+  return (
+    <TouchableDebounce onPress={onPress}>
+      <View style={styles.itemWrap}>
+        <FastImage source={item.icon} style={styles.iconStyle}  />
+        <TextView style={[styles.textStyle, {
+          color: item.label === 'Logout' ? AppTheme.colors.primary_1 : 'black'
+        }]}>{item.label}</TextView>
+      </View>
+    </TouchableDebounce>
+  )
+}
+
+export default ScreenItem;
+const styles = StyleSheet.create({
+  itemWrap: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row' ,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    gap: 25,
+    padding: 10,
+    marginVertical: 5,
+  },
+  iconStyle: {
+    width: 25,
+    height: 25,
+  },
+  textStyle: {
+    fontSize: 18,
+  } 
+})
