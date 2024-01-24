@@ -20,6 +20,7 @@ import {
   THIS_MONTH_DATA,
   THIS_YEAR_DATA,
 } from './mockData';
+import { ScrollView } from 'react-native-reanimated/mock';
 
 const data = [
   {
@@ -118,92 +119,90 @@ const Statistics = () => {
         leftIconStyle={styles.headerIconLeft}
         onRightPress={handleHeaderRightPress}
       />
-
-      <View style={styles.statisticsTitleWrap}>
-        <TextView
-          style={{
-            fontSize: AppTheme.fontSize.s20,
-          }}
-        >
-          Your Statistics Graph
-        </TextView>
-        <DropDownPicker
-          showTickIcon={false}
-          showArrowIcon={false}
-          open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-          dropDownContainerStyle={styles.dropDownContainerStyle}
-          textStyle={{
-            color: AppTheme.colors.primary_1,
-            fontWeight: 'bold',
-          }}
-          labelStyle={{
-            color: AppTheme.colors.primary_1,
-            fontWeight: 'bold',
-          }}
-          style={styles.dropdown}
-          containerStyle={styles.dropContainerStyle}
-        />
-      </View>
-      <View style={styles.lineGraphWrap}>
-        <LineChart
-          data={statisticsData}
-          width={Dimensions.get('window').width}
-          height={220}
-          chartConfig={{
-            backgroundColor: '#fff',
-            backgroundGradientFrom: '#fff',
-            backgroundGradientTo: '#fff',
-            decimalPlaces: 2,
-            color: (opacity = 1) => `rgba(255, 98, 103, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(187,187,187, ${opacity})`,
-            style: {
-              borderRadius: 16,
-            },
-            propsForDots: {
-              r: '6',
-              strokeWidth: '2',
-              stroke: '#ffa726',
-            },
-          }}
-          bezier
-          style={styles.lineGraphStyle}
-        />
-      </View>
-      <View>
-        <View style={styles.taskTextWrapper}>
+      <ScrollView>
+        <View style={styles.statisticsTitleWrap}>
           <TextView
             style={{
-              fontWeight: 600,
-              fontSize: AppTheme.fontSize.s16,
+              fontSize: AppTheme.fontSize.s20,
             }}
           >
-            Today, January 21
+            Your Statistics Graph
           </TextView>
-          <TouchableDebounce onPress={handleNavigateAllCompletedTask}>
+          <DropDownPicker
+            showTickIcon={false}
+            showArrowIcon={false}
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            dropDownContainerStyle={styles.dropDownContainerStyle}
+            textStyle={{
+              color: AppTheme.colors.primary_1,
+              fontWeight: 'bold',
+            }}
+            labelStyle={{
+              color: AppTheme.colors.primary_1,
+              fontWeight: 'bold',
+            }}
+            style={styles.dropdown}
+            containerStyle={styles.dropContainerStyle}
+          />
+        </View>
+        <View style={styles.lineGraphWrap}>
+          <LineChart
+            data={statisticsData}
+            width={Dimensions.get('window').width}
+            height={220}
+            chartConfig={{
+              backgroundColor: '#fff',
+              backgroundGradientFrom: '#fff',
+              backgroundGradientTo: '#fff',
+              decimalPlaces: 2,
+              color: (opacity = 1) => `rgba(255, 98, 103, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(187,187,187, ${opacity})`,
+              style: {
+                borderRadius: 16,
+              },
+              propsForDots: {
+                r: '6',
+                strokeWidth: '2',
+                stroke: '#ffa726',
+              },
+            }}
+            bezier
+            style={styles.lineGraphStyle}
+          />
+        </View>
+        <View>
+          <View style={styles.taskTextWrapper}>
             <TextView
               style={{
-                color: '#ff6569',
-                fontWeight: 700,
+                fontWeight: 600,
+                fontSize: AppTheme.fontSize.s16,
               }}
             >
-              See All
+              Today, January 21
             </TextView>
-          </TouchableDebounce>
+            <TouchableDebounce onPress={handleNavigateAllCompletedTask}>
+              <TextView
+                style={{
+                  color: '#ff6569',
+                  fontWeight: 700,
+                }}
+              >
+                See All
+              </TextView>
+            </TouchableDebounce>
+          </View>
+          <View>
+            {tasks.map((item, index) => (
+              <Task key={index} {...item} />
+            ))}
+          </View>
         </View>
-        <SafeAreaView edges={['left', 'right']}>
-          <FlatList
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            data={tasks}
-            renderItem={({ item }) => <Task {...item} />}
-          />
-        </SafeAreaView>
-      </View>
+      </ScrollView>
     </View>
   );
 };

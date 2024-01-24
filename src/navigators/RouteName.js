@@ -19,4 +19,6 @@ export default {
   CreateNewTask: 'CreateNewTask',
   Category: 'Category',
   AllCompletedTask: 'AllCompletedTask',
+  // Profile
+  EditProfile: 'EditProfile',
 };
