@@ -14,6 +14,7 @@ import {
   Category,
   AllCompletedTask,
   EditProfile,
+  AppSetting,
 } from '../../screens';
 import { Platform } from 'react-native';
 import AppBottomTab from './AppBottomTab';
@@ -73,6 +74,11 @@ const ApplicationNavigator = props => {
         name={RouteName.EditProfile}
         options={screenOptions}
         component={EditProfile}
+      />
+      <Stack.Screen
+        name={RouteName.AppSetting}
+        options={screenOptions}
+        component={AppSetting}
       />
     </>
   );
