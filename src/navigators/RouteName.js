@@ -21,4 +21,5 @@ export default {
   AllCompletedTask: 'AllCompletedTask',
   // Profile
   EditProfile: 'EditProfile',
+  AppSetting: 'AppSetting',
 };

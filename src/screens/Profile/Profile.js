@@ -28,7 +28,7 @@ const PROFILE_CONFIG_SCREE_LIST = [
   {
     label: 'App Settings',
     icon: StarImage,
-    screen: RouteName.EditProfile,
+    screen: RouteName.AppSetting,
   },
   {
     label: 'Notifications',
