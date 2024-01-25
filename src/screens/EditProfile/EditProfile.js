@@ -29,6 +29,11 @@ const EditProfile = () => {
   } = useForm({
     resolver: yupResolver(validateSchema),
   });
+
+  const updateProfile = (data) => {
+    console.log('hello ', data);
+  }
+
   return (
     <View style={styles.container}>
       <HeaderWrap isBackMode titleBack="Edit Profile" />
@@ -85,6 +90,7 @@ const EditProfile = () => {
          <Button
             style={[styles.buttonNext, { marginTop: 10 }]}
             textStyle={styles.buttonTextStyle}
+            onPress={handleSubmit(updateProfile)}
             text="Save"
           />
       </View>

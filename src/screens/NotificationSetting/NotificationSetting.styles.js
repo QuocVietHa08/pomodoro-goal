@@ -1,3 +1,4 @@
+import React from 'react';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -30,6 +31,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'semibold',
   },
-});
+})
 
 export default styles;

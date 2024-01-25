@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Profile.styles';
 import { FlatList, ScrollView, View } from 'react-native';
 import TextView from 'src/components/TextView';
@@ -18,6 +18,7 @@ import HelpImage from 'src/assets/images/profile/help.png';
 import SunImage from 'src/assets/images/profile/sun.png';
 import LogOutImage from 'src/assets/images/profile/logout.png';
 import ScreenItem from './ScreenItem';
+import ModalLogout from './ModalLogout';
 
 const PROFILE_CONFIG_SCREE_LIST = [
   {
@@ -33,12 +34,12 @@ const PROFILE_CONFIG_SCREE_LIST = [
   {
     label: 'Notifications',
     icon: BellImage,
-    screen: RouteName.EditProfile,
+    screen: RouteName.NotificationSetting,
   },
   {
     label: 'Security',
     icon: ProtectImage,
-    screen: RouteName.EditProfile,
+    screen: RouteName.Security,
   },
   {
     label: 'Help',
@@ -57,6 +58,8 @@ const PROFILE_CONFIG_SCREE_LIST = [
   },
 ];
 const Profile = () => {
+  const [openModalLogout, setOpenModalLogout] = useState(false);
+
   const info = {
     name: 'Edward Ha',
     email: 'quocvietha08@gmail.com',
@@ -69,6 +72,10 @@ const Profile = () => {
     console.log('handle');
   };
 
+  const handleLogout = () => {
+    setOpenModalLogout(!openModalLogout)
+  }
+
   return (
     <View style={styles.container}>
       <HeaderWrap
@@ -80,7 +87,7 @@ const Profile = () => {
         onRightPress={handleHeaderRightPress}
       />
       <View style={styles.contentWrap}>
-        <ScrollView style={{ width: '100%', paddingBottoms: 70}} contentContainerStyle={styles.contentWrap}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ width: '100%', paddingBottoms: 70}} contentContainerStyle={styles.contentWrap}>
 
         <ProfileAvatar onEditAvatar={handleEditAvatar} info={info} />
         <View style={styles.upgradeToPremiumWrap}>
@@ -105,11 +112,12 @@ const Profile = () => {
         </View>
           <View style={styles.screenWrap}>
             {PROFILE_CONFIG_SCREE_LIST.map((item, index) => {
-              return <ScreenItem item={item} key={index} />;
+              return <ScreenItem onLogout={handleLogout} item={item} key={index} />;
             })}
           </View>
           </ScrollView>
       </View>
+      <ModalLogout open={openModalLogout} handleClose={handleLogout} />
     </View>
   );
 };

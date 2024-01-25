@@ -15,6 +15,9 @@ import {
   AllCompletedTask,
   EditProfile,
   AppSetting,
+  ReminderRingTone,
+  NotificationSetting,
+  Security,
 } from '../../screens';
 import { Platform } from 'react-native';
 import AppBottomTab from './AppBottomTab';
@@ -79,6 +82,21 @@ const ApplicationNavigator = props => {
         name={RouteName.AppSetting}
         options={screenOptions}
         component={AppSetting}
+      />
+      <Stack.Screen
+        name={RouteName.ReminderRingTone}
+        options={screenOptions}
+        component={ReminderRingTone}
+      />
+      <Stack.Screen
+        name={RouteName.NotificationSetting}
+        options={screenOptions}
+        component={NotificationSetting}
+      />
+      <Stack.Screen
+        name={RouteName.Security}
+        options={screenOptions}
+        component={Security}
       />
     </>
   );

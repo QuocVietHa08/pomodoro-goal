@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   input: {
-    marginVertical: 15,
+    marginVertical: 10,
   },
   buttonTextStyle: {
     color: 'white',

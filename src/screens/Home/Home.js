@@ -49,7 +49,7 @@ const Home = () => {
         leftIconStyle={styles.headerIconLeft}
         onRightPress={handleHeaderRightPress}
       />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.titleWrapper}>
           <TextView style={styles.homeTitle}>Moring, Edward Ha</TextView>
           <FastImage
