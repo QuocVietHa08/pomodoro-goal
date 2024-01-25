@@ -19,4 +19,7 @@ export { default as AllCompletedTask } from './AllCompletedTask/AllCompletedTask
 // Profile
 export { default as EditProfile } from './EditProfile/EditProfile';
 export { default as AppSetting } from './AppSetting/AppSetting';
+export { default as ReminderRingTone } from './ReminderRingTone/ReminderRingTone';
+export { default as NotificationSetting } from './NotificationSetting/NotificationSetting';
+export { default as Security } from './Security/Security';
 

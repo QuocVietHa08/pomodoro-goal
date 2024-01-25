@@ -7,10 +7,14 @@ import { navigate } from 'src/navigators/NavigationServices';
 import RouteName from 'src/navigators/RouteName';
 import { AppTheme } from 'src/utils/appConstant';
 
-const ScreenItem = ({ item }) => {
+const ScreenItem = ({ item, onLogout }) => {
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
   const onPress = () => {
+    if (item?.label === 'Logout') {
+      onLogout();
+      return;
+    }
     navigate(item.screen);
   };
 

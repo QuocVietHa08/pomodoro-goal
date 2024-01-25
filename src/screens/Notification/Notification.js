@@ -26,6 +26,7 @@ const Notification = () => {
     <View style={styles.container}>
       <HeaderWrap isBackMode titleBack="Notification" />
       <FlatList
+        showsVerticalScrollIndicator={false}
         refreshing={refreshing}
         onRefresh={onRefresh}
         data={data}

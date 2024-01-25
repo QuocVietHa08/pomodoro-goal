@@ -22,4 +22,8 @@ export default {
   // Profile
   EditProfile: 'EditProfile',
   AppSetting: 'AppSetting',
+  ReminderRingTone: 'ReminderRingTone',
+  NotificationSetting: 'NotificationSetting',
+  Security: 'Security',
+
 };
