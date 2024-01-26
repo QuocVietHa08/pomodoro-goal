@@ -25,5 +25,5 @@ export default {
   ReminderRingTone: 'ReminderRingTone',
   NotificationSetting: 'NotificationSetting',
   Security: 'Security',
-
+  UpgradeApp: 'UpgradeApp',
 };
