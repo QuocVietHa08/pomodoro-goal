@@ -19,6 +19,7 @@ import SunImage from 'src/assets/images/profile/sun.png';
 import LogOutImage from 'src/assets/images/profile/logout.png';
 import ScreenItem from './ScreenItem';
 import ModalLogout from './ModalLogout';
+import TouchableDebounce from 'src/components/TouchableDebounce';
 
 const PROFILE_CONFIG_SCREE_LIST = [
   {
@@ -73,8 +74,13 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    setOpenModalLogout(!openModalLogout)
-  }
+    setOpenModalLogout(!openModalLogout);
+  };
+
+  const handleRedirectToUpgradeApp = () => {
+    console.log('checking');
+    navigate(RouteName.UpgradeApp);
+  };
 
   return (
     <View style={styles.container}>
@@ -87,35 +93,45 @@ const Profile = () => {
         onRightPress={handleHeaderRightPress}
       />
       <View style={styles.contentWrap}>
-        <ScrollView showsVerticalScrollIndicator={false} style={{ width: '100%', paddingBottoms: 70}} contentContainerStyle={styles.contentWrap}>
-
-        <ProfileAvatar onEditAvatar={handleEditAvatar} info={info} />
-        <View style={styles.upgradeToPremiumWrap}>
-          <View style={styles.premiumFirstLine}>
-            <View style={styles.proIcon}>
-              <TextView style={{ color: 'white', fontWeight: 'bold' }}>
-                PRO
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ width: '100%', paddingBottoms: 70 }}
+          contentContainerStyle={styles.contentWrap}
+        >
+          <ProfileAvatar onEditAvatar={handleEditAvatar} info={info} />
+          <TouchableDebounce
+            onPress={handleRedirectToUpgradeApp}
+            style={{ width: '100%' }}
+          >
+            <View style={styles.upgradeToPremiumWrap}>
+              <View style={styles.premiumFirstLine}>
+                <View style={styles.proIcon}>
+                  <TextView style={{ color: 'white', fontWeight: 'bold' }}>
+                    PRO
+                  </TextView>
+                </View>
+                <TextView
+                  style={{ color: 'white', fontWeight: 'bold', fontSize: 18 }}
+                >
+                  Upgrade to Premium
+                </TextView>
+                <View style={styles.nextIconWrap}>
+                  <FastImage source={NextImage} style={styles.nextIcon} />
+                </View>
+              </View>
+              <TextView style={{ color: 'white', fontSize: 14 }}>
+                Enjoy full access app without ads and restrictions
               </TextView>
             </View>
-            <TextView
-              style={{ color: 'white', fontWeight: 'bold', fontSize: 18 }}
-            >
-              Upgrade to Premium
-            </TextView>
-            <View style={styles.nextIconWrap}>
-              <FastImage source={NextImage} style={styles.nextIcon} />
-            </View>
-          </View>
-          <TextView style={{ color: 'white', fontSize: 14 }}>
-            Enjoy full access app without ads and restrictions
-          </TextView>
-        </View>
+          </TouchableDebounce>
           <View style={styles.screenWrap}>
             {PROFILE_CONFIG_SCREE_LIST.map((item, index) => {
-              return <ScreenItem onLogout={handleLogout} item={item} key={index} />;
+              return (
+                <ScreenItem onLogout={handleLogout} item={item} key={index} />
+              );
             })}
           </View>
-          </ScrollView>
+        </ScrollView>
       </View>
       <ModalLogout open={openModalLogout} handleClose={handleLogout} />
     </View>

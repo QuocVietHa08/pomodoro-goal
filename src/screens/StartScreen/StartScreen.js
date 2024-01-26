@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     shadowOffset: { width: 0, height: -3 },
-    // backgroundColor: 'blue',
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 10,

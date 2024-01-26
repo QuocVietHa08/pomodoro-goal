@@ -18,6 +18,7 @@ import {
   ReminderRingTone,
   NotificationSetting,
   Security,
+  UpgradeApp,
 } from '../../screens';
 import { Platform } from 'react-native';
 import AppBottomTab from './AppBottomTab';
@@ -97,6 +98,11 @@ const ApplicationNavigator = props => {
         name={RouteName.Security}
         options={screenOptions}
         component={Security}
+      />
+      <Stack.Screen
+        name={RouteName.UpgradeApp}
+        options={screenOptions}
+        component={UpgradeApp}
       />
     </>
   );
