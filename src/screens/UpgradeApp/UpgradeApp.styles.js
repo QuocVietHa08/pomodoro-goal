@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   titleWrap: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 10,
   },
   mainTitle: {
     fontSize: 50,
@@ -31,6 +31,48 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     position: 'absolute',
+  },
+  simpleButton: {
+    borderRadius: 20,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+  },
+  fireworkStyle: {
+    backgroundColor: 'red',
+  },
+  upgradeOptionsWrap: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: 30,
+    // backgroundColor: 'red',
+    width: '100%',
+  },
+  upgradeOption: {
+    display: 'flex',
+    backgroundColor: 'white',
+    borderWidth: 3,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    marginVertical: 10,
+    borderRadius: 15,
+  },
+  buttonNext: {
+    marginTop: 20,
+    width: '100%',
+    height: 50,
+    backgroundColor: '#ff585d',
+    borderRadius: 50,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonTextStyle: {
+    color: 'white',
   },
 });
 
