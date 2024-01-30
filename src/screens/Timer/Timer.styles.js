@@ -12,5 +12,13 @@ const styles = StyleSheet.create({
     height: 30,
     color: 'red',
   },
+  timerWrapper: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: 'red',
+  },
+  circularWrap: {
+    marginTop: 50,
+  },
 });
 export default styles;
