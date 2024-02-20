@@ -10,6 +10,8 @@ import Task from 'src/components/Task';
 import moment from 'moment';
 import Button from 'src/components/Button';
 import ModalGiveUp from './ModalGiveUp';
+import { navigate } from 'src/navigators/NavigationServices';
+import RouteName from 'src/navigators/RouteName';
 
 const Timer = () => {
   // const [tasks, setTask] = useState(tasks);
@@ -25,6 +27,7 @@ const Timer = () => {
         return;
       }
       if (currentTime >= time) {
+        navigate(RouteName.CompletedTimer);
         return;
       }
       setCurrentTime(prev => prev + 1);
@@ -64,6 +67,10 @@ const Timer = () => {
     console.log('cehcking');
   };
 
+  const handelCompletedTimer = () => {
+    navigate(RouteName.CompletedTimer);
+  };
+
   return (
     <View style={styles.container}>
       <HeaderWrap
@@ -80,7 +87,6 @@ const Timer = () => {
             width={20}
             fill={(currentTime / time) * 100}
             tintColor="#ff6569"
-            onAnimationComplete={() => console.log('onAnimationComplete')}
             backgroundColor="#eee"
           >
             {fill => (
