@@ -23,3 +23,5 @@ export { default as ReminderRingTone } from './ReminderRingTone/ReminderRingTone
 export { default as NotificationSetting } from './NotificationSetting/NotificationSetting';
 export { default as Security } from './Security/Security';
 export { default as UpgradeApp } from './UpgradeApp/UpgradeApp';
+// Timer
+export { default as CompletedTimer } from './CompletedTimer/CompletedTimer';

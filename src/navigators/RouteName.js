@@ -26,4 +26,6 @@ export default {
   NotificationSetting: 'NotificationSetting',
   Security: 'Security',
   UpgradeApp: 'UpgradeApp',
+  // Timer
+  CompletedTimer: 'CompletedTimer',
 };

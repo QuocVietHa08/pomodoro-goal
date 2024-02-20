@@ -27,12 +27,21 @@ To learn more about the source code run this command to pull to your local machi
 
 ```
 git pull https://github.com/QuocVietHa08/promodoro-goal.git
+cd promodoro-goal
 ```
 
 Assuming you have all the requirements installed, you can run the project by running:
 
 - `yarn start` to start the metro bundler, in a dedicated terminal
 - `yarn <platform>` to run the _platform_ application (remember to start a simulator or connect a device)
+
+### Tech Stack
+
+- React Native
+- Javascript
+- IOS Development
+- Android Development
+- Debugging
 
 ## Digging Deeper
 
@@ -42,7 +51,21 @@ To learn more about this source code, you should discover different screent like
 - Task
 - Statistic
 - Profile
+- Timer
+- ... and more
 
-## Learn more
+## Contributing
 
-This project content basic feature like view, create, update, delete task. You can add more feature like chat feature, app system blocking, intergrate with Superbase, Firebase and more.
+This project content basic feature like view, create, update, delete task. You can add more feature:
+
+- Real Time Chat
+- App System Blocking
+- Intergrate with Superbase
+- Intergrate with Audio on Device
+- Add Unit and UI Testing
+- Convert to Typerscript version
+
+# Todo
+
+- App System Blocking
+- Intergrate with SuperBase

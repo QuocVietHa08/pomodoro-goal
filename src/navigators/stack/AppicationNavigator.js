@@ -19,6 +19,7 @@ import {
   NotificationSetting,
   Security,
   UpgradeApp,
+  CompletedTimer,
 } from '../../screens';
 import { Platform } from 'react-native';
 import AppBottomTab from './AppBottomTab';
@@ -103,6 +104,11 @@ const ApplicationNavigator = props => {
         name={RouteName.UpgradeApp}
         options={screenOptions}
         component={UpgradeApp}
+      />
+      <Stack.Screen
+        name={RouteName.CompletedTimer}
+        options={screenOptions}
+        component={CompletedTimer}
       />
     </>
   );
