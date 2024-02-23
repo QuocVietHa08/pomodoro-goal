@@ -73,12 +73,14 @@ const Timer = () => {
 
   return (
     <View style={styles.container}>
-      <HeaderWrap
-        isBackMode
-        titleBack="Pomodoro Timer"
-        leftIcon={ThreeDotsImage}
-        leftIconStyle={styles.rightIconStyles}
-      />
+      {!isStart && (
+        <HeaderWrap
+          isBackMode
+          titleBack="Back to Home Screen"
+          leftIcon={ThreeDotsImage}
+          leftIconStyle={styles.rightIconStyles}
+        />
+      )}
       <View style={styles.timerWrapper}>
         <View style={{ width: '100%' }} />
         <View style={styles.circularWrap}>

@@ -20,8 +20,8 @@ const AppBottomTab = () => {
       title: 'Task',
     },
     {
-      name: RouteName.NewTask,
-      component: NewTask,
+      name: RouteName.BottomNewTask,
+      component: Task,
       title: '',
     },
     {

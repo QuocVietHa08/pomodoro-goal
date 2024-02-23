@@ -28,4 +28,6 @@ export default {
   UpgradeApp: 'UpgradeApp',
   // Timer
   CompletedTimer: 'CompletedTimer',
+  // BottomTab
+  BottomNewTask: 'BottomNewTask',
 };

@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingHorizontal: 15,
     backgroundColor: '#fcfcfc',
+    position: 'relative',
   },
   formCreateNewTask: {
     marginTop: 10,
@@ -18,8 +19,14 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: AppTheme.colors.neutral_80,
   },
+  buttonNextWrap: {
+    width: '100%',
+    height: 50,
+    position: 'absolute',
+    bottom: 50,
+    left: 20,
+  },
   buttonNext: {
-    marginTop: 50,
     width: '100%',
     height: 50,
     backgroundColor: '#ff585d',
