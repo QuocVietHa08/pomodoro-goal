@@ -55,12 +55,12 @@ const CustomAppTabBar = ({ state, descriptors, navigation }) => {
                 break;
             }
 
-            const onPress = () => {
+            const onPress = (screen = 'default') => {
               LayoutAnimation.configureNext({
                 ...LayoutAnimation.Presets.easeInEaseOut,
                 duration: 250,
               });
-
+              console.log('hello--checking', route.key);
               const event = navigation.emit({
                 type: 'tabPress',
                 target: route.key,
@@ -68,14 +68,18 @@ const CustomAppTabBar = ({ state, descriptors, navigation }) => {
               });
 
               if (!isFocused && !event.defaultPrevented) {
+                if (route.name === RouteName.BottomNewTask) {
+                  navigation.navigate({ name: RouteName.NewTask, merge: true });
+                  return;
+                }
                 navigation.navigate({ name: route.name, merge: true });
               }
             };
 
-            if (route.name === RouteName.NewTask) {
+            if (route.name === RouteName.BottomNewTask) {
               return (
                 <TouchableDebounce
-                  onPress={onPress}
+                  onPress={() => onPress('newTask')}
                   activeOpacity={0.9}
                   key={index}
                   style={styles.vCenter}

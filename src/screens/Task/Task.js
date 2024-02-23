@@ -141,7 +141,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <HeaderWrap
-        leftTitle="Promodoro Task"
+        leftTitle="Goal"
         leftIcon={LogoImage}
         rightIcons={CategoryImage}
         leftIconStyle={styles.headerIconLeft}

@@ -41,11 +41,6 @@ const ApplicationNavigator = props => {
         {props => <AppBottomTab {...props} />}
       </Stack.Screen>
       <Stack.Screen
-        name={RouteName.NewTask}
-        options={screenOptions}
-        component={NewTask}
-      />
-      <Stack.Screen
         name={RouteName.TodayTask}
         options={screenOptions}
         component={TodayTask}
@@ -104,6 +99,11 @@ const ApplicationNavigator = props => {
         name={RouteName.UpgradeApp}
         options={screenOptions}
         component={UpgradeApp}
+      />
+      <Stack.Screen
+        name={RouteName.NewTask}
+        options={screenOptions}
+        component={NewTask}
       />
       <Stack.Screen
         name={RouteName.CompletedTimer}

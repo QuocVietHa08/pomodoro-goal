@@ -203,26 +203,26 @@ const NewTask = () => {
             errorMessage={errors?.shortBreak?.message}
           />
         </View>
-        <View style={{ marginTop: 40 }}>
-          <Button
-            style={[styles.buttonNext, { marginTop: 10 }]}
-            textStyle={styles.buttonTextStyle}
-            onPress={handleSubmit(handleCreateNewTask)}
-            text="Create New Task"
-          />
-        </View>
-
-        <DatePickerModal
-          defaultDate={moment(new Date(), DATE_FORMAT.YYYYmmdd).toDate()}
-          ref={datePickerRef}
-        />
-
-        <DatePickerModal
-          defaultDate={moment(new Date(), DATE_FORMAT.HHMM).toDate()}
-          mode="time"
-          ref={timePickerRef}
+      </View>
+      <View style={styles.buttonNextWrap}>
+        <Button
+          style={styles.buttonNext}
+          textStyle={styles.buttonTextStyle}
+          onPress={handleSubmit(handleCreateNewTask)}
+          text="Create New Task"
         />
       </View>
+
+      <DatePickerModal
+        defaultDate={moment(new Date(), DATE_FORMAT.YYYYmmdd).toDate()}
+        ref={datePickerRef}
+      />
+
+      <DatePickerModal
+        defaultDate={moment(new Date(), DATE_FORMAT.HHMM).toDate()}
+        mode="time"
+        ref={timePickerRef}
+      />
     </View>
   );
 };

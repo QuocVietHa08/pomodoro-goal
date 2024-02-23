@@ -7,8 +7,11 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingHorizontal: 15,
     backgroundColor: '#fcfcfc',
+    position: 'relative',
   },
   screenWrap: {
+    flex: 1,
+    height: '9%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -27,39 +30,23 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 18,
   },
-  trophyImage: {
+  imageWrapper: {
     width: '100%',
-    height: '100%',
-    position: 'absolute',
-  },
-  simpleButton: {
-    borderRadius: 20,
-    padding: 10,
-    justifyContent: 'center',
+    height: '60%',
+    display: 'flex',
     alignItems: 'center',
-    backgroundColor: 'red',
+    justifyContent: 'center',
   },
-  fireworkStyle: {
-    backgroundColor: 'red',
+  trophyImage: {
+    width: '70%',
+    height: '50%',
+    position: 'absolute',
   },
   upgradeOptionsWrap: {
     display: 'flex',
     justifyContent: 'space-between',
     marginTop: 30,
-    // backgroundColor: 'red',
     width: '100%',
-  },
-  upgradeOption: {
-    display: 'flex',
-    backgroundColor: 'white',
-    borderWidth: 3,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    marginVertical: 10,
-    borderRadius: 15,
   },
   buttonNext: {
     marginTop: 20,
@@ -70,6 +57,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'absolute',
+    bottom: 0,
   },
   buttonTextStyle: {
     color: 'white',
