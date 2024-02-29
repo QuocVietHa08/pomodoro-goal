@@ -2,7 +2,7 @@
     <img src="./banner.png" alt="Logo" width="95%">
 </div>
 
-# The Promodoro Goal Source Code
+# The Pomodoro Goal Source Code
 
 This project is a [React Native](https://facebook.github.io/react-native/) app that build for beginner with React Native who want to learn more about React Native
 
@@ -26,7 +26,7 @@ Follow instructions for your given `development OS` and `target OS`.
 To learn more about the source code run this command to pull to your local machine.
 
 ```
-git pull https://github.com/QuocVietHa08/promodoro-goal.git
+git pull https://github.com/QuocVietHa08/pomodoro-goal.git
 cd promodoro-goal
 ```
 
@@ -37,11 +37,15 @@ Assuming you have all the requirements installed, you can run the project by run
 
 ### Tech Stack
 
-- React Native
-- Javascript
-- IOS Development
-- Android Development
-- Debugging
+- React Native.
+- Javascript.
+- IOS Development.
+- Android Development.
+- Debugging.
+- Redux / Redux Saga.
+- React i18next.
+- React Navigation.
+- React Native Reanimated.
 
 ## Digging Deeper
 
@@ -58,14 +62,15 @@ To learn more about this source code, you should discover different screent like
 
 This project content basic feature like view, create, update, delete task. You can add more feature:
 
-- Real Time Chat
-- App System Blocking
-- Intergrate with Superbase
-- Intergrate with Audio on Device
-- Add Unit and UI Testing
-- Convert to Typerscript version
+- Real Time Chat.
+- App System Blocking.
+- Intergrate with Superbase/ Appwrite.
+- Intergrate with Audio on Device.
+- Add Unit and UI Testing.
+- Convert to Typerscript version.
+- Create Goal Screen Page.
 
 # Todo
 
 - App System Blocking
-- Intergrate with SuperBase
+- Intergrate with SuperBase / Appwrite
