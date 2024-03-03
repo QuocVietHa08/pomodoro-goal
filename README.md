@@ -35,7 +35,7 @@ Assuming you have all the requirements installed, you can run the project by run
 - `yarn start` to start the metro bundler, in a dedicated terminal
 - `yarn <platform>` to run the _platform_ application (remember to start a simulator or connect a device)
 
-### Tech Stack
+## Tech Stack
 
 - React Native.
 - Javascript.
@@ -47,36 +47,18 @@ Assuming you have all the requirements installed, you can run the project by run
 - React Navigation.
 - React Native Reanimated.
 
-### Preview
+## Preview
 
-<div style="display: flex; justify-content: center; gap: 10px; width: 100%">
-    <div>
-        <img src="./src/assets/demo/HomePage.png" alt="Logo" height="auto" width="30%">
-        <div>Home Screen</div>
-    </div>
-    <div>
-        <img src="./src/assets/demo/LoginWithAccount.png" alt="Logo" height="auto" width="30%">
-        <div>Login Screen</div>
-    </div>
-     <div>
-        <img src="./src/assets/demo/New-task.png" alt="Logo" height="auto" width="30%">
-        <div>New task Screen</div>
-    </div>
+<div style="display: flex; justify-content: center; gap: 10px; width: 100%; flex-wrap: wrap">
+    <img src="./src/assets/demo/HomePage.png" alt="Logo" height="auto" width="20%">
+    <img src="./src/assets/demo/LoginWithAccount.png" alt="Logo" height="auto" width="20%">
+    <img src="./src/assets/demo/New-task.png" alt="Logo" height="auto" width="20%">
+    <img src="./src/assets/demo/Notification.png" alt="Logo" height="auto" width="20%">
+    <img src="./src/assets/demo/Setting.png" alt="Logo" height="auto" width="20%">
+    <img src="./src/assets/demo/Statistics.png" alt="Logo" height="auto" width="20%">
+    <img src="./src/assets/demo/Task.png" alt="Logo" height="auto" width="20%">
+    <img src="./src/assets/demo/Upgrade.png" alt="Logo" height="auto" width="20%">
 </div>
-<!-- <div style="display: flex; justify-content: space-evenly;">
-    <div>
-        <img src="./src/assets/demo/Notification.png" alt="Logo" height="auto" width="30%">
-        <div>Notification Screen</div>
-    </div>
-    <div>
-        <img src="./src/assets/demo/Setting.png" alt="Logo" height="auto" width="30%">
-        <div>Setting Screen</div>
-    </div>
-    <div>
-        <img src="./src/assets/demo/Statistics.png" alt="Logo" height="auto" width="30%">
-        <div>Statistics Screen</div>
-    </div>
-</div> -->
 
 ## Digging Deeper
 
