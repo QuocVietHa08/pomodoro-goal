@@ -30,13 +30,13 @@ const EditProfile = () => {
     resolver: yupResolver(validateSchema),
   });
 
-  const updateProfile = (data) => {
+  const updateProfile = data => {
     console.log('hello ', data);
-  }
+  };
 
   return (
     <View style={styles.container}>
-      <HeaderWrap isBackMode titleBack="Edit Profile" />
+      <HeaderWrap isBackMode titleBack="Edit Profile" isShowAvatar={false} />
       <View style={styles.formWrap}>
         <CustomeTextInput
           control={control}
@@ -87,12 +87,12 @@ const EditProfile = () => {
           placeholder="Gender"
           errorMessage={errors?.gender?.message}
         />
-         <Button
-            style={[styles.buttonNext, { marginTop: 10 }]}
-            textStyle={styles.buttonTextStyle}
-            onPress={handleSubmit(updateProfile)}
-            text="Save"
-          />
+        <Button
+          style={[styles.buttonNext, { marginTop: 10 }]}
+          textStyle={styles.buttonTextStyle}
+          onPress={handleSubmit(updateProfile)}
+          text="Save"
+        />
       </View>
     </View>
   );

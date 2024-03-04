@@ -15,13 +15,13 @@ const SECURITY_SETTING_CONFIG = [
   },
   {
     label: 'Touch Id',
-  }, 
+  },
 ];
 
 const Security = () => {
   return (
     <View style={styles.container}>
-      <HeaderWrap isBackMode titleBack="Security" />
+      <HeaderWrap isBackMode titleBack="Security" isShowAvatar={false} />
       {SECURITY_SETTING_CONFIG.map((item, index) => (
         <SecuritySettingItem item={item} key={index} />
       ))}
@@ -31,8 +31,8 @@ const Security = () => {
         text="Change Password"
       />
     </View>
-  )
-}
+  );
+};
 
 const SecuritySettingItem = ({ item }) => {
   const [toggleValue, setToggleValue] = useState(false);
@@ -42,19 +42,18 @@ const SecuritySettingItem = ({ item }) => {
   };
 
   return (
-      <View style={styles.itemWrap}>
-        <TextView style={styles.textStyle}>{item.label}</TextView>
-          <Switch
-            trackColor={{ false: 'blue', true: AppTheme.colors.primary_1 }}
-            thumbColor={toggleValue ? 'white' : 'white'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={handleToggle}
-            value={toggleValue}
-            style={styles.switchWrap}
-          />
-      </View>
+    <View style={styles.itemWrap}>
+      <TextView style={styles.textStyle}>{item.label}</TextView>
+      <Switch
+        trackColor={{ false: 'blue', true: AppTheme.colors.primary_1 }}
+        thumbColor={toggleValue ? 'white' : 'white'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={handleToggle}
+        value={toggleValue}
+        style={styles.switchWrap}
+      />
+    </View>
   );
 };
-
 
 export default Security;

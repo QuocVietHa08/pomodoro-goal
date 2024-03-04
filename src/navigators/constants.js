@@ -17,14 +17,14 @@ const BOTTOM_TAB_TITLE = {
   Home: 'Home',
   Task: 'Task',
   Statistics: 'Statistics',
-  Profile: 'Profile',
+  Goal: 'Goal',
 };
 
 const routesBottomBar = [
   RouteName.Home,
   RouteName.Task,
   RouteName.Statistics,
-  RouteName.Profile,
+  RouteName.Goal,
 ];
 
 export { screenOptions, BOTTOM_TAB_TITLE, routesBottomBar };

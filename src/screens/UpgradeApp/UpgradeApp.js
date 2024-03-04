@@ -102,7 +102,11 @@ const UpgradeApp = () => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <HeaderWrap isBackMode titleBack="Upgrade to Premium" />
+      <HeaderWrap
+        isBackMode
+        titleBack="Upgrade to Premium"
+        isShowAvatar={false}
+      />
       <View style={styles.screenWrap}>
         <View style={styles.titleWrap}>
           <TextView style={styles.mainTitle}>Be Premium</TextView>

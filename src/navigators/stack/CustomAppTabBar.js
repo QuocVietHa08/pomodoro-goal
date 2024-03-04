@@ -12,8 +12,8 @@ import TaskImage from 'src/assets/images/bottomTab/task.png';
 import TaskActiveImage from 'src/assets/images/bottomTab/task_active.png';
 import StatisticsImage from 'src/assets/images/bottomTab/statistics.png';
 import StatisticsActiveImage from 'src/assets/images/bottomTab/statistics_active.png';
-import ProfileImage from 'src/assets/images/bottomTab/profile.png';
-import ProfileActiveImage from 'src/assets/images/bottomTab/profile_active.png';
+import GoalImage from 'src/assets/images/bottomTab/goal.png';
+import GoalActiveImage from 'src/assets/images/bottomTab/goal_active.png';
 import newScope from 'src/assets/images/bottomTab/newScope.png';
 import FastImage from 'react-native-fast-image';
 import { useSelector } from 'react-redux';
@@ -50,8 +50,8 @@ const CustomAppTabBar = ({ state, descriptors, navigation }) => {
               case BOTTOM_TAB_TITLE.Statistics:
                 image = isFocused ? StatisticsActiveImage : StatisticsImage;
                 break;
-              case BOTTOM_TAB_TITLE.Profile:
-                image = isFocused ? ProfileActiveImage : ProfileImage;
+              case BOTTOM_TAB_TITLE.Goal:
+                image = isFocused ? GoalActiveImage : GoalImage;
                 break;
             }
 
@@ -60,7 +60,6 @@ const CustomAppTabBar = ({ state, descriptors, navigation }) => {
                 ...LayoutAnimation.Presets.easeInEaseOut,
                 duration: 250,
               });
-              console.log('hello--checking', route.key);
               const event = navigation.emit({
                 type: 'tabPress',
                 target: route.key,
@@ -84,17 +83,10 @@ const CustomAppTabBar = ({ state, descriptors, navigation }) => {
                   key={index}
                   style={styles.vCenter}
                 >
-                  {/* <LinearGradient
-                colors={[
-                  AppTheme.colors.gradientTop,
-                  AppTheme.colors.gradientBottom,
-                ]}
-              > */}
                   <FastImage
                     source={newScope}
                     style={{ height: 50, width: 50 }}
                   />
-                  {/* </LinearGradient> */}
                 </TouchableDebounce>
               );
             }
@@ -161,7 +153,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // width: Dimens.width / 5,
   },
   vCenter: {
     width: ADD_ICON_SIZE,

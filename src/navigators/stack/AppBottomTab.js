@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import RouteName from '../RouteName';
-import { Home, Statistics, Task, Profile, NewTask } from 'src/screens';
+import { Home, Statistics, Task, Goal } from 'src/screens';
 import { screenOptions } from '../constants';
 import CustomAppTabBar from './CustomAppTabBar';
 
@@ -30,9 +30,9 @@ const AppBottomTab = () => {
       title: 'Statistics',
     },
     {
-      name: RouteName.Profile,
-      component: Profile,
-      title: 'Profile',
+      name: RouteName.Goal,
+      component: Goal,
+      title: 'Goal',
     },
   ];
 

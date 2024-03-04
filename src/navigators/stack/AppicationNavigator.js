@@ -20,6 +20,7 @@ import {
   Security,
   UpgradeApp,
   CompletedTimer,
+  Profile,
 } from '../../screens';
 import { Platform } from 'react-native';
 import AppBottomTab from './AppBottomTab';
@@ -40,6 +41,11 @@ const ApplicationNavigator = props => {
       <Stack.Screen name={RouteName.AppBottomTab} options={screenOptions}>
         {props => <AppBottomTab {...props} />}
       </Stack.Screen>
+      <Stack.Screen
+        name={RouteName.Profile}
+        options={screenOptions}
+        component={Profile}
+      />
       <Stack.Screen
         name={RouteName.TodayTask}
         options={screenOptions}
