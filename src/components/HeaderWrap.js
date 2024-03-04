@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-// import Icon from 'src/assets/icons';
-// import IconsSVG from 'src/assets/icons/IconsSVG';
-import { AppFont, AppTheme } from '../utils/appConstant';
+import { StyleSheet, View } from 'react-native';
+import { AppTheme } from '../utils/appConstant';
 import TextView from './TextView';
-import { goBack } from '../navigators/NavigationServices';
+import { goBack, navigate } from '../navigators/NavigationServices';
 import FastImage from 'react-native-fast-image';
 import IconBack from '../assets/images/login/ic_back.png';
 import TouchableDebounce from './TouchableDebounce';
+import AvatarDefault from 'src/assets/images/avatar.png';
+import RouteName from 'src/navigators/RouteName';
 
 const HeaderWrap = ({
   rightIcons = '',
@@ -18,9 +18,14 @@ const HeaderWrap = ({
   leftTitle = '',
   containerStyle,
   isBackMode = false,
+  isShowAvatar = true,
   titleBack,
   onRightPress = () => {},
 }) => {
+  const handleRedirectToSettingPage = () => {
+    navigate(RouteName.Profile);
+  };
+
   const handleRenderBackMode = useCallback(() => {
     return (
       <View style={styles.headerWrapper}>
@@ -36,12 +41,24 @@ const HeaderWrap = ({
           <TextView style={styles.backButtonText}>{titleBack}</TextView>
         </TouchableDebounce>
         <View style={styles.rightComponentWrapper}>
+          {isShowAvatar && (
+            <TouchableDebounce onPress={handleRedirectToSettingPage}>
+              <FastImage
+                source={AvatarDefault}
+                resizeMode="contain"
+                style={[{ height: 30, width: 30 }, rightIconStyle]}
+              />
+            </TouchableDebounce>
+          )}
           {rightIcons && (
             <TouchableDebounce onPress={onRightPress}>
               <FastImage
                 source={rightIcons}
                 resizeMode="contain"
-                style={[{ height: 30, width: 30 }, rightIconStyle]}
+                style={[
+                  { height: 30, width: 30, marginLeft: 10 },
+                  rightIconStyle,
+                ]}
               />
             </TouchableDebounce>
           )}
@@ -67,12 +84,24 @@ const HeaderWrap = ({
             <TextView style={styles.rightTitleStyle}>{leftTitle}</TextView>
           </View>
           <View style={styles.rightComponentWrapper}>
+            {isShowAvatar && (
+              <TouchableDebounce onPress={handleRedirectToSettingPage}>
+                <FastImage
+                  source={AvatarDefault}
+                  resizeMode="contain"
+                  style={[{ height: 30, width: 30 }, rightIconStyle]}
+                />
+              </TouchableDebounce>
+            )}
             {rightIcons && (
               <TouchableDebounce onPress={onRightPress}>
                 <FastImage
                   source={rightIcons}
                   resizeMode="contain"
-                  style={[{ height: 30, width: 30 }, rightIconStyle]}
+                  style={[
+                    { height: 30, width: 30, marginLeft: 10 },
+                    rightIconStyle,
+                  ]}
                 />
               </TouchableDebounce>
             )}

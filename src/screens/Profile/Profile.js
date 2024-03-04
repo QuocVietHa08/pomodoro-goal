@@ -91,14 +91,7 @@ const Profile = () => {
 
   return (
     <View style={styles.container}>
-      <HeaderWrap
-        rightIcons={MoreImage}
-        rightIconStyle={styles.headerIconRight}
-        leftTitle="Goal"
-        leftIcon={LogoImage}
-        leftIconStyle={styles.headerIconLeft}
-        onRightPress={handleHeaderRightPress}
-      />
+      <HeaderWrap isBackMode titleBack="Profile" isShowAvatar={false} />
       <View style={styles.contentWrap}>
         <ScrollView
           showsVerticalScrollIndicator={false}

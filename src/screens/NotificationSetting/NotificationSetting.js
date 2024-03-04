@@ -4,6 +4,8 @@ import styles from './NotificationSetting.styles';
 import HeaderWrap from 'src/components/HeaderWrap';
 import { AppTheme } from 'src/utils/appConstant';
 import TextView from 'src/components/TextView';
+import RouteName from 'src/navigators/RouteName';
+import { navigate } from 'src/navigators/NavigationServices';
 
 const NOTIFICATIONS_SETTING_CONFIG = [
   {
@@ -23,19 +25,19 @@ const NOTIFICATIONS_SETTING_CONFIG = [
   },
   {
     label: 'New Tips Available',
-  }, 
+  },
 ];
 
 const NotificationSetting = () => {
   return (
     <View style={styles.container}>
-      <HeaderWrap isBackMode titleBack="Notification" />
+      <HeaderWrap isBackMode titleBack="Notification" isShowAvatar={false} />
       {NOTIFICATIONS_SETTING_CONFIG.map((item, index) => (
         <NotificationSettingItem item={item} key={index} />
       ))}
     </View>
-  )
-}
+  );
+};
 
 const NotificationSettingItem = ({ item }) => {
   const [toggleValue, setToggleValue] = useState(false);
@@ -45,24 +47,22 @@ const NotificationSettingItem = ({ item }) => {
   };
 
   const handleRedirectToRingTone = () => {
-    navigate(RouteName.ReminderRingTone)
-  }
+    navigate(RouteName.ReminderRingTone);
+  };
 
   return (
-      <View style={styles.itemWrap}>
-        <TextView style={styles.textStyle}>{item.label}</TextView>
-          <Switch
-            trackColor={{ false: 'blue', true: AppTheme.colors.primary_1 }}
-            thumbColor={toggleValue ? 'white' : 'white'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={handleToggle}
-            value={toggleValue}
-            style={styles.switchWrap}
-          />
-        
-
-      </View>
+    <View style={styles.itemWrap}>
+      <TextView style={styles.textStyle}>{item.label}</TextView>
+      <Switch
+        trackColor={{ false: 'blue', true: AppTheme.colors.primary_1 }}
+        thumbColor={toggleValue ? 'white' : 'white'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={handleToggle}
+        value={toggleValue}
+        style={styles.switchWrap}
+      />
+    </View>
   );
 };
 
-export default NotificationSetting
+export default NotificationSetting;

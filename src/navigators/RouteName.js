@@ -30,4 +30,5 @@ export default {
   CompletedTimer: 'CompletedTimer',
   // BottomTab
   BottomNewTask: 'BottomNewTask',
+  Goal: 'Goal',
 };
