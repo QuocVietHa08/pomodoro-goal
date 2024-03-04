@@ -4,12 +4,14 @@ import FastImage from 'react-native-fast-image';
 import TextView from 'src/components/TextView';
 import TouchableDebounce from 'src/components/TouchableDebounce';
 import { navigate } from 'src/navigators/NavigationServices';
-import RouteName from 'src/navigators/RouteName';
 import { AppTheme } from 'src/utils/appConstant';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTheme } from 'src/store/app/appReducer';
 
 const ScreenItem = ({ item, onLogout }) => {
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
-
+  const { theme } = useSelector(state => state.appReducer);
+  const dispatch = useDispatch();
   const onPress = () => {
     if (item?.label === 'Logout') {
       onLogout();
@@ -19,8 +21,11 @@ const ScreenItem = ({ item, onLogout }) => {
   };
 
   const onToggleSwitch = () => {
+    dispatch(setTheme(theme === 'light' ? 'dark' : 'light'));
     setIsDarkTheme(!isDarkTheme);
   };
+
+  console.log('helloo checking --->', theme);
 
   return (
     <TouchableDebounce onPress={onPress}>
@@ -68,7 +73,7 @@ const styles = StyleSheet.create({
   switchWrap: {
     position: 'absolute',
     right: 0,
-  }, 
+  },
   iconStyle: {
     width: 25,
     height: 25,

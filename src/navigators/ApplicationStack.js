@@ -20,13 +20,13 @@ function ApplicationStack() {
   }));
   // const accessToken = 'hello';
 
-  const StackScreen = useMemo(() => {
+  const StackScreen = () => {
     if (!accessToken) {
       return AuthNavigator();
     }
 
     return ApplicationNavigator();
-  }, [accessToken]);
+  };
 
   const onNavigationStateChange = useCallback(async () => {}, []);
   return (
@@ -49,7 +49,7 @@ function ApplicationStack() {
             }),
           }}
         >
-          {StackScreen}
+          {StackScreen()}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
