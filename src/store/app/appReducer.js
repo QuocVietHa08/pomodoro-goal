@@ -4,11 +4,18 @@ import persistConfig from '../persistConfig';
 
 const initialState = {
   showBottomTabStatus: true,
+  theme: 'light',
 };
 const appSlice = createSlice({
   name: 'appReducer',
   initialState: { ...initialState },
   reducers: {
+    setTheme: (state, action) => {
+      return {
+        ...state,
+        theme: action.payload,
+      };
+    },
     setStatusBottomTab: (state, action) => {
       return {
         ...state,
@@ -18,7 +25,7 @@ const appSlice = createSlice({
   },
 });
 
-export const { setStatusBottomTab } = appSlice.actions;
+export const { setStatusBottomTab, setTheme } = appSlice.actions;
 
 const appReducer = appSlice.reducer;
 export default persistReducer(

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Profile.styles';
-import { FlatList, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import TextView from 'src/components/TextView';
 import HeaderWrap from 'src/components/HeaderWrap';
 import MoreImage from 'src/assets/images/more.png';
@@ -20,6 +20,8 @@ import LogOutImage from 'src/assets/images/profile/logout.png';
 import ScreenItem from './ScreenItem';
 import ModalLogout from './ModalLogout';
 import TouchableDebounce from 'src/components/TouchableDebounce';
+import { setAccessToken } from 'src/store/auth/authReducer';
+import { useDispatch } from 'react-redux';
 
 const PROFILE_CONFIG_SCREE_LIST = [
   {
@@ -60,6 +62,7 @@ const PROFILE_CONFIG_SCREE_LIST = [
 ];
 const Profile = () => {
   const [openModalLogout, setOpenModalLogout] = useState(false);
+  const dispatch = useDispatch();
 
   const info = {
     name: 'Edward Ha',
@@ -73,12 +76,16 @@ const Profile = () => {
     console.log('handle');
   };
 
+  const handleShowModalLogout = () => {
+    setOpenModalLogout(true);
+  };
+
   const handleLogout = () => {
-    setOpenModalLogout(!openModalLogout);
+    dispatch(setAccessToken(''));
+    setOpenModalLogout(false);
   };
 
   const handleRedirectToUpgradeApp = () => {
-    console.log('checking');
     navigate(RouteName.UpgradeApp);
   };
 
@@ -127,7 +134,11 @@ const Profile = () => {
           <View style={styles.screenWrap}>
             {PROFILE_CONFIG_SCREE_LIST.map((item, index) => {
               return (
-                <ScreenItem onLogout={handleLogout} item={item} key={index} />
+                <ScreenItem
+                  onLogout={handleShowModalLogout}
+                  item={item}
+                  key={index}
+                />
               );
             })}
           </View>
