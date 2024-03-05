@@ -65,6 +65,9 @@ const Timer = () => {
 
   const onGiveUp = () => {
     console.log('cehcking');
+    setOpenModalGiveUp(false);
+    setIsStart(false);
+    navigate(RouteName.Home);
   };
 
   const handelCompletedTimer = () => {
@@ -77,6 +80,7 @@ const Timer = () => {
         <HeaderWrap
           isBackMode
           titleBack="Back to Home Screen"
+          isShowAvatar={false}
           leftIcon={ThreeDotsImage}
           leftIconStyle={styles.rightIconStyles}
         />

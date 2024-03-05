@@ -16,7 +16,47 @@ import { navigate } from 'src/navigators/NavigationServices';
 import RouteName from 'src/navigators/RouteName';
 import TouchableDebounce from 'src/components/TouchableDebounce';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import GoalItem from './GoalItem';
 
+const data = [
+  {
+    title: 'Newbie',
+    content: 'Focus time reach 4 hours (4/4)',
+    status: 'done',
+  },
+  {
+    title: 'Apprentice Planter',
+    content: 'Focus time reach 4 days (4/4)',
+  },
+  {
+    title: 'Apprentice Planter',
+    content: 'Focus time reach 4 days (4/4)',
+  },
+  {
+    title: 'Apprentice Planter',
+    content: 'Focus time reach 4 days (4/4)',
+  },
+  {
+    title: 'Apprentice Planter',
+    content: 'Focus time reach 4 days (4/4)',
+  },
+  {
+    title: 'Apprentice Planter',
+    content: 'Focus time reach 4 days (4/4)',
+  },
+  {
+    title: 'Apprentice Planter',
+    content: 'Focus time reach 4 days (4/4)',
+  },
+  {
+    title: 'Apprentice Planter',
+    content: 'Focus time reach 4 days (4/4)',
+  },
+  {
+    title: 'Apprentice Planter',
+    content: 'Focus time reach 4 days (4/4)',
+  },
+];
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
 
@@ -42,15 +82,16 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <HeaderWrap
-        rightIcons={BellImage}
         rightIconStyle={styles.headerIconRight}
         leftTitle="Goal"
         leftIcon={LogoImage}
-        leftIconStyle={styles.headerIconLeft}
+        isShowAvatar={false}
         onRightPress={handleHeaderRightPress}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text>hello</Text>
+        {data.map((item, index) => {
+          return <GoalItem key={index} item={item} />;
+        })}
       </ScrollView>
     </View>
   );

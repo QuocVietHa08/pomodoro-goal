@@ -9,53 +9,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: '#fcfcfc',
   },
-  headerIconLeft: {
-    width: 60,
-    height: 60,
-  },
-  headerIconRight: {
-    width: 30,
-    height: 30,
-  },
-  titleWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  homeTitle: {
-    marginTop: 15,
-    marginBottom: 15,
-    fontSize: AppTheme.fontSize.s24,
-    fontWeight: 600,
-  },
-  progressWrapper: {
-    backgroundColor: 'white',
-    padding: 10,
-    paddingVertical: 15,
-    borderRadius: 10,
+
+  goalItemWrap: {
     width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    gap: 20,
-  },
-  processTitle: {
-    fontWeight: 600,
-    fontSize: AppTheme.fontSize.s16,
+    padding: 20,
     marginBottom: 10,
-  },
-
-  processText: {
-    fontSize: AppTheme.fontSize.s12,
-  },
-
-  taskTextWrapper: {
+    borderWidth: 1,
+    borderColor: AppTheme.colors.primary_1,
+    color: AppTheme.colors.white,
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 20,
+  },
+
+  modalDetailGoal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    padding: 15,
   },
 });
 

@@ -40,6 +40,7 @@ const Category = () => {
         isBackMode
         titleBack="Category"
         rightIcons={newScope}
+        isShowAvatar={false}
         rightIconStyle={styles.headerIconRight}
         onRightPress={handleOpenModalAddCategory}
       />

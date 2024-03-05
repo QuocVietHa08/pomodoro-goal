@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, TextInput, View } from 'react-native';
-import HeaderWrap from 'src/components/HeaderWrap';
+import { TextInput, View } from 'react-native';
 import styles from './Category.styles';
-import { categories, LIST_COLOR } from './mockData';
+import { LIST_COLOR } from './mockData';
 import TextView from 'src/components/TextView';
-import newScope from 'src/assets/images/bottomTab/newScope.png';
-import CategoryItem from './CategoryItem';
 import ReactNativeModal from 'react-native-modal';
 import TouchableDebounce from 'src/components/TouchableDebounce';
 import { AppTheme } from 'src/utils/appConstant';
 import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { set } from 'lodash';
 
 const validateSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -25,7 +21,6 @@ const ModalEditCategory = ({ openModalAdd, setOpenModalAdd, item }) => {
     handleSubmit,
     formState: { errors },
     setValue,
-    resetField,
     reset,
   } = useForm({
     defaultValues: {
