@@ -23,6 +23,8 @@ import TouchableDebounce from 'src/components/TouchableDebounce';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+// import AppwriteContext from 'src/utils/appwrite/AppWriteContext';
+// import AppwriteContext from 'src/utils/appwrite/AppWriteContext.js';
 
 const validateSchema = yup.object().shape({
   email: yup.string().email().required('Email is required'),
@@ -30,6 +32,7 @@ const validateSchema = yup.object().shape({
 });
 
 const SignUp = () => {
+  // const { appwrite, setIsLoggedIn } = useContext(AppwriteContext);
   const {
     control,
     handleSubmit,
@@ -39,7 +42,7 @@ const SignUp = () => {
     watch,
   } = useForm({
     defaultValues: {
-      emai: '',
+      email: '',
       password: '',
       remember: false,
     },
@@ -63,10 +66,17 @@ const SignUp = () => {
     console.log('type:', type);
   };
 
-  const handleCreateAccount = () => {
-    const values = getValues();
-    console.log('value --->', values);
-    navigate(RouteName.FillProfile);
+  const handleCreateAccount = async () => {
+    const { email, password } = getValues();
+    console.log('email---->', email, password);
+    // await sdk.account
+    //   .create(email, password)
+    //   .then(result => {
+    //     console.log('result:', result);
+    //   })
+    //   .catch(error => {
+    //     console.log('error --->', error);
+    //   });
   };
 
   return (

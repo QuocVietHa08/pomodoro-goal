@@ -4,7 +4,7 @@ import { RequestStatus } from 'src/utils/appConstant';
 import persistConfig from '../persistConfig';
 
 const initialState = {
-  accessToken: 'accessToken',
+  accessToken: '',
   password: '',
   email: '',
   loginStatus: '',
