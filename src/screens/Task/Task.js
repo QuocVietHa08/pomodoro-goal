@@ -144,6 +144,7 @@ const Home = () => {
         leftTitle="Goal"
         leftIcon={LogoImage}
         rightIcons={CategoryImage}
+        isShowAvatar={false}
         leftIconStyle={styles.headerIconLeft}
         onRightPress={handleRedirectToCategoryPage}
       />
