@@ -36,7 +36,12 @@ class AppwriteService {
 
   async login({ email, password }) {
     try {
-      return await this.account.createEmailSession(email, password);
+      const user = await this.account.createEmailSession(email, password);
+      const token = await this.account.createJWT();
+      return {
+        user,
+        ...token,
+      };
     } catch (error) {
       console.log('Appwrite service :: loginAccount() :: ' + error);
     }

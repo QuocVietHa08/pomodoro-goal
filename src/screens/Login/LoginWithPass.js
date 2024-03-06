@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useContext, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import TextView from '../../components/TextView';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -23,8 +23,9 @@ import TouchableDebounce from 'src/components/TouchableDebounce';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setAccessToken } from 'src/store/auth/authReducer';
+import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
 
 const validateSchema = yup.object().shape({
   email: yup.string().email().required('Email is required'),
@@ -33,6 +34,8 @@ const validateSchema = yup.object().shape({
 });
 
 const LoginWithPass = () => {
+  const [loading, setLoading] = useState(false);
+  const { appwrite, setIsLoggedIn } = useContext(AppwriteContext);
   const dispatch = useDispatch();
   const {
     control,
@@ -57,10 +60,25 @@ const LoginWithPass = () => {
   };
 
   const handleSignIn = () => {
+    setLoading(true);
     const value = getValues();
-    const token = `${value?.email}_${value?.password}`;
-    dispatch(setAccessToken(token));
-    navigate(RouteName.Home);
+    const { email, password } = value;
+    appwrite
+      .login({ email, password })
+      .then(res => {
+        dispatch(setAccessToken(res?.jwt));
+        navigate(RouteName.Home);
+        console.log('res', res);
+      })
+      .catch(err => {
+        console.log('erro', err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+    // const token = `${value?.email}_${value?.password}`;
+    // dispatch(setAccessToken(token));
+    // navigate(RouteName.Home);
   };
 
   const handleShowPassword = () => {
@@ -94,7 +112,7 @@ const LoginWithPass = () => {
 
           <CustomeTextInput
             leftIco={IconEmail}
-            defaultValue="abc@gmail.com"
+            defaultValue="admin@gmail.com"
             placeholder="Email"
             control={control}
             fieldName={'email'}
@@ -104,7 +122,7 @@ const LoginWithPass = () => {
           <CustomeTextInput
             leftIco={IconPass}
             rightIco={showPass ? IconEyeShow : IconEyeHide}
-            defaultValue="password"
+            defaultValue="12345678"
             secureTextEntry={!showPass}
             placeholder="Password"
             fieldName={'password'}
@@ -122,6 +140,7 @@ const LoginWithPass = () => {
             />
           </View>
           <Button
+            loading={loading}
             onPress={handleSubmit(handleSignIn)}
             style={[styles.buttonNext, { marginTop: 10 }]}
             textStyle={styles.buttonTextStyle}

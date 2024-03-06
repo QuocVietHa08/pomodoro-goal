@@ -62,7 +62,6 @@ const ProfileForm = () => {
   };
 
   const handleSkipAccount = () => {
-    console.log('skipp account');
     navigate(RouteName.Home);
   };
 

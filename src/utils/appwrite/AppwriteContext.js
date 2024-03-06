@@ -1,10 +1,10 @@
 import React, { createContext } from 'react';
 
-// import Appwrite from './service';
+import Appwrite from './service';
 import { useState } from 'react';
 
 export const AppwriteContext = createContext({
-  // appwrite: new Appwrite(),
+  appwrite: new Appwrite(),
   isLoggedIn: false,
   setIsLoggedIn: () => {},
 });
@@ -12,7 +12,7 @@ export const AppwriteContext = createContext({
 export const AppwriteProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const defaultValue = {
-    // appwrite: new Appwrite(),
+    appwrite: new Appwrite(),
     isLoggedIn,
     setIsLoggedIn,
   };

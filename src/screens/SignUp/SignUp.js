@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import TextView from '../../components/TextView';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -23,8 +23,7 @@ import TouchableDebounce from 'src/components/TouchableDebounce';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-// import AppwriteContext from 'src/utils/appwrite/AppWriteContext';
-// import AppwriteContext from 'src/utils/appwrite/AppWriteContext.js';
+import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
 
 const validateSchema = yup.object().shape({
   email: yup.string().email().required('Email is required'),
@@ -32,7 +31,7 @@ const validateSchema = yup.object().shape({
 });
 
 const SignUp = () => {
-  // const { appwrite, setIsLoggedIn } = useContext(AppwriteContext);
+  const { appwrite, setIsLoggedIn } = useContext(AppwriteContext);
   const {
     control,
     handleSubmit,
@@ -68,15 +67,21 @@ const SignUp = () => {
 
   const handleCreateAccount = async () => {
     const { email, password } = getValues();
-    console.log('email---->', email, password);
-    // await sdk.account
-    //   .create(email, password)
-    //   .then(result => {
-    //     console.log('result:', result);
-    //   })
-    //   .catch(error => {
-    //     console.log('error --->', error);
-    //   });
+    const user = {
+      email,
+      password,
+      name: email,
+    };
+    appwrite
+      .createAccount(user)
+      .then(res => {
+        console.log('response--->', res);
+        setIsLoggedIn(true);
+        navigate(RouteName.FillProfile);
+      })
+      .catch(err => {
+        console.error('error--->', err);
+      });
   };
 
   return (
