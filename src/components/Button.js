@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { AppTheme, ButtonType } from '../utils/appConstant';
-import TextView from './TextView';
 import TouchableDebounce from './TouchableDebounce';
 
 const ButtonIcon = ({
@@ -70,11 +69,13 @@ const ButtonIcon = ({
   const renderLoading = useCallback(() => {
     if (loading) {
       return (
-        <ActivityIndicator
-          color={loadingColor}
-          size={'small'}
-          style={styles.indicator}
-        />
+        <View>
+          <ActivityIndicator
+            color={loadingColor}
+            size={'small'}
+            style={styles.indicator}
+          />
+        </View>
       );
     }
     return null;
@@ -93,14 +94,16 @@ const ButtonIcon = ({
       onPress={onPress}
       {...rest}
     >
-      <TextView
-        numberOfLines={numberOfLines}
-        adjustsFontSizeToFit={adjustsFontSizeToFit}
-        style={[styles.txt1, { color: textColor }, textStyle]}
-      >
-        {text}
-      </TextView>
-      {renderLoading()}
+      <View style={styles.buttonWrap}>
+        {renderLoading()}
+        <Text
+          numberOfLines={numberOfLines}
+          adjustsFontSizeToFit={adjustsFontSizeToFit}
+          style={[styles.txt1, { color: textColor }, textStyle]}
+        >
+          {text}
+        </Text>
+      </View>
     </TouchableDebounce>
   );
 };
@@ -112,8 +115,14 @@ const styles = StyleSheet.create({
   ico1: { marginRight: AppTheme.gapSize.s8 },
   indicator: { marginLeft: AppTheme.gapSize.s8 },
   txt1: { fontWeight: '600', fontSize: AppTheme.fontSize.s16 },
-  containerStyle: {
+  buttonWrap: {
+    display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 15,
+  },
+  containerStyle: {
     alignItems: 'center',
     height: AppTheme.buttonHeight,
     paddingHorizontal: AppTheme.gapSize.s20,
