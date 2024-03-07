@@ -35,6 +35,21 @@ Assuming you have all the requirements installed, you can run the project by run
 - `yarn start` to start the metro bundler, in a dedicated terminal
 - `yarn <platform>` to run the _platform_ application (remember to start a simulator or connect a device)
 
+## Config Backend
+
+This project use [Appwrite](https://appwrite.io/) as an alternative for backend. To config appwrite you need follow some step
+
+- Create an account in Appwrite.
+- Create a project.
+- Get appwrite api endpoint and project_id in setting.
+- Add to env
+
+Image Demo:
+
+<div style="display: flex; justify-content: center; gap: 10px; width: 100%; flex-wrap: wrap">
+    <img src="./src/assets/demo/backendConfig.png" alt="Logo" height="auto" width="50%"> 
+</div>
+
 ## Tech Stack
 
 - React Native.
@@ -46,6 +61,7 @@ Assuming you have all the requirements installed, you can run the project by run
 - React i18next.
 - React Navigation.
 - React Native Reanimated.
+- Appwrite (Backend)
 
 ## Preview
 
@@ -85,5 +101,4 @@ This project content basic feature like view, create, update, delete task. You c
 
 # Todo
 
-- App System Blocking
 - Intergrate with SuperBase / Appwrite
