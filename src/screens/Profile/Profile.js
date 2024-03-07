@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styles from './Profile.styles';
 import { ScrollView, View } from 'react-native';
 import TextView from 'src/components/TextView';
 import HeaderWrap from 'src/components/HeaderWrap';
-import MoreImage from 'src/assets/images/more.png';
-import LogoImage from 'src/assets/images/logo.png';
+// import MoreImage from 'src/assets/images/more.png';
+// import LogoImage from 'src/assets/images/logo.png';
 import { navigate } from 'src/navigators/NavigationServices';
 import RouteName from 'src/navigators/RouteName';
 import ProfileAvatar from '../FillProfile/ProfileAvatar';
@@ -22,6 +22,8 @@ import ModalLogout from './ModalLogout';
 import TouchableDebounce from 'src/components/TouchableDebounce';
 import { setAccessToken } from 'src/store/auth/authReducer';
 import { useDispatch } from 'react-redux';
+import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
+import { useToast } from 'react-native-toast-notifications';
 
 const PROFILE_CONFIG_SCREE_LIST = [
   {
@@ -61,16 +63,39 @@ const PROFILE_CONFIG_SCREE_LIST = [
   },
 ];
 const Profile = () => {
+  const toast = useToast();
+  const [userDetail, setUserDetail] = useState(null);
+  const [loading, setLoading] = useState(loading);
+  const { appwrite } = useContext(AppwriteContext);
   const [openModalLogout, setOpenModalLogout] = useState(false);
   const dispatch = useDispatch();
 
-  const info = {
-    name: 'Edward Ha',
-    email: 'quocvietha08@gmail.com',
-  };
-  const handleHeaderRightPress = () => {
-    navigate(RouteName.Notification);
-  };
+  // const info = {
+  //   name: 'Edward Ha',
+  //   email: 'quocvietha08@gmail.com',
+  // };
+  // const handleHeaderRightPress = () => {
+  //   navigate(RouteName.Notification);
+  // };
+
+  const handleGetPrefs = useCallback(async () => {
+    setLoading(true);
+    await appwrite
+      .getCurrentUser()
+      .then(res => {
+        setUserDetail(res);
+      })
+      .catch(err => {
+        console.log('err--->', err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [appwrite]);
+
+  useEffect(() => {
+    handleGetPrefs();
+  }, [handleGetPrefs]);
 
   const handleEditAvatar = () => {
     console.log('handle');
@@ -81,8 +106,16 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    dispatch(setAccessToken(''));
-    setOpenModalLogout(false);
+    appwrite
+      .logout()
+      .then(res => {
+        dispatch(setAccessToken(''));
+        setOpenModalLogout(false);
+        toast.show('Logout successful', { type: 'success' });
+      })
+      .catch(() => {
+        toast.show('Logout failed', { type: 'error' });
+      });
   };
 
   const handleRedirectToUpgradeApp = () => {
@@ -98,7 +131,7 @@ const Profile = () => {
           style={{ width: '100%', paddingBottoms: 70 }}
           contentContainerStyle={styles.contentWrap}
         >
-          <ProfileAvatar onEditAvatar={handleEditAvatar} info={info} />
+          <ProfileAvatar onEditAvatar={handleEditAvatar} info={userDetail} />
           <TouchableDebounce
             onPress={handleRedirectToUpgradeApp}
             style={{ width: '100%' }}

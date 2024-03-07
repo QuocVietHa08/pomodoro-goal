@@ -19,7 +19,7 @@ class AppwriteService {
     this.account = new Account(appwriteClient);
     this.database = new Databases(appwriteClient);
   }
-
+  // account
   async createAccount({ email, password, name = 'checking' }) {
     try {
       const userAccount = await this.account.create(
@@ -64,6 +64,13 @@ class AppwriteService {
       return await this.account.deleteSession('current');
     } catch (error) {
       console.log('Appwrite service :: getCurrentAccount() :: ' + error);
+    }
+  }
+  async getUserPreferences() {
+    try {
+      return await this.account.getPrefs();
+    } catch (error) {
+      console.log('Appwrite service :: getPreferences() :: ' + error);
     }
   }
 
