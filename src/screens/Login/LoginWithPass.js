@@ -1,9 +1,9 @@
 import React, { memo, useContext, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import TextView from '../../components/TextView';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './LoginStyles.styles';
-import { ScrollView } from 'react-native-gesture-handler';
+// import { ScrollView } from 'react-native-gesture-handler';
 import { navigate } from '../../navigators/NavigationServices';
 import RouteName from '../../navigators/RouteName';
 import HeaderWrap from '../../components/HeaderWrap';
@@ -13,19 +13,19 @@ import IconEmail from 'src/assets/images/login/ic_email.png';
 import IconPass from 'src/assets/images/login/ic_password.png';
 import IconEyeShow from 'src/assets/images/login/ic_eye_show.png';
 import IconEyeHide from 'src/assets/images/login/ic_eye_hide.png';
-import CheckBox from 'src/components/CheckBox';
 import Button from '../../components/Button';
-import { AppTheme } from 'src/utils/appConstant';
-import IconFacebook from '../../assets/icons/login/ic_facebook.svg';
-import IconGoogle from '../../assets/icons/login/ic_google.svg';
-import IconApple from '../../assets/icons/login/ic_apple.svg';
-import TouchableDebounce from 'src/components/TouchableDebounce';
+// import { AppTheme } from 'src/utils/appConstant';
+// import IconFacebook from '../../assets/icons/login/ic_facebook.svg';
+// import IconGoogle from '../../assets/icons/login/ic_google.svg';
+// import IconApple from '../../assets/icons/login/ic_apple.svg';
+// import TouchableDebounce from 'src/components/TouchableDebounce';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { setAccessToken } from 'src/store/auth/authReducer';
 import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
+import { useToast } from 'react-native-toast-notifications';
 
 const validateSchema = yup.object().shape({
   email: yup.string().email().required('Email is required'),
@@ -34,6 +34,7 @@ const validateSchema = yup.object().shape({
 });
 
 const LoginWithPass = () => {
+  const toast = useToast();
   const [loading, setLoading] = useState(false);
   const { appwrite, setIsLoggedIn } = useContext(AppwriteContext);
   const dispatch = useDispatch();
@@ -66,9 +67,13 @@ const LoginWithPass = () => {
     appwrite
       .login({ email, password })
       .then(res => {
+        toast.show('Login successful', {
+          type: 'success',
+          placement: 'top',
+          duration: 800,
+        });
         dispatch(setAccessToken(res?.jwt));
         navigate(RouteName.Home);
-        console.log('res', res);
       })
       .catch(err => {
         console.log('erro', err);
@@ -76,18 +81,15 @@ const LoginWithPass = () => {
       .finally(() => {
         setLoading(false);
       });
-    // const token = `${value?.email}_${value?.password}`;
-    // dispatch(setAccessToken(token));
-    // navigate(RouteName.Home);
   };
 
   const handleShowPassword = () => {
     setShowPass(prev => !prev);
   };
 
-  const handleSignUpBySocial = type => {
-    console.log('type:', type);
-  };
+  // const handleSignUpBySocial = type => {
+  //   console.log('type:', type);
+  // };
   const handleRedirectToForgotPass = () => {
     navigate(RouteName.ForgotPass);
   };
@@ -131,16 +133,17 @@ const LoginWithPass = () => {
             containerStyle={styles.loginInput}
             onRightIconPressIn={handleShowPassword}
           />
-          <View style={styles.rememberCheckboxWrapper}>
+          {/* <View style={styles.rememberCheckboxWrapper}>
             <CheckBox
               title="Remember me"
               defaultValue={rememberField}
               onChange={value => setValue('remember', value)}
               checkBoxStyle={{ borderColor: 'red', borderRadius: 5 }}
             />
-          </View>
+          </View> */}
           <Button
             loading={loading}
+            disabled={loading}
             onPress={handleSubmit(handleSignIn)}
             style={[styles.buttonNext, { marginTop: 10 }]}
             textStyle={styles.buttonTextStyle}
@@ -154,7 +157,7 @@ const LoginWithPass = () => {
             Forgot the password?.
           </TextView>
 
-          <View
+          {/* <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -174,9 +177,9 @@ const LoginWithPass = () => {
               </TextView>
             </View>
             <View style={styles.dividerLine} />
-          </View>
+          </View> */}
 
-          <View style={styles.signUnBySocialWrapper}>
+          {/* <View style={styles.signUnBySocialWrapper}>
             <TouchableDebounce
               style={styles.signUpBySocialItem}
               onPress={() => handleSignUpBySocial('facebook')}
@@ -197,7 +200,7 @@ const LoginWithPass = () => {
             >
               <IconApple width={30} height={30} />
             </TouchableDebounce>
-          </View>
+          </View> */}
 
           <TextView
             style={[styles.bottomText, { width: '100%', textAlign: 'center' }]}

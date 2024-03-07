@@ -7053,6 +7053,11 @@ react-native-swiper@^1.6.0:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-toast-notifications@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-toast-notifications/-/react-native-toast-notifications-3.4.0.tgz#9f2c79ec80fba4af6b788ecddf704f94cf21dbc2"
+  integrity sha512-ZvB//jLhRiBRemtcH7vGP1maiKCikqtW4aDqo+QYvEIOcX0y3GrjxRayVAqI4oh0qJgd/26DkbM8COobj+0MEQ==
+
 react-native-url-polyfill@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/react-native-url-polyfill/-/react-native-url-polyfill-2.0.0.tgz"
