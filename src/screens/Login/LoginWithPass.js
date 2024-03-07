@@ -43,8 +43,7 @@ const LoginWithPass = () => {
     handleSubmit,
     formState: { errors },
     getValues,
-    setValue,
-    watch,
+    // watch,
   } = useForm({
     defaultValues: {
       email: '',
@@ -54,7 +53,6 @@ const LoginWithPass = () => {
     resolver: yupResolver(validateSchema),
   });
 
-  const rememberField = watch('remember');
   const [showPass, setShowPass] = useState(false);
   const handleRedirectToSignInScreen = () => {
     navigate(RouteName.SignUp);
@@ -64,13 +62,12 @@ const LoginWithPass = () => {
     setLoading(true);
     const value = getValues();
     const { email, password } = value;
+
     appwrite
       .login({ email, password })
       .then(res => {
         toast.show('Login successful', {
           type: 'success',
-          placement: 'top',
-          duration: 800,
         });
         dispatch(setAccessToken(res?.jwt));
         navigate(RouteName.Home);
@@ -107,7 +104,11 @@ const LoginWithPass = () => {
         <View
           style={[styles.containerScrollView, { alignItems: 'flex-start' }]}
         >
-          <HeaderWrap isBackMode containerStyle={styles.headerWrapper} />
+          <HeaderWrap
+            isBackMode
+            isShowAvatar={false}
+            containerStyle={styles.headerWrapper}
+          />
           <TextView style={styles.textHeaderPass}>
             Login to your Account
           </TextView>

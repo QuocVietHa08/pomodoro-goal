@@ -6,11 +6,16 @@ import { store, persistor } from './store';
 import './translations';
 import ApplicationStack from './navigators/ApplicationStack';
 import { ToastProvider } from 'react-native-toast-notifications';
+import CustomToast from './components/Toast';
 
 const App = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <ToastProvider>
+      <ToastProvider
+        placement="top"
+        duration={1000}
+        renderToast={toast => <CustomToast toast={toast} />}
+      >
         <ApplicationStack />
       </ToastProvider>
     </PersistGate>

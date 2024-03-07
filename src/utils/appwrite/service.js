@@ -1,12 +1,15 @@
-import { Client, Account, ID } from 'appwrite';
-
+import { Client, Account, ID, Databases } from 'appwrite';
+import Config from 'react-native-config';
 const appwriteClient = new Client();
 
-const APPWRITE_ENDPOINT = 'https://cloud.appwrite.io/v1';
-const APPWRITE_PROJECT_ID = '65e7305b102ebd02a3d8';
+const APPWRITE_ENDPOINT = Config.APPWRITE_URL;
+const APPWRITE_PROJECT_ID = Config.APPWRITE_PROJECT_ID;
+console.log('APPWRITE_ENDPOINT', APPWRITE_ENDPOINT);
+console.log('APPWRITE_PROJECT_ID', APPWRITE_PROJECT_ID);
 
 class AppwriteService {
   account;
+  database;
 
   constructor() {
     appwriteClient
@@ -14,6 +17,7 @@ class AppwriteService {
       .setProject(APPWRITE_PROJECT_ID);
 
     this.account = new Account(appwriteClient);
+    this.database = new Databases(appwriteClient);
   }
 
   async createAccount({ email, password, name = 'checking' }) {
@@ -62,6 +66,8 @@ class AppwriteService {
       console.log('Appwrite service :: getCurrentAccount() :: ' + error);
     }
   }
+
+  // database
 }
 
 export default AppwriteService;
