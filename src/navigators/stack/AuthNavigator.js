@@ -64,11 +64,11 @@ const AuthNavigator = props => {
         options={screenOptions}
         component={ForgotPass}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name={RouteName.Home}
         options={screenOptions}
         component={Home}
-      />
+      /> */}
     </>
   );
 };

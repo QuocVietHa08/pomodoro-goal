@@ -1,9 +1,9 @@
 import React, { memo, useState, useContext } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import TextView from '../../components/TextView';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './SignUp.styles';
-import { ScrollView } from 'react-native-gesture-handler';
+// import { ScrollView } from 'react-native-gesture-handler';
 import { navigate } from '../../navigators/NavigationServices';
 import RouteName from '../../navigators/RouteName';
 import HeaderWrap from '../../components/HeaderWrap';
@@ -13,7 +13,7 @@ import IconEmail from 'src/assets/images/login/ic_email.png';
 import IconPass from 'src/assets/images/login/ic_password.png';
 import IconEyeShow from 'src/assets/images/login/ic_eye_show.png';
 import IconEyeHide from 'src/assets/images/login/ic_eye_hide.png';
-import CheckBox from 'src/components/CheckBox';
+// import CheckBox from 'src/components/CheckBox';
 import Button from '../../components/Button';
 import { AppTheme } from 'src/utils/appConstant';
 import IconFacebook from '../../assets/icons/login/ic_facebook.svg';
@@ -24,6 +24,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
+import { useToast } from 'react-native-toast-notifications';
+import { useDispatch } from 'react-redux';
+import { setAccessToken } from 'src/store/auth/authReducer';
 
 const validateSchema = yup.object().shape({
   email: yup.string().email().required('Email is required'),
@@ -31,14 +34,17 @@ const validateSchema = yup.object().shape({
 });
 
 const SignUp = () => {
+  const toast = useToast();
+  const dispatch = useDispatch();
   const { appwrite, setIsLoggedIn } = useContext(AppwriteContext);
+  const [loading, setLoading] = useState(false);
   const {
     control,
     handleSubmit,
     formState: { errors },
     getValues,
-    setValue,
-    watch,
+    // setValue,
+    // watch,
   } = useForm({
     defaultValues: {
       email: '',
@@ -47,15 +53,15 @@ const SignUp = () => {
     },
     resolver: yupResolver(validateSchema),
   });
-  const rememberField = watch('remember');
+  // const rememberField = watch('remember');
   const [showPass, setShowPass] = useState(false);
   const handleRedirectToSignInScreen = () => {
     navigate(RouteName.Login);
   };
 
-  const handleRedirectSignInWithPass = () => {
-    navigate(RouteName.LoginWithPass);
-  };
+  // const handleRedirectSignInWithPass = () => {
+  //   navigate(RouteName.LoginWithPass);
+  // };
 
   const handleShowPassword = () => {
     setShowPass(prev => !prev);
@@ -66,6 +72,7 @@ const SignUp = () => {
   };
 
   const handleCreateAccount = async () => {
+    setLoading(true);
     const { email, password } = getValues();
     const user = {
       email,
@@ -75,12 +82,18 @@ const SignUp = () => {
     appwrite
       .createAccount(user)
       .then(res => {
-        console.log('response--->', res);
         setIsLoggedIn(true);
-        navigate(RouteName.FillProfile);
+        dispatch(setAccessToken(res?.jwt));
+        navigate(RouteName.Home);
+        toast.show('Account created successfully', { type: 'success' });
       })
       .catch(err => {
-        console.error('error--->', err);
+        toast.show('Error: ' + err.message, {
+          type: 'error',
+        });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -97,7 +110,11 @@ const SignUp = () => {
         <View
           style={[styles.containerScrollView, { alignItems: 'flex-start' }]}
         >
-          <HeaderWrap isBackMode containerStyle={styles.headerWrapper} />
+          <HeaderWrap
+            isShowAvatar={false}
+            isBackMode
+            containerStyle={styles.headerWrapper}
+          />
           <TextView style={styles.textHeaderPass}>Create your Account</TextView>
 
           <CustomeTextInput
@@ -121,7 +138,7 @@ const SignUp = () => {
             containerStyle={styles.loginInput}
             onRightIconPressIn={handleShowPassword}
           />
-          <View style={styles.rememberCheckboxWrapper}>
+          {/* <View style={styles.rememberCheckboxWrapper}>
             <CheckBox
               title="Remember me"
               defaultValue={rememberField}
@@ -134,8 +151,10 @@ const SignUp = () => {
                 backgroundColor: 'red',
               }}
             />
-          </View>
+          </View> */}
           <Button
+            loading={loading}
+            disabled={loading}
             onPress={handleSubmit(handleCreateAccount)}
             style={[styles.buttonNext, { marginTop: 10 }]}
             textStyle={styles.buttonTextStyle}
@@ -166,6 +185,7 @@ const SignUp = () => {
 
           <View style={styles.signUnBySocialWrapper}>
             <TouchableDebounce
+              disabled={loading}
               style={styles.signUpBySocialItem}
               onPress={() => handleSignUpBySocial('facebook')}
             >
@@ -173,6 +193,7 @@ const SignUp = () => {
             </TouchableDebounce>
 
             <TouchableDebounce
+              disabled={loading}
               style={styles.signUpBySocialItem}
               onPress={() => handleSignUpBySocial('google')}
             >
@@ -181,6 +202,7 @@ const SignUp = () => {
 
             <TouchableDebounce
               style={styles.signUpBySocialItem}
+              disabled={loading}
               onPress={() => handleSignUpBySocial('apple')}
             >
               <IconApple width={30} height={30} />
