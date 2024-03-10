@@ -1,5 +1,5 @@
 {
-  "name": "Goal",
+  "name": "MyApp",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,7 +10,8 @@
     "test": "jest",
     "type-check": "tsc",
     "test:report": "jest --collectCoverage --coverageDirectory=\"./coverage\" --ci --reporters=default --reporters=jest-junit --coverage",
-    "pod-install": "cd ios && RCT_NEW_ARCH_ENABLED=1 bundle exec pod install && cd .."
+    "pod-install": "cd ios && RCT_NEW_ARCH_ENABLED=1 bundle exec pod install && cd ..",
+    "android:clean": "cd android && ./gradlew clean && cd .."
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
@@ -54,6 +55,7 @@
     "react-native-swiper": "^1.6.0",
     "react-native-toast-notifications": "^3.4.0",
     "react-native-url-polyfill": "^2.0.0",
+    "react-native-vector-icons": "^10.0.3",
     "react-redux": "^8.1.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",

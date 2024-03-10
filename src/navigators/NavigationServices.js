@@ -15,7 +15,9 @@ const navigationRef = createNavigationContainerRef();
 const routeNameRef = React.createRef();
 
 function goBack(number) {
-  if (!navigationRef.isReady()) return;
+  if (!navigationRef.isReady()) {
+    return;
+  }
   if (!number) {
     return navigationRef.goBack();
   }
@@ -24,20 +26,24 @@ function goBack(number) {
 }
 
 function navigate(name, params) {
-  if (navigationRef.isReady()) navigationRef.navigate(name, params);
+  if (navigationRef.isReady()) {
+    navigationRef.navigate(name, params);
+  }
 }
 
 function replace(name, params) {
-  if (navigationRef.isReady())
-    navigationRef.dispatch(StackActions.replace(name, params));
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(StackActions?.replace(name, params));
+  }
 }
 
 function resetTo(name) {
-  if (navigationRef.isReady())
+  if (navigationRef.isReady()) {
     navigationRef.resetRoot({
       index: 0,
       routes: [{ name }],
     });
+  }
 }
 
 function getCurrentRoute() {
@@ -45,7 +51,9 @@ function getCurrentRoute() {
 }
 
 function toggleDrawer() {
-  if (!navigationRef.isReady()) return;
+  if (!navigationRef.isReady()) {
+    return;
+  }
   const actions = DrawerActions.toggleDrawer();
   navigationRef.dispatch(actions);
 }
