@@ -2,13 +2,17 @@ import React, { useCallback, useContext, useEffect } from 'react';
 import { FlatList, Text, View } from 'react-native';
 import HeaderWrap from 'src/components/HeaderWrap';
 import styles from './Category.styles';
-import { categories } from './mockData';
+// import { categories } from './mockData';
 import newScope from 'src/assets/images/bottomTab/newScope.png';
 import CategoryItem from './CategoryItem';
 import ModalCreateCategory from './ModalCreateCategory';
 import ModalEditCategory from './ModalEditCategory';
 import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
 import { Toast, useToast } from 'react-native-toast-notifications';
+import Config from 'react-native-config';
+
+const DATABASE_ID = Config.DATABASE_ID;
+const CATEGORY_COLLECTION_ID = Config.CATEGORY_COLLECTION_ID;
 
 const Category = () => {
   const toast = useToast();
@@ -29,7 +33,7 @@ const Category = () => {
 
   const handleGetCategories = useCallback(() => {
     appwrite
-      .getListDocument('65e98ac53efeea4c54ff', '65eeb7fc9834901cd066')
+      .getListDocument(DATABASE_ID, CATEGORY_COLLECTION_ID)
       .then(res => {
         setData(res?.documents);
       })

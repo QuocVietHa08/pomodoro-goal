@@ -1,27 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, TextInput, View } from 'react-native';
-import HeaderWrap from 'src/components/HeaderWrap';
+import React, { useState } from 'react';
+import { TextInput, View } from 'react-native';
+// import HeaderWrap from 'src/components/HeaderWrap';
 import styles from './Category.styles';
-import { categories, LIST_COLOR } from './mockData';
+import { LIST_COLOR } from './mockData';
 import TextView from 'src/components/TextView';
-import newScope from 'src/assets/images/bottomTab/newScope.png';
-import CategoryItem from './CategoryItem';
+// import newScope from 'src/assets/images/bottomTab/newScope.png';
+// import CategoryItem from './CategoryItem';
 import ReactNativeModal from 'react-native-modal';
 import TouchableDebounce from 'src/components/TouchableDebounce';
 import { AppTheme } from 'src/utils/appConstant';
 import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { set } from 'lodash';
 import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
 import { useToast } from 'react-native-toast-notifications';
 import { useContext } from 'react';
-import { ID } from 'appwrite';
+import Config from 'react-native-config';
 
 const validateSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
   color: yup.string().required('Color is required'),
 });
+
+const DATABASE_ID = Config.DATABASE_ID;
+const CATEGORY_COLLECTION_ID = Config.CATEGORY_COLLECTION_ID;
 
 const ModalCreateCategory = ({ openModalAdd, setOpenModalAdd, onFetch }) => {
   const {
@@ -60,7 +62,7 @@ const ModalCreateCategory = ({ openModalAdd, setOpenModalAdd, onFetch }) => {
   const handleAddCategory = data => {
     setLoading(true);
     appwrite
-      .createDocument('65e98ac53efeea4c54ff', '65eeb7fc9834901cd066', data)
+      .createDocument(DATABASE_ID, CATEGORY_COLLECTION_ID, data)
       .then(res => {
         console.log('toast', res);
         handleCloseModal();
