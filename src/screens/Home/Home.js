@@ -1,24 +1,48 @@
-import React, { useEffect, useState, useTransition } from 'react';
-import { View, Text, ScrollView, FlatList } from 'react-native';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { View, Text, FlatList } from 'react-native';
 import TextView from 'src/components/TextView';
 import styles from './Home.styles';
 import HeaderWrap from 'src/components/HeaderWrap';
 import LogoImage from 'src/assets/images/logo.png';
 import BellImage from 'src/assets/images/bell.png';
-import newScope from 'src/assets/images/bottomTab/newScope.png';
+// import newScope from 'src/assets/images/bottomTab/newScope.png';
 import HandIcon from 'src/assets/images/hand.png';
 import FastImage from 'react-native-fast-image';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { AppTheme } from 'src/utils/appConstant';
-import { tasks } from './mockData';
+// import { tasks } from './mockData';
 import Task from 'src/components/Task';
 import { navigate } from 'src/navigators/NavigationServices';
 import RouteName from 'src/navigators/RouteName';
 import TouchableDebounce from 'src/components/TouchableDebounce';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
+import { useToast } from 'react-native-toast-notifications';
+import Config from 'react-native-config';
+
+const TASK_COLLECTION_ID = Config.TASK_COLLECTION_ID;
+const DATABASE_ID = Config.DATABASE_ID;
 
 const Home = () => {
+  const { appwrite } = useContext(AppwriteContext);
+  const toast = useToast();
   const [refreshing, setRefreshing] = useState(false);
+  const [tasks, setTasks] = useState([]);
+
+  const handleGetTask = useCallback(() => {
+    appwrite
+      .getListDocument(DATABASE_ID, TASK_COLLECTION_ID)
+      .then(response => {
+        console.log('response', response);
+        setTasks(response?.documents);
+      })
+      .catch(error => {
+        console.log('error', error);
+        toast.show('Connection error', { type: 'error' });
+      });
+  }, [appwrite]);
+  useEffect(() => {
+    handleGetTask();
+  }, [handleGetTask]);
 
   useEffect(() => {
     if (refreshing) {
@@ -49,7 +73,7 @@ const Home = () => {
         leftIconStyle={styles.headerIconLeft}
         onRightPress={handleHeaderRightPress}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <View showsVerticalScrollIndicator={false}>
         <View style={styles.titleWrapper}>
           <TextView style={styles.homeTitle}>Moring, Edward Ha</TextView>
           <FastImage
@@ -100,10 +124,15 @@ const Home = () => {
             </TextView>
           </TouchableDebounce>
         </View>
-        {tasks.map((item, index) => (
-          <Task key={index} {...item} />
-        ))}
-      </ScrollView>
+
+        <FlatList
+          style={{ marginTop: 10, height: '100%' }}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          data={tasks}
+          renderItem={({ item }) => <Task {...item} />}
+        />
+      </View>
     </View>
   );
 };
