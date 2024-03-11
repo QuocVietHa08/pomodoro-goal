@@ -13,19 +13,22 @@ import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { set } from 'lodash';
+import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
+import { useToast } from 'react-native-toast-notifications';
+import { useContext } from 'react';
+import { ID } from 'appwrite';
 
 const validateSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
   color: yup.string().required('Color is required'),
 });
 
-const ModalCreateCategory = ({ openModalAdd, setOpenModalAdd }) => {
+const ModalCreateCategory = ({ openModalAdd, setOpenModalAdd, onFetch }) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
     setValue,
-    resetField,
     reset,
   } = useForm({
     defaultValues: {
@@ -34,8 +37,11 @@ const ModalCreateCategory = ({ openModalAdd, setOpenModalAdd }) => {
     },
     resolver: yupResolver(validateSchema),
   });
+  const { appwrite } = useContext(AppwriteContext);
+  const toast = useToast();
   const [name, setName] = useState('');
   const [color, setColor] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChooseCategoryColor = colorPick => {
     setColor(colorPick);
@@ -51,8 +57,21 @@ const ModalCreateCategory = ({ openModalAdd, setOpenModalAdd }) => {
     }, 500);
   };
 
-  const handleAddCategory = () => {
-    handleCloseModal();
+  const handleAddCategory = data => {
+    setLoading(true);
+    appwrite
+      .createDocument('65e98ac53efeea4c54ff', '65eeb7fc9834901cd066', data)
+      .then(res => {
+        console.log('toast', res);
+        handleCloseModal();
+        onFetch();
+      })
+      .catch(() => {
+        toast.show('Create category fail', { type: 'error' });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -103,6 +122,7 @@ const ModalCreateCategory = ({ openModalAdd, setOpenModalAdd }) => {
           <View style={styles.modalButtonWrapper}>
             <TouchableDebounce
               style={styles.buttonCancel}
+              disabled={loading}
               onPress={handleCloseModal}
             >
               <TextView style={{ color: 'white', fontWeight: 600 }}>
@@ -112,6 +132,8 @@ const ModalCreateCategory = ({ openModalAdd, setOpenModalAdd }) => {
 
             <TouchableDebounce
               style={styles.buttonSave}
+              loading={loading}
+              disabled={loading}
               onPress={handleSubmit(handleAddCategory)}
             >
               <TextView style={{ color: 'white', fontWeight: 600 }}>

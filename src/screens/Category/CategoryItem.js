@@ -9,7 +9,7 @@ const CategoryItem = ({ item, onChoose }) => {
     <TouchableDebounce onPress={() => onChoose(item)}>
       <View style={styles.categoryItemWrapper}>
         <View style={[styles.categoryColor, { backgroundColor: item.color }]} />
-        <TextView style={styles.categoryTitle}>{item.label}</TextView>
+        <TextView style={styles.categoryTitle}>{item?.name}</TextView>
       </View>
     </TouchableDebounce>
   );

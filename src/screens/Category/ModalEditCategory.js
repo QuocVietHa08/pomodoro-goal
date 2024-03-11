@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TextInput, View } from 'react-native';
 import styles from './Category.styles';
 import { LIST_COLOR } from './mockData';
@@ -9,13 +9,25 @@ import { AppTheme } from 'src/utils/appConstant';
 import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
+import { useToast } from 'react-native-toast-notifications';
+import TrashIcon from 'src/assets/images/completedTask/trash.png';
+import FastImage from 'react-native-fast-image';
 
 const validateSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
   color: yup.string().required('Color is required'),
 });
 
-const ModalEditCategory = ({ openModalAdd, setOpenModalAdd, item }) => {
+const ModalEditCategory = ({
+  openModalAdd,
+  setOpenModalAdd,
+  item,
+  onFetch,
+}) => {
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
+  const { appwrite } = useContext(AppwriteContext);
   const {
     control,
     handleSubmit,
@@ -52,8 +64,32 @@ const ModalEditCategory = ({ openModalAdd, setOpenModalAdd, item }) => {
     }, 500);
   };
 
-  const handleAddCategory = () => {
-    handleCloseModal();
+  const handleAddCategory = data => {
+    setLoading(true);
+    appwrite
+      .updateDocument(item?.$databaseId, item?.$collectionId, item?.$id, data)
+      .then(() => {
+        handleCloseModal();
+        onFetch();
+      })
+      .catch(() => {
+        toast.show('Update category fail', { type: 'error' });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const handleDeleteCategory = () => {
+    appwrite
+      .deleteDocument(item?.$databaseId, item?.$collectionId, item?.$id)
+      .then(() => {
+        handleCloseModal();
+        onFetch();
+      })
+      .catch(() => {
+        toast.show('Delete category fail', { type: 'error' });
+      });
   };
 
   return (
@@ -62,18 +98,26 @@ const ModalEditCategory = ({ openModalAdd, setOpenModalAdd, item }) => {
         <View style={styles.modalAddCategory}>
           <View style={styles.modalCategoryTitle}>
             <TextView>Edit Category</TextView>
+            <TouchableDebounce
+              onPress={handleDeleteCategory}
+              style={styles.trashIcon}
+            >
+              <FastImage source={TrashIcon} style={styles.trashIcon} />
+            </TouchableDebounce>
           </View>
           <View style={styles.modalInputWrapper}>
             <Controller
               control={control}
-              render={({ field: { onChange, onBlur, valueName } }) => (
-                <TextInput
-                  onBlur={onBlur}
-                  onChangeText={value => onChange(value)}
-                  value={valueName}
-                  style={styles.inputStyle}
-                />
-              )}
+              render={({ field: { onChange, onBlur, value } }) => {
+                return (
+                  <TextInput
+                    onBlur={onBlur}
+                    onChangeText={valueChange => onChange(valueChange)}
+                    value={value}
+                    style={styles.inputStyle}
+                  />
+                );
+              }}
               name="name"
               rules={{ required: true }}
             />
@@ -105,6 +149,7 @@ const ModalEditCategory = ({ openModalAdd, setOpenModalAdd, item }) => {
           </View>
           <View style={styles.modalButtonWrapper}>
             <TouchableDebounce
+              disabled={loading}
               style={styles.buttonCancel}
               onPress={handleCloseModal}
             >
@@ -115,6 +160,8 @@ const ModalEditCategory = ({ openModalAdd, setOpenModalAdd, item }) => {
 
             <TouchableDebounce
               style={styles.buttonSave}
+              loading={loading}
+              disabled={loading}
               onPress={handleSubmit(handleAddCategory)}
             >
               <TextView style={{ color: 'white', fontWeight: 600 }}>

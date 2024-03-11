@@ -4,8 +4,7 @@ const appwriteClient = new Client();
 
 const APPWRITE_ENDPOINT = Config.APPWRITE_URL;
 const APPWRITE_PROJECT_ID = Config.APPWRITE_PROJECT_ID;
-console.log('APPWRITE_ENDPOINT', APPWRITE_ENDPOINT);
-console.log('APPWRITE_PROJECT_ID', APPWRITE_PROJECT_ID);
+const DATABASE_ID = '65e98ac53efeea4c54ff';
 
 class AppwriteService {
   account;
@@ -75,6 +74,51 @@ class AppwriteService {
   }
 
   // database
+  async getListDocument(databaseId, collectionId) {
+    try {
+      return await this.database.listDocuments(databaseId, collectionId);
+    } catch (error) {
+      console.log('Appwrite service :: getDocument() :: ' + error);
+    }
+  }
+
+  async createDocument(databaseId, collectionId, data) {
+    try {
+      return await this.database.createDocument(
+        databaseId,
+        collectionId,
+        ID.unique(),
+        data,
+      );
+    } catch (error) {
+      console.log('Appwrite service :: createDocument() :: ' + error);
+    }
+  }
+
+  async updateDocument(databaseId, collectionId, documentId, data) {
+    try {
+      return await this.database.updateDocument(
+        databaseId,
+        collectionId,
+        documentId,
+        data,
+      );
+    } catch (error) {
+      console.log('Appwrite service :: updateDocument() :: ' + error);
+    }
+  }
+
+  async deleteDocument(databaseId, collectionId, documentId) {
+    try {
+      return await this.database.deleteDocument(
+        databaseId,
+        collectionId,
+        documentId,
+      );
+    } catch (error) {
+      console.log('Appwrite service :: deleteDocument() :: ' + error);
+    }
+  }
 }
 
 export default AppwriteService;
