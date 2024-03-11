@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { View } from 'react-native';
 import TextView from 'src/components/TextView';
 import styles from './NewTask.styles';
@@ -17,69 +23,73 @@ import SliderComp from 'src/components/SliderComp';
 import Button from '../../components/Button';
 import { setStatusBottomTab } from 'src/store/app/appReducer';
 import { useDispatch } from 'react-redux';
+import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
+import { useToast } from 'react-native-toast-notifications';
+import { navigate } from 'src/navigators/NavigationServices';
+import RouteName from 'src/navigators/RouteName';
 
 const validateSchema = yup.object().shape({
   title: yup.string().required('Title is required'),
-  date: yup.string().required('Date is required'),
-  time: yup.string().required('Time is required'),
-  category: yup.string().required('Category is required'),
-  sessions: yup.number().required('Sessions is required').min(1),
-  longBreak: yup.number().required('Long Break is required').min(0),
-  shortBreak: yup.number().required('Short Break is required').min(0),
+  category_id: yup.string().required('Category is required'),
+  duration: yup.number().required('Duration is required').min(0),
 });
 
 const NewTask = () => {
-  const dispatch = useDispatch();
+  const { appwrite } = useContext(AppwriteContext);
+  const toast = useToast();
+  const [loading, setLoading] = useState(false);
   const [trigger, setTrigger] = useState(0);
-  const datePickerRef = useRef();
-  const timePickerRef = useRef();
-  const [categories, setCategories] = useState([
-    { label: 'Work', value: 'work' },
-    { label: 'Study', value: 'study' },
-    { label: 'Sport', value: 'sport' },
-    { label: 'Relax', value: 'relax' },
-  ]);
+  const [categories, setCategories] = useState([]);
+  const [categoryChoose, setCategoryChoose] = useState(null);
   const {
     control,
     handleSubmit,
     getValues,
     setValue,
     formState: { errors },
-    watch,
   } = useForm({
     defaultValues: {
       title: '',
-      date: '',
-      time: '',
-      category: '',
-      sessions: 0,
-      longBreak: 0,
-      shortBreak: 0,
+      category_id: '',
+      duration: 0,
     },
     resolver: yupResolver(validateSchema),
   });
 
-  const onDateSelected = date => {
-    setValue('date', moment(date).format(DATE_FORMAT.YYYYmmdd));
-    setTrigger(prev => prev + 1);
-  };
+  const handleGetCategories = useCallback(() => {
+    appwrite
+      .getListDocument('65e98ac53efeea4c54ff', '65eeb7fc9834901cd066')
+      .then(res => {
+        const data = res?.documents.map(item => ({
+          label: item.name,
+          value: item?.$id,
+        }));
+        setCategories(data);
+      })
+      .catch(() => {
+        toast.show('Connection error', { type: 'error' });
+      });
+  }, [appwrite]);
 
-  const onTimeSelected = date => {
-    setValue('time', moment(date).format(DATE_FORMAT.HHMM));
-    setTrigger(prev => prev + 1);
-  };
-
-  const showDatePicker = () => {
-    datePickerRef.current?.show(onDateSelected);
-  };
-
-  const showTimePicker = () => {
-    timePickerRef.current?.show(onTimeSelected);
-  };
+  useEffect(() => {
+    handleGetCategories();
+  }, [handleGetCategories]);
 
   const handleCreateNewTask = () => {
-    const values = getValues();
-    console.log('value ---->', values);
+    const values = { ...getValues() };
+    values.category_id = categoryChoose;
+    setLoading(true);
+    appwrite
+      .createDocument('65e98ac53efeea4c54ff', '65eeb6a64e1e644d9bcc', values)
+      .then(res => {
+        navigate(RouteName.Home);
+      })
+      .catch(() => {
+        toast.show('Connection error', { type: 'error' });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -95,7 +105,7 @@ const NewTask = () => {
           fieldName="title"
           errorMessage={errors?.title?.message}
         />
-        <View
+        {/* <View
           style={{
             display: 'flex',
             flexDirection: 'row',
@@ -128,38 +138,44 @@ const NewTask = () => {
             titleStyle={styles.titleTextInput}
             errorMessage={errors?.time?.message}
           />
-        </View>
-        <View style={[styles.formCreateNewTask, { marginTop: 20 }]}>
+        </View> */}
+        <View style={[styles.formCreateNewTask, { marginTop: 30 }]}>
           <TextView style={styles.titleTextInput}>Select Category</TextView>
           <DropdownComp
             data={categories}
             control={control}
-            fieldName="category"
-            errorMessage={errors?.category?.message}
+            onSelectedItem={item => {
+              console.log('item ---->', item);
+              setCategoryChoose(item);
+              setValue('category_id', item);
+              setTrigger(prev => prev + 1);
+            }}
+            fieldName="category_id"
+            errorMessage={errors?.category_id?.message}
           />
         </View>
         <View
           style={{
-            marginTop: 20,
+            marginTop: 30,
             marginBottom: 20,
             height: 40,
           }}
         >
           <SliderComp
-            title="Working Sessions"
+            title="Duration"
             minimumValue={0}
-            maximumValue={8}
-            fieldName="sessions"
-            value={getValues('sessions')}
+            maximumValue={120}
+            fieldName="duration"
+            value={getValues('duration')}
             control={control}
             onChange={value => {
-              setValue('sessions', value);
+              setValue('duration', value);
               setTrigger(prev => prev + 1);
             }}
             errorMessage={errors?.sessions?.message}
           />
         </View>
-        <View
+        {/* <View
           style={{
             marginTop: 40,
             marginBottom: 20,
@@ -180,8 +196,8 @@ const NewTask = () => {
             }}
             errorMessage={errors?.longBreak?.message}
           />
-        </View>
-        <View
+        </View> */}
+        {/* <View
           style={{
             marginTop: 40,
             marginBottom: 20,
@@ -202,10 +218,12 @@ const NewTask = () => {
             }}
             errorMessage={errors?.shortBreak?.message}
           />
-        </View>
+        </View> */}
       </View>
       <View style={styles.buttonNextWrap}>
         <Button
+          loading={loading}
+          disabled={loading}
           style={styles.buttonNext}
           textStyle={styles.buttonTextStyle}
           onPress={handleSubmit(handleCreateNewTask)}
@@ -213,7 +231,7 @@ const NewTask = () => {
         />
       </View>
 
-      <DatePickerModal
+      {/* <DatePickerModal
         defaultDate={moment(new Date(), DATE_FORMAT.YYYYmmdd).toDate()}
         ref={datePickerRef}
       />
@@ -222,7 +240,7 @@ const NewTask = () => {
         defaultDate={moment(new Date(), DATE_FORMAT.HHMM).toDate()}
         mode="time"
         ref={timePickerRef}
-      />
+      /> */}
     </View>
   );
 };
