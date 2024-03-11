@@ -97,8 +97,17 @@ const styles = StyleSheet.create({
   },
   modalCategoryTitle: {
     display: 'flex',
+    textAlign: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
+    width: '100%',
+  },
+  trashIcon: {
+    width: 25,
+    height: 25,
+    position: 'absolute',
+    right: 0,
   },
 });
 
