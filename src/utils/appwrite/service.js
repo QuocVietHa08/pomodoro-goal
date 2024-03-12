@@ -4,9 +4,7 @@ const appwriteClient = new Client();
 
 const APPWRITE_ENDPOINT = Config.APPWRITE_URL;
 const APPWRITE_PROJECT_ID = Config.APPWRITE_PROJECT_ID;
-const DATABASE_ID = Config.DATABASE_ID;
-console.log('data baesid:', DATABASE_ID);
-console.log('appwrite endpoint:', APPWRITE_ENDPOINT);
+// const DATABASE_ID = Config.DATABASE_ID;
 
 class AppwriteService {
   account;
