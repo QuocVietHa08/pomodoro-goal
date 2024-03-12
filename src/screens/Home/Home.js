@@ -5,12 +5,10 @@ import styles from './Home.styles';
 import HeaderWrap from 'src/components/HeaderWrap';
 import LogoImage from 'src/assets/images/logo.png';
 import BellImage from 'src/assets/images/bell.png';
-// import newScope from 'src/assets/images/bottomTab/newScope.png';
 import HandIcon from 'src/assets/images/hand.png';
 import FastImage from 'react-native-fast-image';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { AppTheme } from 'src/utils/appConstant';
-// import { tasks } from './mockData';
 import Task from 'src/components/Task';
 import { navigate } from 'src/navigators/NavigationServices';
 import RouteName from 'src/navigators/RouteName';
@@ -38,17 +36,19 @@ const Home = () => {
       .catch(error => {
         console.log('error', error);
         toast.show('Connection error', { type: 'error' });
+      })
+      .finally(() => {
+        setRefreshing(false);
       });
   }, [appwrite]);
+
   useEffect(() => {
     handleGetTask();
   }, [handleGetTask]);
 
   useEffect(() => {
     if (refreshing) {
-      setTimeout(() => {
-        setRefreshing(false);
-      }, 500);
+      handleGetTask();
     }
   }, [refreshing]);
   const handleNavigateTodayTask = () => {
@@ -130,7 +130,7 @@ const Home = () => {
           refreshing={refreshing}
           onRefresh={onRefresh}
           data={tasks}
-          renderItem={({ item }) => <Task {...item} />}
+          renderItem={({ item }) => <Task item={item} />}
         />
       </View>
     </View>

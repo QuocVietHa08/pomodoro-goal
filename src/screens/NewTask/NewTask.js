@@ -27,6 +27,11 @@ import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
 import { useToast } from 'react-native-toast-notifications';
 import { navigate } from 'src/navigators/NavigationServices';
 import RouteName from 'src/navigators/RouteName';
+import Config from 'react-native-config';
+
+const TASK_COLLECTION_ID = Config.TASK_COLLECTION_ID;
+const CATEGORY_COLLECTION_ID = Config.CATEGORY_COLLECTION_ID;
+const DATABASE_ID = Config.DATABASE_ID;
 
 const validateSchema = yup.object().shape({
   title: yup.string().required('Title is required'),
@@ -58,7 +63,7 @@ const NewTask = () => {
 
   const handleGetCategories = useCallback(() => {
     appwrite
-      .getListDocument('65e98ac53efeea4c54ff', '65eeb7fc9834901cd066')
+      .getListDocument(DATABASE_ID, CATEGORY_COLLECTION_ID)
       .then(res => {
         const data = res?.documents.map(item => ({
           label: item.name,
@@ -80,7 +85,7 @@ const NewTask = () => {
     values.category_id = categoryChoose;
     setLoading(true);
     appwrite
-      .createDocument('65e98ac53efeea4c54ff', '65eeb6a64e1e644d9bcc', values)
+      .createDocument(DATABASE_ID, TASK_COLLECTION_ID, values)
       .then(res => {
         navigate(RouteName.Home);
       })
@@ -94,7 +99,7 @@ const NewTask = () => {
 
   return (
     <View style={styles.container}>
-      <HeaderWrap isBackMode titleBack="Create New Task" />
+      <HeaderWrap isBackMode titleBack="Create New Task" isShowAvatar={false} />
       <View style={styles.formCreateNewTask}>
         <TextInputWithTitleBasic
           title="Title"

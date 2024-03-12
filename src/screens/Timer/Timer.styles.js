@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
     height: 30,
     color: 'red',
   },
+  timerCategory: {
+    marginTop: 20,
+  },
   timerWrapper: {
     flex: 1,
     alignItems: 'center',

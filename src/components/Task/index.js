@@ -2,88 +2,77 @@ import React, { memo } from 'react';
 import TextView from '../TextView';
 import { StyleSheet, View } from 'react-native';
 import TouchableDebounce from '../TouchableDebounce';
-// import FastImage from 'react-native-fast-image';
-// import ReadImg from 'src/assets/images/task/read.png';
-// import Laptop from 'src/assets/images/task/laptop.png';
-// import LearningCode from 'src/assets/images/task/learning-code.png';
-// import Meditation from 'src/assets/images/task/meditation.png';
-// import Music from 'src/assets/images/task/music.png';
-// import Dumbbell from 'src/assets/images/task/dumbbel.png';
-// import Running from 'src/assets/images/task/running.png';
-// import Working from 'src/assets/images/task/working.png';
-// import Writing from 'src/assets/images/task/writing.png';
+import FastImage from 'react-native-fast-image';
+import ReadImg from 'src/assets/images/task/read.png';
+import Laptop from 'src/assets/images/task/laptop.png';
+import LearningCode from 'src/assets/images/task/learning-code.png';
+import Meditation from 'src/assets/images/task/meditation.png';
+import Music from 'src/assets/images/task/music.png';
+import Dumbbell from 'src/assets/images/task/dumbbel.png';
+import Running from 'src/assets/images/task/running.png';
+import Working from 'src/assets/images/task/working.png';
+import Writing from 'src/assets/images/task/writing.png';
 
 import { AppTheme } from 'src/utils/appConstant';
 import { navigate } from 'src/navigators/NavigationServices';
 import RouteName from 'src/navigators/RouteName';
-// import moment from 'moment';
+import moment from 'moment';
 
-const TaskComponent = ({
-  title,
-  type,
-  duration,
-  workingSession,
-  category,
-  status,
-  startTime,
-  longBreak,
-  shortBreak,
-  is_done,
-}) => {
+const TaskComponent = ({ item }) => {
   const handleStartTimer = () => {
-    navigate(RouteName.Timer, { title, type, workingSession, category });
+    navigate(RouteName.Timer, { item });
   };
-  // const totalMinute =
-  //   workingSession * 25 + longBreak + shortBreak * (workingSession - 1);
-  // const endTime = moment(startTime, 'HH:mm:ss')
-  //   .add(totalMinute, 'minutes')
-  //   .format('HH:mm');
 
-  // const handleRenderImage = cate => {
-  //   const CATEGORIES = {
-  //     reading: ReadImg,
-  //     listening: Music,
-  //     learning: LearningCode,
-  //     exercice: Dumbbell,
-  //     tech: Laptop,
-  //     meditation: Meditation,
-  //     running: Running,
-  //     working: Working,
-  //     writing: Writing,
-  //   };
+  const handleRenderImage = cate => {
+    const CATEGORIES = {
+      reading: ReadImg,
+      Study: ReadImg,
+      listening: Music,
+      Lean: LearningCode,
+      Excercise: Dumbbell,
+      exercice: Dumbbell,
+      tech: Laptop,
+      meditation: Meditation,
+      running: Running,
+      working: Working,
+      Japanese: Writing,
+    };
 
-  //   return CATEGORIES[cate];
-  // };
+    return CATEGORIES[cate];
+  };
 
   return (
     <View style={styles.taskContainer}>
       <View style={styles.taskContainWrapper}>
-        {/* <FastImage
-          source={handleRenderImage(category)}
+        <FastImage
+          source={handleRenderImage(item?.category_id?.name)}
           style={{
             width: 50,
             height: 50,
           }}
-        /> */}
+        />
         <View>
-          <TextView style={styles.taskTitle}>{title}</TextView>
-          <TextView>{duration} minutes</TextView>
-          {/* {status === 'completed' && <TextView>{category}</TextView>} */}
+          <TextView style={styles.taskTitle}>{item?.title}</TextView>
+          <TextView>{item?.duration} minutes</TextView>
+          {/* {item?.is_done && <TextView>{item?.category_id?.name}</TextView>} */}
         </View>
       </View>
-      {!is_done && (
+      {!item?.is_done && (
         <TouchableDebounce onPress={handleStartTimer} style={styles.playButton}>
           <View style={styles.playIcon} />
         </TouchableDebounce>
       )}
-      {/* {status === 'completed' && (
+      {item?.is_done && (
         <View style={styles.taskCompletedText}>
-          <TextView style={styles.totalTimeText}>{totalMinute} mins</TextView>
+          <TextView style={styles.totalTimeText}>
+            {item?.duration} mins
+          </TextView>
           <TextView>
-            {moment(startTime, 'HH:mm:ss').format('HH:mm')} - {endTime}
+            {moment(item?.start_time, 'HH:mm:ss').format('HH:mm')} -{' '}
+            {moment(item?.end_time, 'HH:mm:ss').format('HH:mm')}
           </TextView>
         </View>
-      )} */}
+      )}
     </View>
   );
 };
