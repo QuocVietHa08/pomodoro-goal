@@ -34,6 +34,7 @@ const TaskComponent = ({ item }) => {
       tech: Laptop,
       meditation: Meditation,
       running: Running,
+      Work: Working,
       working: Working,
       Japanese: Writing,
     };

@@ -13,7 +13,6 @@ import { LineChart } from 'react-native-chart-kit';
 import TouchableDebounce from 'src/components/TouchableDebounce';
 import { tasks } from './mockData';
 import Task from 'src/components/Task';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   CURRENT_DAY_DATA,
   THIS_WEEK_DATA,
