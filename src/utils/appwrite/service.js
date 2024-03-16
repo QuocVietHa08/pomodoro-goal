@@ -74,9 +74,13 @@ class AppwriteService {
   }
 
   // database
-  async getListDocument(databaseId, collectionId) {
+  async getListDocument(databaseId, collectionId, queries) {
     try {
-      return await this.database.listDocuments(databaseId, collectionId);
+      return await this.database.listDocuments(
+        databaseId,
+        collectionId,
+        queries,
+      );
     } catch (error) {
       console.log('Appwrite service :: getDocument() :: ' + error);
     }

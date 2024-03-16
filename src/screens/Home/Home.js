@@ -16,6 +16,7 @@ import TouchableDebounce from 'src/components/TouchableDebounce';
 import AppwriteContext from 'src/utils/appwrite/AppwriteContext';
 import { useToast } from 'react-native-toast-notifications';
 import Config from 'react-native-config';
+import { Query } from 'appwrite';
 
 const TASK_COLLECTION_ID = Config.TASK_COLLECTION_ID;
 const DATABASE_ID = Config.DATABASE_ID;
@@ -25,16 +26,22 @@ const Home = () => {
   const toast = useToast();
   const [refreshing, setRefreshing] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [currentDayProgress, setCurrentDayProgress] = useState(0);
+
+  const handleCurrentDayProgress = data => {
+    const taskComplete = data?.filter(item => item?.is_done);
+    return Math.round((taskComplete?.length / data?.length) * 100);
+  };
 
   const handleGetTask = useCallback(() => {
     appwrite
       .getListDocument(DATABASE_ID, TASK_COLLECTION_ID)
       .then(response => {
-        console.log('response', response);
         setTasks(response?.documents);
+        const progress = handleCurrentDayProgress(response?.documents);
+        setCurrentDayProgress(progress);
       })
       .catch(error => {
-        console.log('error', error);
         toast.show('Connection error', { type: 'error' });
       })
       .finally(() => {
@@ -89,12 +96,13 @@ const Home = () => {
           <AnimatedCircularProgress
             size={80}
             width={10}
-            fill={75}
+            fill={currentDayProgress}
             tintColor="#ff6569"
-            onAnimationComplete={() => console.log('onAnimationComplete')}
             backgroundColor="#eee"
           >
-            {fill => <Text style={{ fontWeight: 600 }}>75%</Text>}
+            {fill => (
+              <Text style={{ fontWeight: 600 }}>{currentDayProgress}%</Text>
+            )}
           </AnimatedCircularProgress>
           <View>
             <TextView style={styles.processTitle}>

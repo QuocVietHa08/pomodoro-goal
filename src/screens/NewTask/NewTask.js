@@ -83,6 +83,7 @@ const NewTask = () => {
   const handleCreateNewTask = () => {
     const values = { ...getValues() };
     values.category_id = categoryChoose;
+    values.create_date = new Date();
     setLoading(true);
     appwrite
       .createDocument(DATABASE_ID, TASK_COLLECTION_ID, values)
