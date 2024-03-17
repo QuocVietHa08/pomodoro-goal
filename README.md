@@ -47,7 +47,7 @@ This project use [Appwrite](https://appwrite.io/) as an alternative for backend.
 Image Demo:
 
 <div style="display: flex; justify-content: center; gap: 10px; width: 100%; flex-wrap: wrap">
-    <img src="./src/assets/demo/backendConfig.png" alt="Logo" height="auto" width="50%"> 
+    <img src="./src/assets/demo/backendConfig.png" alt="Logo" height="auto" width="100%"> 
 </div>
 
 ## Tech Stack
