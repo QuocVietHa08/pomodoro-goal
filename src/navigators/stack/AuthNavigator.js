@@ -4,16 +4,19 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import RouteName from '../RouteName';
-import {
-  Startup,
-  StartScreen,
-  Login,
-  LoginWithPass,
-  SignUp,
-  FillProfile,
-  Home,
-  ForgotPass,
-} from '../../screens';
+// import
+// Startup,
+// StartScreen,
+// Login,
+// LoginWithPass,
+// SignUp,
+// FillProfile,
+// ForgotPass,
+// 'src/screens';
+import Startup from 'src/screens/Startup/Startup';
+import StartScreen from 'src/screens/StartScreen/StartScreen';
+import Login from 'src/screens/Login/Login';
+import LoginWithPass from 'src/screens/Login/LoginWithPass';
 import { Platform } from 'react-native';
 
 const screenOptions = {
@@ -34,7 +37,7 @@ const AuthNavigator = props => {
         options={screenOptions}
         component={Startup}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name={RouteName.StartScreen}
         options={screenOptions}
         component={StartScreen}
@@ -48,8 +51,8 @@ const AuthNavigator = props => {
         name={RouteName.LoginWithPass}
         options={screenOptions}
         component={LoginWithPass}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         name={RouteName.SignUp}
         options={screenOptions}
         component={SignUp}
@@ -63,7 +66,7 @@ const AuthNavigator = props => {
         name={RouteName.ForgotPass}
         options={screenOptions}
         component={ForgotPass}
-      />
+      /> */}
       {/* <Stack.Screen
         name={RouteName.Home}
         options={screenOptions}
